@@ -42,13 +42,26 @@ function Top() {
   // Streak will update automatically in future when daily problem is solved before midnight IST
 
   return (
-    <div className="topheader glass">
+    <div className="topheader glass" style={{ position: 'relative', zIndex: 10 }}>
       {!isAuthPage && (
-        <div className="lang-section">
+        <div className="lang-section" style={{ position: 'relative', zIndex: 20, marginBottom: 20 }}>
           <button className="lang-chip" onClick={handleSelect}>{selectedLang}</button>
           {showLangSelector && (
-            <div className="lang-dropdown">
+            <div
+              className="lang-dropdown"
+              style={{
+                position: 'absolute',
+                top: '110%',
+                left: 0,
+                zIndex: 30,
+                background: '#fff',
+                borderRadius: 8,
+                boxShadow: '0 2px 8px rgba(42,77,143,0.12)',
+                minWidth: 100
+              }}
+            >
               <button className="dropdown-item" onClick={() => applyLang('C++')}>C++</button>
+              {/* Add more languages here if needed */}
             </div>
           )}
         </div>

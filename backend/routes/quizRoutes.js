@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const User = require('../models/User');
+const axios = require('axios');
 
 // Sample MCQ questions for C++
 const cppQuestions = [
@@ -64,6 +65,126 @@ const cppQuestions = [
     ],
     correct: 'b',
     explanation: 'Virtual functions enable runtime polymorphism by allowing the correct function to be called based on the actual object type.'
+  },
+  {
+    id: 6,
+    text: "Which of the following is not a valid access specifier in C++?",
+    answers: [
+      { key: 'a', text: 'private' },
+      { key: 'b', text: 'protected' },
+      { key: 'c', text: 'public' },
+      { key: 'd', text: 'internal' }
+    ],
+    correct: 'd',
+    explanation: '"internal" is not a valid access specifier in C++. The valid ones are public, private, and protected.'
+  },
+  {
+    id: 7,
+    text: "What is the default return type of functions in C++ if not specified?",
+    answers: [
+      { key: 'a', text: 'void' },
+      { key: 'b', text: 'int' },
+      { key: 'c', text: 'float' },
+      { key: 'd', text: 'double' }
+    ],
+    correct: 'b',
+    explanation: 'In C++, if the return type is not specified, it defaults to int.'
+  },
+  {
+    id: 8,
+    text: "Which operator cannot be overloaded in C++?",
+    answers: [
+      { key: 'a', text: '++' },
+      { key: 'b', text: '?:' },
+      { key: 'c', text: '[]' },
+      { key: 'd', text: '->' }
+    ],
+    correct: 'b',
+    explanation: 'The conditional (ternary) operator ?: cannot be overloaded in C++.'
+  },
+  {
+    id: 9,
+    text: "What is the size of a boolean variable in C++?",
+    answers: [
+      { key: 'a', text: '1 bit' },
+      { key: 'b', text: '1 byte' },
+      { key: 'c', text: '2 bytes' },
+      { key: 'd', text: 'Depends on compiler' }
+    ],
+    correct: 'b',
+    explanation: 'A boolean variable in C++ typically occupies 1 byte.'
+  },
+  {
+    id: 10,
+    text: "Which of the following is used to define a constant in C++?",
+    answers: [
+      { key: 'a', text: '#define' },
+      { key: 'b', text: 'const' },
+      { key: 'c', text: 'Both a and b' },
+      { key: 'd', text: 'static' }
+    ],
+    correct: 'c',
+    explanation: 'Both #define (preprocessor) and const (keyword) can be used to define constants in C++.'
+  },
+  {
+    id: 11,
+    text: "Which function is called when an object is destroyed?",
+    answers: [
+      { key: 'a', text: 'Constructor' },
+      { key: 'b', text: 'Destructor' },
+      { key: 'c', text: 'Copy Constructor' },
+      { key: 'd', text: 'Assignment Operator' }
+    ],
+    correct: 'b',
+    explanation: 'The destructor is called when an object is destroyed.'
+  },
+  {
+    id: 12,
+    text: "Which of the following is the correct syntax for inheritance in C++?",
+    answers: [
+      { key: 'a', text: 'class Derived : public Base {};' },
+      { key: 'b', text: 'class Derived inherits Base {};' },
+      { key: 'c', text: 'class Derived extends Base {};' },
+      { key: 'd', text: 'class Derived -> Base {};' }
+    ],
+    correct: 'a',
+    explanation: 'The correct syntax is: class Derived : public Base {};'
+  },
+  {
+    id: 13,
+    text: "Which of the following is used to terminate a loop in C++?",
+    answers: [
+      { key: 'a', text: 'exit' },
+      { key: 'b', text: 'break' },
+      { key: 'c', text: 'continue' },
+      { key: 'd', text: 'return' }
+    ],
+    correct: 'b',
+    explanation: 'The break statement is used to terminate a loop in C++.'
+  },
+  {
+    id: 14,
+    text: "Which header file is required for using std::vector in C++?",
+    answers: [
+      { key: 'a', text: '<vector>' },
+      { key: 'b', text: '<array>' },
+      { key: 'c', text: '<list>' },
+      { key: 'd', text: '<map>' }
+    ],
+    correct: 'a',
+    explanation: 'The <vector> header file is required for using std::vector.'
+  },
+  {
+    id: 15,
+    text: "What is the output of: std::cout << 5 / 2;",
+    answers: [
+      { key: 'a', text: '2.5' },
+      { key: 'b', text: '2' },
+      { key: 'c', text: '2.0' },
+      { key: 'd', text: 'Error' }
+    ],
+    correct: 'b',
+    explanation: 'Both operands are integers, so integer division is performed, resulting in 2.'
   }
 ];
 
@@ -72,11 +193,10 @@ let currentQuestionIndex = 0;
 // Get next question
 router.get('/next', auth, (req, res) => {
   const topic = req.query.topic || 'cpp';
-  
+
   if (topic === 'cpp') {
-    const question = cppQuestions[currentQuestionIndex % cppQuestions.length];
-    currentQuestionIndex++;
-    
+    // Pick a random question instead of rotating
+    const question = cppQuestions[Math.floor(Math.random() * cppQuestions.length)];
     res.json({
       question: {
         id: question.id,
@@ -128,6 +248,17 @@ router.post('/answer', auth, async (req, res) => {
   } catch (error) {
     console.error('Error updating user points:', error);
     res.status(500).json({ message: 'Failed to update points' });
+  }
+});
+
+// Add this route to fetch questions from OpenTDB
+router.get('/external', auth, async (req, res) => {
+  try {
+    const count = Math.max(1, Math.min(parseInt(req.query.count) || 5, 50)); // OpenTDB max is 50
+    const response = await axios.get(`https://opentdb.com/api.php?amount=${count}&category=18&type=multiple`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch external questions' });
   }
 });
 

@@ -7,7 +7,14 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors(
+    {
+        origin: [
+            'http://localhost:5173',
+            'https://codeduo-frontend.vercel.app/'
+        ]
+    }
+));
 app.use(express.json());
 
 // DB
@@ -15,6 +22,7 @@ connectDB();
 
 // Routes
 app.get('/', (req, res) => res.send('API is running'));
+app.get('/api/test', (req, res) => res.send('check'));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/quiz', require('./routes/quizRoutes'));
 app.use('/api/leaderboard', require('./routes/leaderboardRoutes'));
