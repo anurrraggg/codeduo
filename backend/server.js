@@ -11,8 +11,9 @@ app.use(cors(
     {
         origin: [
             'http://localhost:5173',
-            'https://codeduo-frontend.vercel.app/'
-        ]
+            'https://codeduo-frontend.vercel.app'
+        ],
+        credentials: true
     }
 ));
 app.use(express.json());
