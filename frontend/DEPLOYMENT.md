@@ -2,7 +2,7 @@
 
 ## Vercel Deployment
 
-This frontend is configured to deploy on Vercel and connect to the backend on Render.
+This frontend is configured to deploy on Vercel (codeduo-psi.vercel.app) and connect to the backend on Render.
 
 ### Environment Variables
 

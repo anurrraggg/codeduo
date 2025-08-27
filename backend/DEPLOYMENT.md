@@ -15,7 +15,7 @@ Set these in your Render dashboard:
 
 The backend is configured to accept requests from:
 - `http://localhost:5173` (local development)
-- `https://codeduo-frontend.vercel.app` (production frontend)
+- `https://codeduo-psi.vercel.app` (production frontend)
 
 ### Build and Deploy
 
