@@ -15,6 +15,7 @@ const testBackend = async () => {
     
     console.log('\n🎉 Backend is running and accessible!');
     console.log('Frontend can now connect to: https://codeduo.onrender.com/api');
+    console.log('Frontend URL: https://codeduo-psi.vercel.app');
     
   } catch (error) {
     console.error('❌ Connection failed:', error.message);

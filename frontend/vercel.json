@@ -10,5 +10,6 @@
   ],
   "env": {
     "VITE_API_URL": "https://codeduo.onrender.com"
-  }
+  },
+  "name": "codeduo-psi"
 }

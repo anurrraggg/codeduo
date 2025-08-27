@@ -19,7 +19,7 @@ codeduo/
 - **Tech Stack**: Node.js, Express, MongoDB, JWT
 
 ### Frontend (Vercel)
-- **URL**: https://codeduo-frontend.vercel.app
+- **URL**: https://codeduo-psi.vercel.app
 - **Status**: ✅ Deployed
 - **Tech Stack**: React, Vite, Axios
 
