@@ -5,7 +5,7 @@ import { useAuth } from './AuthContext';
 function GuestRoute({ children }) {
 	const { user, isInitializing } = useAuth();
 	if (isInitializing) return null;
-	if (user) return <Navigate to="/" replace />;
+	if (user) return <Navigate to="/home" replace />;
 	return children;
 }
 

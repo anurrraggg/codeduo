@@ -20,7 +20,7 @@ function LoginPage() {
 		setLoading(true);
 		try {
 			await login(email, password);
-			navigate('/');
+			navigate('/home');
 		} catch (err) {
 			setError(err?.message || 'Invalid credentials');
 		} finally {
