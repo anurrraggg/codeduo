@@ -186,8 +186,9 @@ export default function HomePage() {
             <div className="flex items-center justify-center gap-4">
               <img src="/mahapatra.png" alt="Maha Patra" className="w-15 h-15 rounded-full" />
               <div className="text-left">
-                <div className="font-semibold text-foreground">Maha Patra</div>
-                <div className="text-muted-foreground">OOPs</div>
+                <div className="font-semibold text-foreground">Maha Patra</div></br>
+          
+                <div className="text-muted-foreground">odisa ka hero</div>
               </div>
             </div>
           </div>

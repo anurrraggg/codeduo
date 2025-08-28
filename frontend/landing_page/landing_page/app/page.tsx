@@ -186,7 +186,7 @@ export default function HomePage() {
               <img src="/mahapatra.png" alt="Maha Patra" className="w-15 h-15 rounded-full" />
               <div className="text-left">
                 <div className="font-semibold text-foreground">Maha Patra</div>
-                <div className="text-muted-foreground">OOPS</div>
+                <div className="text-muted-foreground">OOPS developer</div>
               </div>
             </div>
           </div>
