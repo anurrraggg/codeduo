@@ -28,12 +28,20 @@ function Top() {
   const location = useLocation();
   const { user, logout } = useAuth();
   const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location.pathname === '/home';
+  const isLandingPage = location.pathname === '/';
   const [selectedLang, setSelectedLang] = useState(() => localStorage.getItem('selectedLang') || 'C++');
   const [streak] = useState(0);
   const [showLangSelector, setShowLangSelector] = useState(false);
 
-  const handleSelect = () => setShowLangSelector(prev => !prev);
+  const handleSelect = () => {
+    // On landing page, use language chip as a CTA to login
+    if (isLandingPage && !user) {
+      navigate('/login');
+      return;
+    }
+    setShowLangSelector(prev => !prev);
+  };
   const applyLang = (lang) => {
     setSelectedLang(lang);
     localStorage.setItem('selectedLang', lang);

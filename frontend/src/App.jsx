@@ -10,6 +10,7 @@ import ProtectedRoute from './auth/ProtectedRoute';
 import GuestRoute from './auth/GuestRoute';
 import SettingsPage from './pages/Settings/SettingsPage';
 import LeaderboardPage from './pages/Leaderboard/LeaderboardPage';
+import LandingWrapper from './pages/Landing/LandingWrapper';
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
         <Routes>
+          <Route path="/" element={<LandingWrapper />} />
           <Route
-            path="/"
+            path="/home"
             element={
               <ProtectedRoute>
                 <HomePage />
