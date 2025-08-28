@@ -120,7 +120,7 @@ export default function NextLanding() {
 						<img src={imgAvatar} alt="Maha Patra" style={{ width: 48, height: 48, borderRadius: 9999 }} />
 						<div style={{ textAlign: 'left' }}>
 							<div style={{ fontWeight: 700 }}>Maha Patra</div>
-							<div style={{ color: '#6b7280' }}></div>
+							<div style={{ color: '#6b7280' }}>Hero from Odisha</div>
 						</div>
 					</div>
 				</div>
