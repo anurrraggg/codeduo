@@ -170,28 +170,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonial Section */}
-      <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="flex justify-center mb-4">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
-              ))}
-            </div>
-            <blockquote className="text-2xl lg:text-3xl font-medium text-foreground mb-6 text-balance">
-              "CodeDuo made learning Coding so much fun! The interactive lessons and gamification kept me motivated
-              throughout my coding journey."
-            </blockquote>
-            <div className="flex items-center justify-center gap-4">
-              <img src="/mahapatra.png" alt="Maha Patra" className="w-15 h-15 rounded-full" />
-              <div className="text-left">
-                <div className="font-semibold text-foreground">Maha Patra</div>
-                <div className="text-muted-foreground">OOPS developer</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        
 
       {/* CTA Section */}
       <section className="py-16 lg:py-24">
