@@ -14,7 +14,7 @@ function Bottom() {
     <div className="bottom_footer glass">
       <button>Home</button>
       <button>Shop</button>
-      <button>Leaderboard</button>
+      <button href="/;ea">Leaderboard</button>
 
       <div className="profile-section">
         <button onClick={toggleProfileOptions} className="profile-btn">
