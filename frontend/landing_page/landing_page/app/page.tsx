@@ -170,7 +170,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonial Section */}
-        
+
 
       {/* CTA Section */}
       <section className="py-16 lg:py-24">
@@ -233,7 +233,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
-            © 2024 CodeDuo. All rights reserved.
+            © 2025 CodeDuo. All rights reserved.
           </div>
         </div>
       </footer>
