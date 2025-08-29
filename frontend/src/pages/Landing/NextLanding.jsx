@@ -26,7 +26,7 @@ export default function NextLanding() {
 					</div>
 					<div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#6b7280' }}>
 						<span>SITE LANGUAGE: ENGLISH</span>
-						<span>▼</span>
+						
 					</div>
 				</div>
 			</header>

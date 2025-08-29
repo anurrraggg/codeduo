@@ -18,7 +18,7 @@ export default function HomePage() {
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span>SITE LANGUAGE: ENGLISH</span>
-                <ChevronDown className="w-4 h-4" />
+               
               </div>
             </div>
           </div>
