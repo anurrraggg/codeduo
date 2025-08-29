@@ -213,7 +213,7 @@ export default function NextLanding() {
 						</div>
 					</div>
 					<div style={{ borderTop: '1px solid #e5e7eb', marginTop: 16, paddingTop: 16, textAlign: 'center', fontSize: 14, color: '#6b7280' }}>
-						© 2024 CodeDuo. All rights reserved.
+						© 2025 CodeDuo. All rights reserved.
 					</div>
 				</div>
 			</footer>
