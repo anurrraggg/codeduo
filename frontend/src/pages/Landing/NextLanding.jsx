@@ -110,20 +110,56 @@ export default function NextLanding() {
 
 			<section style={{ padding: '64px 16px', background: '#f8fafc' }}>
 				<div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
-					<div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 12 }}>
-						{['s1','s2','s3','s4','s5'].map((key) => (<span key={key} style={{ color: '#fbbf24', fontSize: 20 }}>★</span>))}
-					</div>
-					<blockquote style={{ fontSize: 24, fontWeight: 600, marginBottom: 12 }}>
-						"CodeDuo made learning Coding so much fun! The interactive lessons and gamification kept me motivated throughout my coding journey."
-					</blockquote>
-					<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
-						<img src={imgAvatar} alt="Maha Patra" style={{ width: 48, height: 48, borderRadius: 9999 }} />
-						<div style={{ textAlign: 'left' }}>
-							<div style={{ fontWeight: 700 }}>Maha Patra</div>
-							<div style={{ color: '#6b7280' }}>Hero from Odisha</div>
+					
+
+					{/* Additional comments */}
+					<div style={{ display: 'grid', gap: 16, maxWidth: 680, margin: '0 auto' }}>
+						<div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center' }}>
+							{/* placeholder link spot for future image upload */}
+							<a href="#" style={{ width: 40, height: 40, borderRadius: 9999, border: '1px dashed #d1d5db', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: '#6b7280', textDecoration: 'none' }}>img 1</a>
+							<div style={{ textAlign: 'left', maxWidth: 560 }}>
+								<div style={{ fontWeight: 700 }}>Abhay Tripathi</div>
+								<div style={{ color: '#6b7280' }}>motu don</div>
+								<div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
+									{['s1','s2','s3','s4','s5'].map((key) => (<span key={`a-${key}`} style={{ color: '#fbbf24', fontSize: 18 }}>★</span>))}
+								</div>
+								<blockquote style={{ marginTop: 8, fontSize: 16, fontWeight: 600, color: '#111827' }}>
+									"CodeDuo taught me timing now I deliver punchlines like optimized code. Daily streaks turned into daily scripts for my career!"
+								</blockquote>
+							</div>
+						</div>
+						<div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center' }}>
+							{/* placeholder link spot for future image upload */}
+							<a href="#" style={{ width: 40, height: 40, borderRadius: 9999, border: '1px dashed #d1d5db', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: '#6b7280', textDecoration: 'none' }}>img 2</a>
+							<div style={{ textAlign: 'left', maxWidth: 560 }}>
+								<div style={{ fontWeight: 700 }}>anshul atre</div>
+								<div style={{ color: '#6b7280' }}>tamil actor</div>
+								<div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
+									{['s1','s2','s3','s4','s5'].map((key) => (<span key={`n-${key}`} style={{ color: '#fbbf24', fontSize: 18 }}>★</span>))}
+								</div>
+								<blockquote style={{ marginTop: 8, fontSize: 16, fontWeight: 600, color: '#111827' }}>
+									"Blocking scenes felt like arranging functions—now my cues hit like clean commits. CodeDuo refactored my rehearsal routine and boosted my roles."
+								</blockquote>
+							</div>
+						</div>
+
+						<div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center' }}>
+							{/* placeholder link spot for future image upload */}
+							<a href="#" style={{ width: 40, height: 40, borderRadius: 9999, border: '1px dashed #d1d5db', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: '#6b7280', textDecoration: 'none' }}>img 2</a>
+							<div style={{ textAlign: 'left', maxWidth: 560 }}>
+								<div style={{ fontWeight: 700 }}>Maha Patra </div>
+								<div style={{ color: '#6b7280' }}>hero from Odisha</div>
+								<div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
+									{['s1','s2','s3','s4','s5'].map((key) => (<span key={`n-${key}`} style={{ color: '#fbbf24', fontSize: 18 }}>★</span>))}
+								</div>
+								<blockquote style={{ marginTop: 8, fontSize: 16, fontWeight: 600, color: '#111827' }}>
+									"CodeDuo made learning Coding so much fun! The interactive lessons and gamification kept me motivated throughout my coding journey."
+								</blockquote>
+							</div>
 						</div>
 					</div>
 				</div>
+				
 			</section>
 
 			<section style={{ padding: '64px 16px' }}>
