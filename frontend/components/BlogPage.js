@@ -322,10 +322,10 @@ const BlogPage = () => {
                                 <input
                                     type="email"
                                     placeholder="Enter your email"
-                                    className="w-full px-4 py-2 rounded-lg ring-white text-white placeholder-white focus:ring-2 focus:ring-white focus:outline-none"
+                                    className="w-full px-4 py-2 rounded-lg ring-2 ring-white text-white placeholder-white focus:outline-none"
                                 />
                                 <button className="w-full bg-white cursor-pointer text-purple-600 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                                    Subscribe Free
+                                    Subscribe
                                 </button>
                             </div>
                         </div>
