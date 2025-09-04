@@ -365,25 +365,6 @@ const BlogPage = () => {
                                 ))}
                             </div>
                         </div>
-
-                        {/* Stats */}
-                        <div className="bg-white rounded-xl p-6 border border-purple-100">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Blog Stats</h3>
-                            <div className="space-y-4">
-                                <div className="flex justify-between items-center">
-                                    <span className="text-gray-600">Total Articles</span>
-                                    <span className="font-bold text-gray-900">24</span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-gray-600">Total Views</span>
-                                    <span className="font-bold text-gray-900">47.2K</span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-gray-600">Subscribers</span>
-                                    <span className="font-bold text-gray-900">1,284</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
