@@ -1,19 +1,8 @@
 'use client';
-import React, { useState } from 'react';
-import { Search, Clock, User, Tag, TrendingUp, BookOpen, Code, Calculator, Briefcase, ChevronRight, Mail, Calendar, Eye, Heart, Share2, Filter } from 'lucide-react';
+import React from 'react';
+import { Clock, Tag, TrendingUp, ChevronRight, Mail, Eye, Heart, Share2 } from 'lucide-react';
 
 const BlogPage = () => {
-    const [selectedCategory, setSelectedCategory] = useState('All');
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const categories = [
-        { name: 'All', count: 24, icon: <BookOpen className="w-4 h-4" /> },
-        { name: 'Data Structures', count: 8, icon: <Code className="w-4 h-4" /> },
-        { name: 'Algorithms', count: 7, icon: <TrendingUp className="w-4 h-4" /> },
-        { name: 'Mathematics', count: 5, icon: <Calculator className="w-4 h-4" /> },
-        { name: 'Interview Prep', count: 4, icon: <Briefcase className="w-4 h-4" /> }
-    ];
-
     const featuredPost = {
         id: 1,
         title: "Master Dynamic Programming: From Beginner to Pro",
@@ -171,15 +160,6 @@ const BlogPage = () => {
         { id: 17, title: "Heap Data Structure: Priority Made Easy", date: "2024-12-02" }
     ];
 
-    const filteredPosts = blogPosts.filter(post => {
-        const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
-        const matchesSearch = searchQuery === '' ||
-            post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-        return matchesCategory && matchesSearch;
-    });
-
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
@@ -254,7 +234,7 @@ const BlogPage = () => {
                     <div className="lg:col-span-3">
                         {/* Blog Posts Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {filteredPosts.map(post => (
+                            {blogPosts.map(post => (
                                 <article key={post.id} className="bg-white rounded-xl shadow-lg border border-purple-100 hover:shadow-xl transition-all duration-200 overflow-hidden group">
                                     <div className="relative">
                                         <img
