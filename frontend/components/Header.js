@@ -31,7 +31,7 @@ function Header() {
                             <Link href="/about" className="text-gray-600 hover:text-purple-600 transition-colors">About</Link>
                         </div>
                         <div className="flex items-center space-x-4">
-                            <button className="text-purple-600 hover:text-purple-700 font-medium transition-colors cursor-pointer" onClick={() => openPage('/login')}>Sign In</button>
+                            <button className="bg-white text-purple-500 px-6 py-2 rounded-lg cursor-pointer hover:bg-purple-600 hover:text-white transition-all duration-200 shadow-md" onClick={() => openPage('/login')}>Sign In</button>
                             <button className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-2 rounded-lg cursor-pointer hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-sm"  onClick={() => openPage('/register')}>
                                 Register
                             </button>
