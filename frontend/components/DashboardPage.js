@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Play, Plus, BarChart3, Trophy, User, Code, Database, GitBranch, Cpu, Globe, Lock, Users, Clock, Target, TrendingUp } from 'lucide-react';
+import { Play, Plus, BarChart3, Trophy, User, Code, Database, GitBranch, Cpu, Globe, Users, Clock, Target, TrendingUp } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -32,7 +32,7 @@ const DashboardPage = () => {
   ];
 
   const getDifficultyColor = (difficulty) => {
-    switch(difficulty) {
+    switch (difficulty) {
       case 'Easy': return 'text-green-600 bg-green-50';
       case 'Medium': return 'text-yellow-600 bg-yellow-50';
       case 'Hard': return 'text-red-600 bg-red-50';
@@ -52,19 +52,21 @@ const DashboardPage = () => {
           <div className="flex items-center justify-between">
             <Link href='/' className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Code className="w-6 h-6 text-white" />
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
                 CodeDuo
               </h1>
             </Link>
-            
+
             <div className="flex items-center space-x-4">
               <button className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-sm">
                 <Plus className="w-4 h-4" />
                 <span>Create Quiz</span>
               </button>
-              
+
               <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-purple-200 transition-colors">
                 <User className="w-5 h-5 text-purple-600" />
               </div>
@@ -133,11 +135,10 @@ const DashboardPage = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-all duration-200 cursor-pointer ${
-                activeTab === tab.id 
-                  ? 'bg-white text-purple-600 shadow-sm' 
+              className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-all duration-200 cursor-pointer ${activeTab === tab.id
+                  ? 'bg-white text-purple-600 shadow-sm'
                   : 'text-gray-600 hover:text-purple-600'
-              }`}
+                }`}
             >
               {tab.icon}
               <span className="font-medium">{tab.label}</span>
@@ -152,7 +153,7 @@ const DashboardPage = () => {
               <h3 className="text-xl font-semibold text-gray-800">Quiz Categories</h3>
               <span className="text-sm text-gray-500">{quizCategories.length} categories available</span>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {quizCategories.map(category => (
                 <div key={category.id} className="bg-white rounded-xl border border-purple-100 hover:shadow-lg transition-all duration-200 group">
@@ -165,11 +166,11 @@ const DashboardPage = () => {
                         {category.difficulty}
                       </span>
                     </div>
-                    
+
                     <h4 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-purple-600 transition-colors">
                       {category.name}
                     </h4>
-                    
+
                     <div className="flex items-center justify-between">
                       <span className="text-gray-500 text-sm">{category.quizzes} quizzes</span>
                       <button onClick={() => openQuiz(category.id)} className="bg-purple-500 cursor-pointer text-white px-4 py-2 rounded-lg flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-purple-600">
@@ -190,7 +191,7 @@ const DashboardPage = () => {
               <h3 className="text-xl font-semibold text-gray-800">Recent Results</h3>
               <button className="text-purple-600 text-sm hover:text-purple-700 font-medium">View All</button>
             </div>
-            
+
             <div className="bg-white rounded-xl border border-purple-100">
               {recentResults.map((result, index) => (
                 <div key={index} className={`p-6 ${index !== recentResults.length - 1 ? 'border-b border-purple-50' : ''}`}>
@@ -224,26 +225,24 @@ const DashboardPage = () => {
                 <span>Top performers this month</span>
               </div>
             </div>
-            
+
             <div className="bg-white rounded-xl border border-purple-100">
               {leaderboard.map((user, index) => (
-                <div key={index} className={`p-6 flex items-center justify-between ${
-                  index !== leaderboard.length - 1 ? 'border-b border-purple-50' : ''
-                } ${user.isUser ? 'bg-purple-50' : ''}`}>
+                <div key={index} className={`p-6 flex items-center justify-between ${index !== leaderboard.length - 1 ? 'border-b border-purple-50' : ''
+                  } ${user.isUser ? 'bg-purple-50' : ''}`}>
                   <div className="flex items-center space-x-4">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                      user.rank === 1 ? 'bg-yellow-100 text-yellow-700' :
-                      user.rank === 2 ? 'bg-gray-100 text-gray-700' :
-                      user.rank === 3 ? 'bg-orange-100 text-orange-700' :
-                      user.isUser ? 'bg-purple-200 text-purple-700' : 'bg-gray-100 text-gray-600'
-                    }`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${user.rank === 1 ? 'bg-yellow-100 text-yellow-700' :
+                        user.rank === 2 ? 'bg-gray-100 text-gray-700' :
+                          user.rank === 3 ? 'bg-orange-100 text-orange-700' :
+                            user.isUser ? 'bg-purple-200 text-purple-700' : 'bg-gray-100 text-gray-600'
+                      }`}>
                       {user.rank}
                     </div>
-                    
+
                     <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                       <span className="text-sm font-medium text-purple-600">{user.avatar}</span>
                     </div>
-                    
+
                     <div>
                       <div className={`font-semibold ${user.isUser ? 'text-purple-700' : 'text-gray-800'}`}>
                         {user.name}
@@ -251,7 +250,7 @@ const DashboardPage = () => {
                       {user.isUser && <div className="text-xs text-purple-600">You</div>}
                     </div>
                   </div>
-                  
+
                   <div className="text-right">
                     <div className="font-bold text-gray-800">{user.score.toLocaleString()}</div>
                     <div className="text-xs text-gray-500">points</div>
