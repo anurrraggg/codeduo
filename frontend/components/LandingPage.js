@@ -16,11 +16,6 @@ const LandingPage = () => {
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <div className="mb-6">
-                                <span className="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium">
-                                    🎯 Perfect for Coding Students
-                                </span>
-                            </div>
                             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                                 Master Coding Through
                                 <span className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent block">
