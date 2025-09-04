@@ -33,9 +33,6 @@ const LandingPage = () => {
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <button onClick={() => openPage('/dashboard')} className="bg-gradient-to-r cursor-pointer from-purple-500 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-lg flex items-center justify-center space-x-2">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M6 6l3 3m0 0l3-3m-3 3V2m0 16v-4"></path>
-                                    </svg>
                                     <span>Start Demo Quiz</span>
                                 </button>
                                 <button onClick={() => openPage('/about')} className="bg-white cursor-pointer text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold border-2 border-purple-200 hover:border-purple-300 transition-all duration-200 flex items-center justify-center space-x-2">
@@ -300,9 +297,6 @@ const LandingPage = () => {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <button onClick={() => openPage('/dashboard')} className="bg-white cursor-pointer text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-200 shadow-lg flex items-center justify-center space-x-2">
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M6 6l3 3m0 0l3-3m-3 3V2m0 16v-4"></path>
-                            </svg>
                             <span>Start Your First Quiz</span>
                         </button>
                         <button onClick={() => openPage('/about')} className="bg-transparent cursor-pointer text-white border-2 border-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-purple-600 transition-all duration-200 flex items-center justify-center space-x-2">
