@@ -1,168 +1,537 @@
-'use client';
-import React, { useState } from 'react';
-import { CheckCircle2, XCircle, ChevronRight, Repeat, LayoutDashboard } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Clock, Code, Target, Trophy, Share2, Home, RotateCcw, CheckCircle, XCircle, Zap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-const quizData = {
-    topic: "Dynamic Programming",
-    questions: [
-        {
-            question: "What is the time complexity of the optimal solution for the 0/1 Knapsack problem?",
-            options: ["O(n²)", "O(n x W)", "O(2ⁿ)", "O(log n)"],
-            correctAnswer: "O(n x W)",
-        },
-        {
-            question: "Which of the following is a classic example of a problem solved using Dynamic Programming?",
-            options: ["Binary Search", "Quicksort", "Fibonacci Sequence", "Depth-First Search"],
-            correctAnswer: "Fibonacci Sequence",
-        },
-        {
-            question: "The 'memoization' technique in DP is a form of:",
-            options: ["Recursion", "Caching", "Iteration", "Greedy Approach"],
-            correctAnswer: "Caching",
-        },
-    ],
-};
-
-const QuizPage = ({ quizId }) => {
+const QuizPage = () => {
     const router = useRouter();
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
-    const [isCorrect, setIsCorrect] = useState(null);
     const [score, setScore] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(30);
+    const [isQuizComplete, setIsQuizComplete] = useState(false);
+    const [userAnswers, setUserAnswers] = useState([]);
+    const [streak, setStreak] = useState(0);
+    const [maxStreak, setMaxStreak] = useState(0);
+    const [multiplier, setMultiplier] = useState(1);
     const [showResults, setShowResults] = useState(false);
 
-    const { questions } = quizData;
-    const currentQuestion = questions[currentQuestionIndex];
-
-    const handleAnswerSelect = (option) => {
-        if (selectedAnswer) return; // Prevent changing answer
-
-        setSelectedAnswer(option);
-        const correct = option === currentQuestion.correctAnswer;
-        setIsCorrect(correct);
-        if (correct) {
-            setScore(prevScore => prevScore + 1);
+    const quizQuestions = [
+        {
+            id: 1,
+            question: "What is the time complexity of accessing an element in a hash table (average case)?",
+            options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+            correctAnswer: 0,
+            explanation: "Hash tables provide O(1) average time complexity for access operations due to direct indexing."
+        },
+        {
+            id: 2,
+            question: "Which data structure follows the Last In First Out (LIFO) principle?",
+            options: ["Queue", "Stack", "Linked List", "Array"],
+            correctAnswer: 1,
+            explanation: "A stack follows LIFO principle where the last element added is the first one to be removed."
+        },
+        {
+            id: 3,
+            question: "What is the space complexity of merge sort?",
+            options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+            correctAnswer: 2,
+            explanation: "Merge sort requires O(n) extra space for the temporary arrays used in the merging process."
+        },
+        {
+            id: 4,
+            question: "In a binary search tree, what is the time complexity for searching an element in the worst case?",
+            options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+            correctAnswer: 2,
+            explanation: "In worst case (skewed tree), BST degenerates to a linked list, giving O(n) search time."
+        },
+        {
+            id: 5,
+            question: "Which algorithm is used to find the shortest path in a weighted graph?",
+            options: ["BFS", "DFS", "Dijkstra's", "Quick Sort"],
+            correctAnswer: 2,
+            explanation: "Dijkstra's algorithm finds shortest paths from a source vertex to all other vertices in weighted graphs."
+        },
+        {
+            id: 6,
+            question: "What is the time complexity of inserting an element at the beginning of a linked list?",
+            options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+            correctAnswer: 0,
+            explanation: "Inserting at the beginning of a linked list is O(1) as it only requires updating pointers."
+        },
+        {
+            id: 7,
+            question: "Which of the following is NOT a stable sorting algorithm?",
+            options: ["Merge Sort", "Bubble Sort", "Quick Sort", "Insertion Sort"],
+            correctAnswer: 2,
+            explanation: "Quick sort is not stable as it may change the relative order of equal elements during partitioning."
+        },
+        {
+            id: 8,
+            question: "What is the maximum number of nodes at level 'i' in a binary tree?",
+            options: ["2^i", "2^(i-1)", "2^(i+1)", "i^2"],
+            correctAnswer: 0,
+            explanation: "At level i (starting from 0), a binary tree can have at most 2^i nodes."
+        },
+        {
+            id: 9,
+            question: "Which data structure is used to implement recursion?",
+            options: ["Queue", "Stack", "Array", "Hash Table"],
+            correctAnswer: 1,
+            explanation: "The system uses a call stack to manage function calls in recursion, storing return addresses and local variables."
+        },
+        {
+            id: 10,
+            question: "What is the time complexity of heapify operation in a binary heap?",
+            options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+            correctAnswer: 1,
+            explanation: "Heapify operation takes O(log n) time as it may need to traverse the height of the heap."
+        },
+        {
+            id: 11,
+            question: "In dynamic programming, what does 'optimal substructure' mean?",
+            options: ["Problem has overlapping subproblems", "Optimal solution contains optimal solutions to subproblems", "Problem can be solved recursively", "Problem has exponential time complexity"],
+            correctAnswer: 1,
+            explanation: "Optimal substructure means that optimal solution to the problem contains optimal solutions to subproblems."
+        },
+        {
+            id: 12,
+            question: "What is the space complexity of BFS traversal?",
+            options: ["O(1)", "O(V)", "O(E)", "O(V + E)"],
+            correctAnswer: 1,
+            explanation: "BFS uses a queue which in worst case can store all vertices at the same level, requiring O(V) space."
+        },
+        {
+            id: 13,
+            question: "Which of the following has the best average-case time complexity for sorting?",
+            options: ["Bubble Sort", "Selection Sort", "Quick Sort", "Insertion Sort"],
+            correctAnswer: 2,
+            explanation: "Quick Sort has O(n log n) average time complexity, which is better than the O(n²) of the other options."
+        },
+        {
+            id: 14,
+            question: "What is the minimum number of comparisons needed to find both maximum and minimum in an array of n elements?",
+            options: ["n", "2n - 2", "3n/2 - 2", "n - 1"],
+            correctAnswer: 2,
+            explanation: "By comparing elements in pairs, we can find both min and max in 3n/2 - 2 comparisons."
+        },
+        {
+            id: 15,
+            question: "In a graph, what is a spanning tree?",
+            options: ["A tree with all vertices", "A subgraph that connects all vertices with minimum edges", "A tree with maximum weight", "A cyclic subgraph"],
+            correctAnswer: 1,
+            explanation: "A spanning tree is a subgraph that includes all vertices connected with exactly V-1 edges (no cycles)."
+        },
+        {
+            id: 16,
+            question: "What is the time complexity of finding the kth smallest element using QuickSelect?",
+            options: ["O(n)", "O(n log n)", "O(k)", "O(n²)"],
+            correctAnswer: 0,
+            explanation: "QuickSelect has O(n) average time complexity for finding the kth smallest element."
+        },
+        {
+            id: 17,
+            question: "Which technique is used to avoid recomputation in dynamic programming?",
+            options: ["Recursion", "Memoization", "Iteration", "Backtracking"],
+            correctAnswer: 1,
+            explanation: "Memoization stores results of subproblems to avoid recomputation in dynamic programming."
+        },
+        {
+            id: 18,
+            question: "What is the worst-case time complexity of insertion in a B-tree of order m?",
+            options: ["O(1)", "O(log n)", "O(m log n)", "O(n)"],
+            correctAnswer: 1,
+            explanation: "B-tree insertion is O(log n) as it involves traversing the height and possibly splitting nodes."
+        },
+        {
+            id: 19,
+            question: "Which algorithm is used for topological sorting?",
+            options: ["DFS", "BFS", "Both DFS and BFS", "Dijkstra's"],
+            correctAnswer: 2,
+            explanation: "Both DFS (using recursion stack) and BFS (using in-degree) can be used for topological sorting."
+        },
+        {
+            id: 20,
+            question: "What is the time complexity of building a heap from an unsorted array?",
+            options: ["O(n log n)", "O(n)", "O(log n)", "O(n²)"],
+            correctAnswer: 1,
+            explanation: "Building a heap from an unsorted array using bottom-up heapify takes O(n) time."
         }
+    ];
+
+    // Timer effect
+    useEffect(() => {
+        if (timeLeft > 0 && !isQuizComplete && !showResults) {
+            const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+            return () => clearTimeout(timer);
+        } else if (timeLeft === 0 && !isQuizComplete) {
+            handleNextQuestion();
+        }
+    }, [timeLeft, isQuizComplete, showResults]);
+
+    const handleAnswerSelect = (answerIndex) => {
+        if (selectedAnswer !== null) return;
+        setSelectedAnswer(answerIndex);
+
+        const isCorrect = answerIndex === quizQuestions[currentQuestion].correctAnswer;
+        const newAnswer = {
+            questionId: quizQuestions[currentQuestion].id,
+            selected: answerIndex,
+            correct: quizQuestions[currentQuestion].correctAnswer,
+            isCorrect: isCorrect,
+            timeRemaining: timeLeft
+        };
+
+        setUserAnswers([...userAnswers, newAnswer]);
+
+        if (isCorrect) {
+            const newStreak = streak + 1;
+            setStreak(newStreak);
+            setMaxStreak(Math.max(maxStreak, newStreak));
+
+            // Calculate multiplier based on streak
+            const newMultiplier = Math.min(Math.floor(newStreak / 3) + 1, 5);
+            setMultiplier(newMultiplier);
+
+            // Calculate points (base 100, multiplied by streak multiplier, time bonus)
+            const timeBonus = Math.floor(timeLeft / 5);
+            const points = (100 + timeBonus) * newMultiplier;
+            setScore(score + points);
+        } else {
+            setStreak(0);
+            setMultiplier(1);
+        }
+
+        // Auto advance after 2 seconds
+        setTimeout(() => {
+            handleNextQuestion();
+        }, 2000);
     };
 
     const handleNextQuestion = () => {
-        if (currentQuestionIndex < questions.length - 1) {
-            setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+        if (currentQuestion < quizQuestions.length - 1) {
+            setCurrentQuestion(currentQuestion + 1);
             setSelectedAnswer(null);
-            setIsCorrect(null);
+            setTimeLeft(30);
         } else {
-            setShowResults(true);
+            setIsQuizComplete(true);
+            setTimeout(() => setShowResults(true), 1000);
         }
     };
 
-    const handleRestartQuiz = () => {
-        setCurrentQuestionIndex(0);
+    const restartQuiz = () => {
+        setCurrentQuestion(0);
         setSelectedAnswer(null);
-        setIsCorrect(null);
         setScore(0);
+        setTimeLeft(30);
+        setIsQuizComplete(false);
+        setUserAnswers([]);
+        setStreak(0);
+        setMaxStreak(0);
+        setMultiplier(1);
         setShowResults(false);
     };
 
-    const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+    const getScoreGrade = () => {
+        const correctAnswers = userAnswers.filter(answer => answer.isCorrect).length;
+        const percentage = (correctAnswers / quizQuestions.length) * 100;
+
+        if (percentage >= 90) return { grade: 'A+', color: 'text-green-600', bg: 'bg-green-50' };
+        if (percentage >= 80) return { grade: 'A', color: 'text-green-600', bg: 'bg-green-50' };
+        if (percentage >= 70) return { grade: 'B', color: 'text-blue-600', bg: 'bg-blue-50' };
+        if (percentage >= 60) return { grade: 'C', color: 'text-yellow-600', bg: 'bg-yellow-50' };
+        return { grade: 'D', color: 'text-red-600', bg: 'bg-red-50' };
+    };
 
     const openPage = (link) => {
         router.push(link);
     }
 
-    // Render the Results Screen
+    const shareScore = () => {
+        const correctAnswers = userAnswers.filter(answer => answer.isCorrect).length;
+        const percentage = Math.round((correctAnswers / quizQuestions.length) * 100);
+        const text = `🎯 Just scored ${percentage}% on CodeDuo's Data Structures & Algorithms quiz! Max streak: ${maxStreak} 🔥 Can you beat my score? Try it now!`;
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'CodeDuo Quiz Results',
+                text: text,
+                url: window.location.href,
+            });
+        } else {
+            navigator.clipboard.writeText(text);
+            alert('Score copied to clipboard!');
+        }
+    };
+
     if (showResults) {
+        const correctAnswers = userAnswers.filter(answer => answer.isCorrect).length;
+        const percentage = Math.round((correctAnswers / quizQuestions.length) * 100);
+        const scoreGrade = getScoreGrade();
+
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-100 p-4">
-                <div className="w-full max-w-2xl bg-white/80 backdrop-blur-xl border border-purple-100 rounded-2xl shadow-2xl p-8 md:p-12 text-center animate-float">
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent mb-4">Quiz Complete!</h2>
-                    <p className="text-gray-600 text-lg mb-6">You've finished the {quizData.topic} quiz.</p>
-                    <div className="bg-purple-50 border border-purple-200 rounded-xl p-6 mb-8">
-                        <p className="text-xl text-gray-700">Your Final Score</p>
-                        <p className="text-6xl font-bold text-purple-700 my-2">
-                            {score} <span className="text-3xl text-gray-500">/ {questions.length}</span>
-                        </p>
-                        <p className="text-lg font-medium text-gray-600">
-                            ({((score / questions.length) * 100).toFixed(2)}%)
-                        </p>
+            <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
+                <div className="max-w-4xl mx-auto px-6 py-8">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-8">
+                        <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                <Code className="w-6 h-6 text-white" />
+                            </div>
+                            <div>
+                                <h1 className="text-2xl font-bold text-gray-900">Quiz Complete!</h1>
+                                <p className="text-gray-600">Data Structures & Algorithms</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <button
-                            onClick={handleRestartQuiz}
-                            className="w-full flex items-center justify-center py-3 px-6 border-2 border-purple-200 rounded-lg text-purple-600 font-semibold hover:bg-purple-100 transition-all"
-                        >
-                            <Repeat className="w-5 h-5 mr-2" />
-                            Retry Quiz
-                        </button>
-                        <button
-                            onClick={() => openPage('/dashboard')}
-                            className="w-full flex items-center justify-center py-3 px-6 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all shadow-md"
-                        >
-                            <LayoutDashboard className="w-5 h-5 mr-2" />
-                            Go to Dashboard
-                        </button>
+
+                    {/* Results Card */}
+                    <div className="bg-white rounded-2xl shadow-xl border border-purple-100 overflow-hidden mb-8">
+                        <div className="bg-gradient-to-r from-purple-500 to-purple-600 px-8 py-12 text-center">
+                            <div className={`inline-flex items-center justify-center w-20 h-20 ${scoreGrade.bg} rounded-full mb-4`}>
+                                <span className={`text-3xl font-bold ${scoreGrade.color}`}>{scoreGrade.grade}</span>
+                            </div>
+                            <h2 className="text-4xl font-bold text-white mb-2">{percentage}%</h2>
+                            <p className="text-purple-100 text-lg">
+                                {correctAnswers} out of {quizQuestions.length} questions correct
+                            </p>
+                        </div>
+
+                        <div className="p-8">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                                <div className="text-center p-4 bg-purple-50 rounded-xl">
+                                    <Target className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                                    <div className="text-2xl font-bold text-gray-900">{score.toLocaleString()}</div>
+                                    <div className="text-gray-600 text-sm">Total Points</div>
+                                </div>
+
+                                <div className="text-center p-4 bg-orange-50 rounded-xl">
+                                    <Zap className="w-8 h-8 text-orange-600 mx-auto mb-2" />
+                                    <div className="text-2xl font-bold text-gray-900">{maxStreak}</div>
+                                    <div className="text-gray-600 text-sm">Max Streak</div>
+                                </div>
+
+                                <div className="text-center p-4 bg-blue-50 rounded-xl">
+                                    <Trophy className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+                                    <div className="text-2xl font-bold text-gray-900">#24</div>
+                                    <div className="text-gray-600 text-sm">Your Rank</div>
+                                </div>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <button
+                                    onClick={shareScore}
+                                    className="bg-gradient-to-r cursor-pointer from-purple-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-200 flex items-center justify-center space-x-2"
+                                >
+                                    <Share2 className="w-5 h-5" />
+                                    <span>Share Score</span>
+                                </button>
+
+                                <button
+                                    onClick={restartQuiz}
+                                    className="bg-white text-purple-600 cursor-pointer px-6 py-3 rounded-lg font-semibold border-2 border-purple-200 hover:border-purple-300 transition-all duration-200 flex items-center justify-center space-x-2"
+                                >
+                                    <RotateCcw className="w-5 h-5" />
+                                    <span>Try Again</span>
+                                </button>
+
+                                <button 
+                                onClick={() => openPage('/dashboard')}
+                                className="bg-gray-100 cursor-pointer text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-200 flex items-center justify-center space-x-2"
+                                >
+                                    <Home className="w-5 h-5" />
+                                    <span>Dashboard</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Leaderboard */}
+                    <div className="bg-white rounded-xl border border-purple-100 p-6">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <Trophy className="w-5 h-5 text-yellow-500 mr-2" />
+                            Global Leaderboard
+                        </h3>
+
+                        <div className="space-y-3">
+                            {[
+                                { rank: 1, name: 'Sarah Chen', score: 18420, streak: 15, avatar: 'SC' },
+                                { rank: 2, name: 'Mike Rodriguez', score: 17850, streak: 12, avatar: 'MR' },
+                                { rank: 3, name: 'Emma Thompson', score: 17200, streak: 10, avatar: 'ET' },
+                                { rank: 24, name: 'You', score: score, streak: maxStreak, avatar: 'YU', isUser: true },
+                                { rank: 25, name: 'Alex Johnson', score: score - 150, streak: maxStreak - 1, avatar: 'AJ' }
+                            ].map((user, index) => (
+                                <div key={index} className={`flex items-center justify-between p-3 rounded-lg ${user.isUser ? 'bg-purple-50 border border-purple-200' : 'hover:bg-gray-50'}`}>
+                                    <div className="flex items-center space-x-3">
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${user.rank === 1 ? 'bg-yellow-100 text-yellow-700' :
+                                                user.rank === 2 ? 'bg-gray-100 text-gray-700' :
+                                                    user.rank === 3 ? 'bg-orange-100 text-orange-700' :
+                                                        user.isUser ? 'bg-purple-200 text-purple-700' : 'bg-gray-100 text-gray-600'
+                                            }`}>
+                                            {user.rank}
+                                        </div>
+
+                                        <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <span className="text-sm font-medium text-purple-600">{user.avatar}</span>
+                                        </div>
+
+                                        <div>
+                                            <div className={`font-semibold ${user.isUser ? 'text-purple-700' : 'text-gray-800'}`}>
+                                                {user.name}
+                                            </div>
+                                            <div className="text-xs text-gray-500">Streak: {user.streak}</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="text-right">
+                                        <div className="font-bold text-gray-800">{user.score.toLocaleString()}</div>
+                                        <div className="text-xs text-gray-500">points</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
         );
     }
 
-    // Render the Quiz
+    if (isQuizComplete) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white flex items-center justify-center">
+                <div className="text-center">
+                    <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+                        <CheckCircle className="w-10 h-10 text-white" />
+                    </div>
+                    <h2 className="text-3xl font-bold text-gray-900 mb-2">Quiz Complete!</h2>
+                    <p className="text-gray-600">Calculating your results...</p>
+                </div>
+            </div>
+        );
+    }
+
+    const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+    const currentQ = quizQuestions[currentQuestion];
+
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-100 p-4">
-            <div className="w-full max-w-3xl bg-white/80 backdrop-blur-xl border border-purple-100 rounded-2xl shadow-2xl p-8 animate-float">
-                {/* Header and Progress Bar */}
-                <div className="mb-6">
-                    <div className="flex justify-between items-center mb-2">
-                        <h2 className="text-xl font-bold text-purple-800">{quizData.topic}</h2>
-                        <p className="text-gray-600 font-medium">Question {currentQuestionIndex + 1} of {questions.length}</p>
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
+            <div className="max-w-4xl mx-auto px-6 py-8">
+                {/* Header */}
+                {/* <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <Code className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                            <h1 className="text-2xl font-bold text-gray-900">Data Structures & Algorithms</h1>
+                            <p className="text-gray-600">Medium Level Quiz</p>
+                        </div>
                     </div>
-                    <div className="w-full bg-purple-100 rounded-full h-2.5">
-                        <div className="bg-gradient-to-r from-purple-400 to-purple-600 h-2.5 rounded-full transition-all duration-500" style={{ width: `${progressPercentage}%` }}></div>
-                    </div>
-                </div>
 
-                {/* Question */}
+                    <div className="flex items-center space-x-4">
+                        {multiplier > 1 && (
+                            <div className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
+                                <Zap className="w-4 h-4" />
+                                <span>{multiplier}x Multiplier!</span>
+                            </div>
+                        )}
+
+                        <div className="text-right">
+                            <div className="text-2xl font-bold text-gray-900">{score.toLocaleString()}</div>
+                            <div className="text-gray-500 text-sm">Points</div>
+                        </div>
+                    </div>
+                </div> */}
+
+                {/* Progress Bar */}
                 <div className="mb-8">
-                    <h3 className="text-2xl font-semibold text-gray-800 text-center">{currentQuestion.question}</h3>
+                    <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm text-gray-600">
+                            Question {currentQuestion + 1} of {quizQuestions.length}
+                        </span>
+                        <span className="text-sm text-gray-600">{Math.round(progress)}% Complete</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div
+                            className="bg-gradient-to-r from-purple-500 to-purple-600 h-2 rounded-full transition-all duration-300"
+                            style={{ width: `${progress}%` }}
+                        ></div>
+                    </div>
                 </div>
 
-                {/* Options */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {currentQuestion.options.map((option, index) => {
-                        const isSelected = selectedAnswer === option;
-                        let optionClass = "bg-white border-gray-200 hover:bg-purple-50";
+                {/* Timer and Streak */}
+                <div className="flex justify-between items-center mb-8">
+                    <div className="flex items-center space-x-4">
+                        <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg ${timeLeft <= 10 ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
+                            }`}>
+                            <Clock className="w-5 h-5" />
+                            <span className="font-semibold text-lg">{timeLeft}s</span>
+                        </div>
 
-                        if (isSelected) {
-                            optionClass = isCorrect ? "bg-green-100 border-green-400" : "bg-red-100 border-red-400";
-                        } else if (selectedAnswer && option === currentQuestion.correctAnswer) {
-                            optionClass = "bg-green-100 border-green-400"; // Show correct answer after selection
-                        }
-
-                        return (
-                            <button
-                                key={index}
-                                onClick={() => handleAnswerSelect(option)}
-                                disabled={!!selectedAnswer}
-                                className={`w-full h-25 text-left p-4 rounded-lg border-2 font-medium transition-all duration-300 flex items-center justify-between ${optionClass} ${selectedAnswer ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-                            >
-                                <span>{option}</span>
-                                {isSelected && (isCorrect ? <CheckCircle2 className="text-green-600" /> : <XCircle className="text-red-600" />)}
-                            </button>
-                        );
-                    })}
+                        {streak > 0 && (
+                            <div className="bg-green-100 text-green-700 px-4 py-2 rounded-lg flex items-center space-x-2">
+                                <Zap className="w-5 h-5" />
+                                <span className="font-semibold">{streak} Streak!</span>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
-                {/* Next Button */}
-                {selectedAnswer && (
-                    <div className="mt-8 text-right">
-                        <button
-                            onClick={handleNextQuestion}
-                            className="bg-gradient-to-r from-purple-500 to-purple-600 cursor-pointer text-white py-3 px-8 rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 shadow-md flex items-center ml-auto"
-                        >
-                            {currentQuestionIndex < questions.length - 1 ? "Next Question" : "View Results"}
-                            <ChevronRight className="w-5 h-5 ml-2" />
-                        </button>
+                {/* Question Card */}
+                <div className="bg-white rounded-2xl shadow-xl border border-purple-100 p-8 mb-8">
+                    <div className="mb-8">
+                        <h2 className="text-xl font-semibold text-gray-900 leading-relaxed">
+                            {currentQ.question}
+                        </h2>
+                    </div>
+
+                    {/* Answer Options */}
+                    <div className="space-y-4">
+                        {currentQ.options.map((option, index) => {
+                            let buttonClass = "w-full p-4 text-left cursor-pointer rounded-xl border-2 transition-all duration-200 font-medium ";
+
+                            if (selectedAnswer === null) {
+                                buttonClass += "border-gray-200 hover:border-purple-300 hover:bg-purple-50 cursor-pointer";
+                            } else if (index === currentQ.correctAnswer) {
+                                buttonClass += "border-green-500 bg-green-50 text-green-800";
+                            } else if (index === selectedAnswer && selectedAnswer !== currentQ.correctAnswer) {
+                                buttonClass += "border-red-500 bg-red-50 text-red-800";
+                            } else {
+                                buttonClass += "border-gray-200 bg-gray-50 text-gray-500";
+                            }
+
+                            return (
+                                <button
+                                    key={index}
+                                    onClick={() => handleAnswerSelect(index)}
+                                    disabled={selectedAnswer !== null}
+                                    className={buttonClass}
+                                >
+                                    <div className="flex items-center space-x-3">
+                                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-sm font-bold ${selectedAnswer === null ? 'border-gray-300' :
+                                                index === currentQ.correctAnswer ? 'border-green-500 bg-green-500 text-white' :
+                                                    index === selectedAnswer ? 'border-red-500 bg-red-500 text-white' : 'border-gray-300'
+                                            }`}>
+                                            {String.fromCharCode(65 + index)}
+                                        </div>
+                                        <span>{option}</span>
+                                        {selectedAnswer !== null && index === currentQ.correctAnswer && (
+                                            <CheckCircle className="w-5 h-5 text-green-500 ml-auto" />
+                                        )}
+                                        {selectedAnswer === index && selectedAnswer !== currentQ.correctAnswer && (
+                                            <XCircle className="w-5 h-5 text-red-500 ml-auto" />
+                                        )}
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* Auto-advance indicator */}
+                {selectedAnswer !== null && (
+                    <div className="text-center text-gray-500 text-sm">
+                        Next question loading automatically...
                     </div>
                 )}
             </div>

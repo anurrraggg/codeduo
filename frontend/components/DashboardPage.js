@@ -13,7 +13,7 @@ const DashboardPage = () => {
     { id: 3, name: 'Data Structures', icon: <Code className="w-6 h-6" />, difficulty: 'Easy', quizzes: 32, color: 'bg-green-100 text-green-700' },
     { id: 4, name: 'Algorithms', icon: <Cpu className="w-6 h-6" />, difficulty: 'Medium', quizzes: 28, color: 'bg-yellow-100 text-yellow-700' },
     { id: 5, name: 'System Design', icon: <Globe className="w-6 h-6" />, difficulty: 'Hard', quizzes: 15, color: 'bg-red-100 text-red-700' },
-    { id: 6, name: 'Graph Algorithms', icon: <GitBranch className="w-6 h-6" />, difficulty: 'Hard', quizzes: 21, color: 'bg-indigo-100 text-indigo-700' }
+    { id: 6, name: 'Graph Algorithms', icon: <GitBranch className="w-6 h-6" />, difficulty: 'Hard', quizzes: 21, color: 'bg-purple-100 text-purple-700' }
   ];
 
   const recentResults = [

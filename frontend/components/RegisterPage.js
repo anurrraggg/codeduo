@@ -2,31 +2,39 @@
 import React from 'react';
 import { User, Mail, Lock } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const GoogleIcon = ({ className = "w-5 h-5", ...props }) => {
   return (
-    <svg 
-      className={className} 
-      viewBox="0 0 24 24" 
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <g fill="none" fillRule="evenodd">
-        <path d="M20.64 12.2045c0-.6382-.0573-1.2518-.1636-1.8409H12v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7772 2.7218v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6218z" fill="#4285F4"/>
-        <path d="M12 21c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.806.5446-1.8273.8682-3.0477.8682-2.3455 0-4.3282-1.5818-5.0364-3.7104H3.957v2.3318C5.4382 18.9832 8.4818 21 12 21z" fill="#34A853"/>
-        <path d="M6.9636 13.71c-.18-.5445-.2827-1.1168-.2827-1.71s.1027-1.1655.2827-1.71V7.9582H3.957A8.9965 8.9965 0 003 12c0 1.4545.3477 2.8273.957 4.0418L6.9636 13.71z" fill="#FBBC05"/>
-        <path d="M12 6.2818c1.3227 0 2.5077.4545 3.4405 1.346l2.5813-2.5814C16.4632 3.5236 14.426 3 12 3 8.4818 3 5.4382 5.0168 3.957 7.9582L6.9636 10.29C7.6718 8.1618 9.6545 6.2818 12 6.2818z" fill="#EA4335"/>
+        <path d="M20.64 12.2045c0-.6382-.0573-1.2518-.1636-1.8409H12v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7772 2.7218v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6218z" fill="#4285F4" />
+        <path d="M12 21c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.806.5446-1.8273.8682-3.0477.8682-2.3455 0-4.3282-1.5818-5.0364-3.7104H3.957v2.3318C5.4382 18.9832 8.4818 21 12 21z" fill="#34A853" />
+        <path d="M6.9636 13.71c-.18-.5445-.2827-1.1168-.2827-1.71s.1027-1.1655.2827-1.71V7.9582H3.957A8.9965 8.9965 0 003 12c0 1.4545.3477 2.8273.957 4.0418L6.9636 13.71z" fill="#FBBC05" />
+        <path d="M12 6.2818c1.3227 0 2.5077.4545 3.4405 1.346l2.5813-2.5814C16.4632 3.5236 14.426 3 12 3 8.4818 3 5.4382 5.0168 3.957 7.9582L6.9636 10.29C7.6718 8.1618 9.6545 6.2818 12 6.2818z" fill="#EA4335" />
       </g>
     </svg>
   );
 };
 
 const RegisterPage = () => {
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    router.push('/dashboard');
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-100 p-4">
       <div className="w-full max-w-md">
         <div className="bg-white/80 backdrop-blur-xl border border-purple-100 rounded-2xl shadow-2xl p-8 md:p-12 animate-float">
-          
+
           {/* Header */}
           <div className="flex flex-col items-center mb-8">
             <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
@@ -112,6 +120,7 @@ const RegisterPage = () => {
 
             {/* Submit Button */}
             <button
+              onClick={handleSubmit}
               type="submit"
               className="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 shadow-md transform hover:scale-105"
             >
