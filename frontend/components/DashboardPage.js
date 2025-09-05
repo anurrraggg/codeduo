@@ -62,11 +62,6 @@ const DashboardPage = () => {
             </Link>
 
             <div className="flex items-center space-x-4">
-              <button className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-sm">
-                <Plus className="w-4 h-4" />
-                <span>Create Quiz</span>
-              </button>
-
               <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-purple-200 transition-colors">
                 <User className="w-5 h-5 text-purple-600" />
               </div>
