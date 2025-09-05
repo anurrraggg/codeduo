@@ -4,6 +4,7 @@ import { Play, BarChart3, Trophy, User, Code, Users, Clock, Target, TrendingUp }
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getDifficultyColor, leaderboard, quizCategories, recentResults } from '@/services/DashboardService';
+import Image from 'next/image';
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -16,17 +17,10 @@ const DashboardPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
       {/* Header */}
       <header className="bg-white border-b border-purple-100 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-6 py-2">
           <div className="flex items-center justify-between">
             <Link href='/' className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                </svg>
-              </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
-                CodeDuo
-              </h1>
+              <Image className='w-40' height={10} width={180} src={'/icons/logo.png'} alt="logo" />
             </Link>
 
             <button onClick={() => router.push('/profile')} className="flex items-center space-x-4">
@@ -99,8 +93,8 @@ const DashboardPage = () => {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-all duration-200 cursor-pointer ${activeTab === tab.id
-                  ? 'bg-white text-purple-600 shadow-sm'
-                  : 'text-gray-600 hover:text-purple-600'
+                ? 'bg-white text-purple-600 shadow-sm'
+                : 'text-gray-600 hover:text-purple-600'
                 }`}
             >
               {tab.icon}
@@ -195,9 +189,9 @@ const DashboardPage = () => {
                   } ${user.isUser ? 'bg-purple-50' : ''}`}>
                   <div className="flex items-center space-x-4">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${user.rank === 1 ? 'bg-yellow-100 text-yellow-700' :
-                        user.rank === 2 ? 'bg-gray-100 text-gray-700' :
-                          user.rank === 3 ? 'bg-orange-100 text-orange-700' :
-                            user.isUser ? 'bg-purple-200 text-purple-700' : 'bg-gray-100 text-gray-600'
+                      user.rank === 2 ? 'bg-gray-100 text-gray-700' :
+                        user.rank === 3 ? 'bg-orange-100 text-orange-700' :
+                          user.isUser ? 'bg-purple-200 text-purple-700' : 'bg-gray-100 text-gray-600'
                       }`}>
                       {user.rank}
                     </div>
