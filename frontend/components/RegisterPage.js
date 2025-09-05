@@ -122,7 +122,7 @@ const RegisterPage = () => {
             <button
               onClick={handleSubmit}
               type="submit"
-              className="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 shadow-md transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-purple-500 cursor-pointer to-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 shadow-md transform hover:scale-105"
             >
               Create Account
             </button>
