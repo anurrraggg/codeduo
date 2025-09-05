@@ -3,33 +3,23 @@ import { Clock, Code, Lightbulb, Star, Target, Trophy, Users } from "lucide-reac
 export const teamMembers = [
     {
         name: "Anurag Pandey",
-        roll: "2301640100100",
-        mobile: "7268955274",
         role: "Full Stack Developer"
     },
     {
         name: "Ayush Raj",
-        roll: "2301640100142",
-        mobile: "9369673845",
-        role: "Frontend Developer"
+        role: "Frontend Engineer"
     },
     {
         name: "Bhoomika Seth",
-        roll: "2301640100156",
-        mobile: "8005152044",
-        role: "UI/UX Designer"
+        role: "Frontend Developer"
     },
     {
         name: "Bhoomi Gupta",
-        roll: "2301640100155",
-        mobile: "8318060660",
-        role: "Backend Developer"
+        role: "UI/UX Designer"
     },
     {
         name: "Ishan Dwivedi",
-        roll: "2301640100213",
-        mobile: "9415910716",
-        role: "Full Stack Designer"
+        role: "ML Engineer"
     }
 ];
 
