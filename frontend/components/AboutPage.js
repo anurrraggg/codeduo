@@ -1,0 +1,268 @@
+'use client';
+import React from 'react';
+import { Users, Target, Lightbulb, Code, Trophy, Clock, Star, ChevronRight } from 'lucide-react';
+
+const AboutPage = () => {
+    const teamMembers = [
+        {
+            name: "Anurag Pandey",
+            roll: "2301640100100",
+            mobile: "7268955274",
+            role: "Full Stack Developer"
+        },
+        {
+            name: "Ayush Raj",
+            roll: "2301640100142",
+            mobile: "9369673845",
+            role: "Frontend Developer"
+        },
+        {
+            name: "Bhoomika Seth",
+            roll: "2301640100156",
+            mobile: "8005152044",
+            role: "UI/UX Designer"
+        },
+        {
+            name: "Bhoomi Gupta",
+            roll: "2301640100155",
+            mobile: "8318060660",
+            role: "Backend Developer"
+        },
+        {
+            name: "Ishan Dwivedi",
+            roll: "2301640100213",
+            mobile: "9415910716",
+            role: "Full Stack Designer"
+        }
+    ];
+
+    const features = [
+        {
+            icon: <Clock className="w-6 h-6" />,
+            title: "Micro-Learning Sessions",
+            description: "Bite-sized 2-5 minute lessons that fit into your busy schedule"
+        },
+        {
+            icon: <Trophy className="w-6 h-6" />,
+            title: "Gamified Experience",
+            description: "XP points, streak rewards, and achievement badges to keep you motivated"
+        },
+        {
+            icon: <Code className="w-6 h-6" />,
+            title: "Real-time Code Execution",
+            description: "Practice coding directly in your browser with instant feedback"
+        },
+        {
+            icon: <Target className="w-6 h-6" />,
+            title: "Adaptive Learning Paths",
+            description: "Personalized curriculum that adjusts to your learning pace and style"
+        }
+    ];
+
+    const values = [
+        {
+            icon: <Lightbulb className="w-8 h-8" />,
+            title: "Innovation",
+            description: "Combining proven educational psychology with cutting-edge technology"
+        },
+        {
+            icon: <Users className="w-8 h-8" />,
+            title: "Accessibility",
+            description: "Making programming education available to learners of all backgrounds"
+        },
+        {
+            icon: <Star className="w-8 h-8" />,
+            title: "Excellence",
+            description: "Delivering high-quality, engaging educational experiences"
+        }
+    ];
+
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
+            {/* Hero Section */}
+            <section className="py-16 lg:py-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+                        About <span className="text-purple-600">CodeDuo</span>
+                    </h2>
+                    <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                        Revolutionizing programming education through gamified, bite-sized learning experiences
+                        that make coding accessible, engaging, and sustainable for everyone.
+                    </p>
+                </div>
+            </section>
+
+            {/* Mission & Vision */}
+            <section className="py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid md:grid-cols-2 gap-12">
+                        <div className="bg-white rounded-2xl p-8 shadow-lg border border-purple-100">
+                            <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                                <Target className="w-8 h-8 text-purple-600" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
+                            <p className="text-gray-600 leading-relaxed">
+                                To bridge the gap between complex programming concepts and accessible learning methodologies.
+                                We're committed to transforming programming education from an overwhelming academic pursuit
+                                into an enjoyable daily routine that respects learners' time constraints and cognitive load.
+                            </p>
+                        </div>
+
+                        <div className="bg-white rounded-2xl p-8 shadow-lg border border-purple-100">
+                            <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                                <Lightbulb className="w-8 h-8 text-purple-600" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
+                            <p className="text-gray-600 leading-relaxed">
+                                To create a world where programming skills are accessible to individuals of all backgrounds,
+                                using proven engagement mechanisms and educational psychology to build sustainable learning habits
+                                that lead to long-term success in technology careers.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Problem & Solution */}
+            <section className="py-16 bg-gradient-to-r from-purple-50 to-purple-100">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h3 className="text-3xl font-bold text-gray-900 mb-4">The Challenge We're Solving</h3>
+                        <p className="text-gray-600 max-w-3xl mx-auto">
+                            Current educational platforms struggle with learner retention and engagement, creating barriers
+                            that prevent many aspiring programmers from achieving their goals.
+                        </p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        <div className="bg-white rounded-2xl p-8 shadow-lg">
+                            <h4 className="text-xl font-bold text-gray-900 mb-4 text-red-600">The Problem</h4>
+                            <ul className="space-y-3 text-gray-600">
+                                <li className="flex items-start space-x-3">
+                                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span>High abandonment rates due to overwhelming content delivery</span>
+                                </li>
+                                <li className="flex items-start space-x-3">
+                                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span>Steep learning curves that intimidate beginners</span>
+                                </li>
+                                <li className="flex items-start space-x-3">
+                                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span>Lack of structured progression and interactive feedback</span>
+                                </li>
+                                <li className="flex items-start space-x-3">
+                                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span>Inconsistent learning habits and decreased motivation</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-8 shadow-lg text-white">
+                            <h4 className="text-xl font-bold mb-4">Our Solution</h4>
+                            <p className="mb-6 opacity-90">
+                                CodeDuo transforms programming education using Duolingo's proven methodology,
+                                breaking complex topics into engaging, bite-sized lessons with gamified elements.
+                            </p>
+                            <div className="flex items-center space-x-2 text-purple-100">
+                                <span>Learn more about our approach</span>
+                                <ChevronRight className="w-4 h-4" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Key Features */}
+            <section className="py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h3 className="text-3xl font-bold text-gray-900 mb-4">What Makes Us Unique</h3>
+                        <p className="text-gray-600 max-w-2xl mx-auto">
+                            Our distinctive features set us apart from traditional coding education platforms
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {features.map((feature, index) => (
+                            <div key={index} className="bg-white rounded-2xl p-6 shadow-lg border border-purple-100 hover:shadow-xl transition-shadow">
+                                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-4">
+                                    {feature.icon}
+                                </div>
+                                <h4 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h4>
+                                <p className="text-gray-600 text-sm">{feature.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Our Values */}
+            <section className="py-16 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h3 className="text-3xl font-bold text-gray-900 mb-4">Our Core Values</h3>
+                        <p className="text-gray-600 max-w-2xl mx-auto">
+                            The principles that guide everything we do at CodeDuo
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-12">
+                        {values.map((value, index) => (
+                            <div key={index} className="text-center">
+                                <div className="w-20 h-20 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 mx-auto mb-6">
+                                    {value.icon}
+                                </div>
+                                <h4 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h4>
+                                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Team Section */}
+            <section className="py-16">
+                <div className="text-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+                        Meet the Innovators
+                    </h2>
+                    <p className="text-gray-600 max-w-2xl mx-auto mb-12">
+                        The passionate developers and designers behind CodeDuo
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+                        {teamMembers.map((member) => (
+                            <div key={member.name} className="text-center">
+                                <div className="w-32 h-32 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full mx-auto mb-4 shadow-md flex items-center justify-center text-white font-bold text-2xl">
+                                    {member.name.split(' ').map(n => n[0]).join('')}
+                                </div>
+                                <h4 className="font-bold text-lg text-slate-800">{member.name}</h4>
+                                <p className="text-purple-600 font-medium text-sm">{member.role}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="py-16 bg-gradient-to-r from-purple-600 to-purple-700">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h3 className="text-3xl font-bold text-white mb-4">Ready to Start Your Coding Journey?</h3>
+                    <p className="text-purple-100 text-lg mb-8 max-w-2xl mx-auto">
+                        Join thousands of students who are already learning programming the CodeDuo way.
+                        Start with our free demo quiz and experience the difference.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button className="bg-white text-purple-600 cursor-pointer px-8 py-3 rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-105">
+                            Start Demo Quiz
+                        </button>
+                        <button className="border-2 border-white cursor-pointer text-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-purple-600 transition-all">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    );
+};
+
+export default AboutPage;
