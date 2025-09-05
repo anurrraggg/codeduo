@@ -217,7 +217,7 @@ const LandingPage = () => {
                                     <p className="text-gray-600 text-sm">Computer Science Student</p>
                                 </div>
                             </div>
-                            <p className="text-gray-700 italic">"CodeDuo helped me ace my algorithms course! The competitive element kept me motivated, and I improved my problem-solving speed significantly."</p>
+                            <p className="text-gray-700 italic">&ldquo;CodeDuo helped me ace my algorithms course! The competitive element kept me motivated, and I improved my problem-solving speed significantly.&rdquo;</p>
                         </div>
                         <div className="bg-blue-50 p-8 rounded-2xl">
                             <div className="flex items-center mb-4">
@@ -229,7 +229,7 @@ const LandingPage = () => {
                                     <p className="text-gray-600 text-sm">Bootcamp Graduate</p>
                                 </div>
                             </div>
-                            <p className="text-gray-700 italic">"The progress tracking feature is amazing! I can see exactly where I need to improve. Got my dream job thanks to the interview prep quizzes."</p>
+                            <p className="text-gray-700 italic">&ldquo;The progress tracking feature is amazing! I can see exactly where I need to improve. Got my dream job thanks to the interview prep quizzes.&rdquo;</p>
                         </div>
                         <div className="bg-green-50 p-8 rounded-2xl">
                             <div className="flex items-center mb-4">
@@ -241,7 +241,7 @@ const LandingPage = () => {
                                     <p className="text-gray-600 text-sm">Self-taught Developer</p>
                                 </div>
                             </div>
-                            <p className="text-gray-700 italic">"Perfect for self-study! The explanations are clear, and competing with others made learning fun. Highly recommend for coding beginners."</p>
+                            <p className="text-gray-700 italic">&ldquo;Perfect for self-study! The explanations are clear, and competing with others made learning fun. Highly recommend for coding beginners.&rdquo;</p>
                         </div>
                     </div>
                 </div>
