@@ -13,21 +13,21 @@ export const recentResults = [
     { quiz: 'Binary Trees Basics', score: 85, date: '2 days ago', category: 'Data Structures' },
     { quiz: 'DP on Strings', score: 92, date: '5 days ago', category: 'Dynamic Programming' },
     { quiz: 'Graph Traversal', score: 78, date: '1 week ago', category: 'Graph Algorithms' }
-  ];
+];
 
-  export const leaderboard = [
+export const leaderboard = [
     { rank: 1, name: 'Alex Chen', score: 2845, avatar: 'AC' },
     { rank: 2, name: 'Sarah Kim', score: 2720, avatar: 'SK' },
     { rank: 3, name: 'Mike Johnson', score: 2680, avatar: 'MJ' },
     { rank: 4, name: 'You', score: 2340, avatar: 'YU', isUser: true },
     { rank: 5, name: 'Emma Davis', score: 2280, avatar: 'ED' }
-  ];
+];
 
-  export const getDifficultyColor = (difficulty) => {
+export const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
-      case 'Easy': return 'text-green-600 bg-green-50';
-      case 'Medium': return 'text-yellow-600 bg-yellow-50';
-      case 'Hard': return 'text-red-600 bg-red-50';
-      default: return 'text-gray-600 bg-gray-50';
+        case 'Easy': return 'text-green-600 bg-green-50';
+        case 'Medium': return 'text-yellow-600 bg-yellow-50';
+        case 'Hard': return 'text-red-600 bg-red-50';
+        default: return 'text-gray-600 bg-gray-50';
     }
-  };
+};
