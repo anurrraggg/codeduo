@@ -119,7 +119,7 @@ const LoginPage = () => {
 
                     {/* Social Logins */}
                     <div className="space-y-4">
-                        <button className="w-full flex items-center justify-center py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                        <button className="w-full flex items-center cursor-pointer justify-center py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
                             <GoogleIcon className="w-5 h-5 mr-3" />
                             Continue with Google
                         </button>
