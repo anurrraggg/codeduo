@@ -114,7 +114,7 @@ const UserProfilePage = () => {
                   <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-purple-600 font-bold text-2xl shadow-lg">
                     {profileData.firstName[0]}{profileData.lastName[0]}
                   </div>
-                  <button className="absolute bottom-0 right-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white hover:bg-purple-700 transition-colors">
+                  <button className="absolute bottom-0 cursor-pointer right-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white hover:bg-purple-700 transition-colors">
                     <Camera className="w-4 h-4" />
                   </button>
                 </div>
@@ -129,7 +129,7 @@ const UserProfilePage = () => {
               </div>
               <button 
                 onClick={() => setEditMode(!editMode)}
-                className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-colors flex items-center space-x-2"
+                className="bg-white/20 cursor-pointer backdrop-blur-sm text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-colors flex items-center space-x-2"
               >
                 <Edit3 className="w-4 h-4" />
                 <span>{editMode ? 'Cancel' : 'Edit Profile'}</span>
@@ -151,7 +151,7 @@ const UserProfilePage = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 py-4 border-b-2 transition-colors ${
+                  className={`flex items-center cursor-pointer space-x-2 py-4 border-b-2 transition-colors ${
                     activeTab === tab.id
                       ? 'border-purple-600 text-purple-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700'
@@ -398,7 +398,7 @@ const UserProfilePage = () => {
 
                     <button
                       onClick={handlePasswordChange}
-                      className="w-full py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg hover:shadow-lg transition-all font-medium"
+                      className="w-full py-3 cursor-pointer bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg hover:shadow-lg transition-all font-medium"
                     >
                       Update Password
                     </button>
@@ -413,7 +413,7 @@ const UserProfilePage = () => {
                         <h4 className="font-medium text-gray-900">Authenticator App</h4>
                         <p className="text-sm text-gray-600">Use an authenticator app to generate verification codes</p>
                       </div>
-                      <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                      <button className="px-4 py-2 bg-green-600 text-white cursor-pointer rounded-lg hover:bg-green-700 transition-colors">
                         Enable
                       </button>
                     </div>
@@ -430,7 +430,7 @@ const UserProfilePage = () => {
                       </div>
                       <button
                         onClick={handleDeleteAccount}
-                        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2"
+                        className="px-4 py-2 bg-red-600 text-white cursor-pointer rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2"
                       >
                         <Trash2 className="w-4 h-4" />
                         <span>Delete</span>
