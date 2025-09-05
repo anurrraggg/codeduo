@@ -103,8 +103,8 @@ const AboutPage = () => {
                             <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
                             <p className="text-gray-600 leading-relaxed">
                                 To bridge the gap between complex programming concepts and accessible learning methodologies.
-                                We're committed to transforming programming education from an overwhelming academic pursuit
-                                into an enjoyable daily routine that respects learners' time constraints and cognitive load.
+                                We&apos;re committed to transforming programming education from an overwhelming academic pursuit
+                                into an enjoyable daily routine that respects learners&apos; time constraints and cognitive load.
                             </p>
                         </div>
 
@@ -127,7 +127,7 @@ const AboutPage = () => {
             <section className="py-16 bg-gradient-to-r from-purple-50 to-purple-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h3 className="text-3xl font-bold text-gray-900 mb-4">The Challenge We're Solving</h3>
+                        <h3 className="text-3xl font-bold text-gray-900 mb-4">The Challenge We&apos;re Solving</h3>
                         <p className="text-gray-600 max-w-3xl mx-auto">
                             Current educational platforms struggle with learner retention and engagement, creating barriers
                             that prevent many aspiring programmers from achieving their goals.
@@ -160,7 +160,7 @@ const AboutPage = () => {
                         <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-8 shadow-lg text-white">
                             <h4 className="text-xl font-bold mb-4">Our Solution</h4>
                             <p className="mb-6 opacity-90">
-                                CodeDuo transforms programming education using Duolingo's proven methodology,
+                                CodeDuo transforms programming education using Duolingo&apos;s proven methodology,
                                 breaking complex topics into engaging, bite-sized lessons with gamified elements.
                             </p>
                             <div className="flex items-center space-x-2 text-purple-100">
