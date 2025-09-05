@@ -29,11 +29,11 @@ const DashboardPage = () => {
               </h1>
             </Link>
 
-            <div className="flex items-center space-x-4">
+            <button onClick={() => router.push('/profile')} className="flex items-center space-x-4">
               <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-purple-200 transition-colors">
                 <User className="w-5 h-5 text-purple-600" />
               </div>
-            </div>
+            </button>
           </div>
         </div>
       </header>

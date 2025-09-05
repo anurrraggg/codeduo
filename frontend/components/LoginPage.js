@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail, Lock } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -35,6 +35,11 @@ const GoogleIcon = ({ className = "w-5 h-5", ...props }) => {
 };
 
 const LoginPage = () => {
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+    })
     const router = useRouter();
 
     const handleLogin = (e) => {
