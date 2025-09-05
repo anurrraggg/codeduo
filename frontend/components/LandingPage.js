@@ -27,7 +27,7 @@ const LandingPage = () => {
                                 Track your progress, compete with peers, and level up your coding skills.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <button onClick={() => openPage('/dashboard')} className="bg-gradient-to-r cursor-pointer from-purple-500 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-lg flex items-center justify-center space-x-2">
+                                <button onClick={() => openPage('/quiz/0')} className="bg-gradient-to-r cursor-pointer from-purple-500 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-lg flex items-center justify-center space-x-2">
                                     <span>Start Demo Quiz</span>
                                 </button>
                                 <button onClick={() => openPage('/about')} className="bg-white cursor-pointer text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold border-2 border-purple-200 hover:border-purple-300 transition-all duration-200 flex items-center justify-center space-x-2">
