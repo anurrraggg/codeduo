@@ -159,7 +159,7 @@ const AboutPage = () => {
                     <div className="flex flex-wrap justify-center gap-8 md:gap-12">
                         {teamMembers.map((member) => (
                             <div key={member.name} className="text-center">
-                                <div className="w-32 h-32 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full mx-auto mb-4 shadow-md flex items-center justify-center text-white font-bold text-3xl">
+                                <div className="w-32 h-32 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full mx-auto mb-4 shadow-md flex items-center justify-center text-white font-bold text-5xl">
                                     {member.name.split(' ').map(n => n[0]).join('')}
                                 </div>
                                 <h4 className="font-bold text-lg text-slate-800">{member.name}</h4>
