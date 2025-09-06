@@ -1,14 +1,46 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Play, BarChart3, Trophy, User, Code, Users, Clock, Target, TrendingUp } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getDifficultyColor, leaderboard, quizCategories, recentResults } from '@/services/DashboardService';
 import Image from 'next/image';
+import { getUser } from '@/services/UserService';
+import { toast } from 'react-toastify';
+import Loader from './Loader';
 
 const DashboardPage = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('browse');
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = () => {
+      try {
+        const data = getUser();
+
+        if (data && data.id) {
+          setUser(data);
+        } else {
+          toast.error('User not found or invalid credentials.');
+          router.push('/');
+        }
+      } catch (err) {
+        toast.error('Error fetching user: ' + err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  
+  if (loading) {
+    return <Loader />;
+  }
+
   const openQuiz = (id) => {
     router.push(`/quiz/${id}`)
   }
