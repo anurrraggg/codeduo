@@ -36,7 +36,7 @@ const DashboardPage = () => {
     fetchUser();
   }, []);
 
-  
+
   if (loading) {
     return <LoaderPage />;
   }
@@ -115,25 +115,28 @@ const DashboardPage = () => {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex space-x-1 bg-purple-50 p-1 rounded-lg mb-8 w-fit">
-          {[
-            { id: 'browse', label: 'Browse Quizzes', icon: <Code className="w-4 h-4" /> },
-            { id: 'results', label: 'Recent Results', icon: <BarChart3 className="w-4 h-4" /> },
-            { id: 'leaderboard', label: 'Leaderboard', icon: <Trophy className="w-4 h-4" /> }
-          ].map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-all duration-200 cursor-pointer ${activeTab === tab.id
-                ? 'bg-white text-purple-600 shadow-sm'
-                : 'text-gray-600 hover:text-purple-600'
-                }`}
-            >
-              {tab.icon}
-              <span className="font-medium">{tab.label}</span>
-            </button>
-          ))}
+        <div className="w-full overflow-x-auto">
+          <div className="flex space-x-1 bg-purple-50 p-1 rounded-lg mb-8 w-fit">
+            {[
+              { id: 'browse', label: 'Browse Quizzes', icon: <Code className="w-4 h-4" /> },
+              { id: 'results', label: 'Recent Results', icon: <BarChart3 className="w-4 h-4" /> },
+              { id: 'leaderboard', label: 'Leaderboard', icon: <Trophy className="w-4 h-4" /> }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-all duration-200 cursor-pointer ${activeTab === tab.id
+                    ? 'bg-white text-purple-600 shadow-sm'
+                    : 'text-gray-600 hover:text-purple-600'
+                  }`}
+              >
+                {tab.icon}
+                <span className="font-medium">{tab.label}</span>
+              </button>
+            ))}
+          </div>
         </div>
+
 
         {/* Content based on active tab */}
         {activeTab === 'browse' && (

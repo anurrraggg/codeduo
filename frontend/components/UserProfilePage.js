@@ -149,7 +149,7 @@ const UserProfilePage = () => {
         {/* Profile Card */}
         <div className="bg-white rounded-2xl shadow-lg mb-8 overflow-hidden">
           <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-8 py-6">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-10">
               <div className="flex items-center space-x-6">
                 <div className="relative">
                   <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-purple-600 font-bold text-2xl shadow-lg">
@@ -182,7 +182,7 @@ const UserProfilePage = () => {
         {/* Tab Navigation */}
         <div className="bg-white rounded-2xl shadow-lg">
           <div className="border-b border-gray-200">
-            <nav className="flex space-x-8 px-6">
+            <nav className="flex space-x-8 px-6 overflow-x-auto">
               {[
                 { id: 'profile', label: 'Profile Info', icon: <User className="w-4 h-4" /> },
                 { id: 'security', label: 'Security', icon: <Lock className="w-4 h-4" /> },
