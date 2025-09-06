@@ -94,7 +94,7 @@ const UserProfilePage = () => {
   }
 
   if (!user || !profileData) {
-    router.push('/');
+    return;
   }
 
   const handleProfileUpdate = (field, value) => {
