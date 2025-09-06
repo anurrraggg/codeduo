@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { login } from '@/services/UserService';
+import Image from 'next/image';
 
 const GoogleIcon = ({ className = "w-5 h-5", ...props }) => {
     return (
@@ -77,10 +78,8 @@ const LoginPage = () => {
             <div className="w-full max-w-md">
                 <div className="bg-white/80 backdrop-blur-xl border border-purple-100 rounded-2xl shadow-2xl p-8 md:p-12 animate-float">
                     <div className="flex flex-col items-center mb-8">
-                        <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
-                            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                            </svg>
+                        <div className="w-25 h-25 bg-gradient-to-r from-purple-200 to-purple-400 rounded-xl flex items-center justify-center mb-4">
+                            <Image className="w-18" src='/images/mascot.png' height={200} width={200} />
                         </div>
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
                             CodeDuo
