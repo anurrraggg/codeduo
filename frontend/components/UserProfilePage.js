@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { getUser, logout } from '@/services/UserService';
 import { useRouter } from 'next/navigation';
-import Loader from './Loader';
+import LoaderPage from './LoaderPage';
 import { toast } from 'react-toastify';
 
 const UserProfilePage = () => {
@@ -90,7 +90,7 @@ const UserProfilePage = () => {
   }, [router]);
 
   if (loading) {
-    return <Loader />;
+    return <LoaderPage />;
   }
 
   if (!user || !profileData) {
