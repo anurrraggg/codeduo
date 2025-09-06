@@ -1,46 +1,39 @@
 'use client';
-import React, { useState } from 'react';
-import { 
-  Code, 
-  User, 
-  Lock, 
-  Bell, 
-  Shield, 
-  Globe, 
-  Camera, 
-  Save, 
-  Eye, 
+import React, { useEffect, useState } from 'react';
+import {
+  Code,
+  User,
+  Lock,
+  Bell,
+  Shield,
+  Globe,
+  Camera,
+  Save,
+  Eye,
   EyeOff,
   MapPin,
   Github,
   Linkedin,
   Twitter,
   Edit3,
-  Trash2} from 'lucide-react';
+  Trash2
+} from 'lucide-react';
+import { getUser, logout } from '@/services/UserService';
+import { useRouter } from 'next/navigation';
+import Loader from './Loader';
+import { toast } from 'react-toastify';
 
 const UserProfilePage = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('profile');
+  const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
+  const [user, setUser] = useState(null);
+  const [profileData, setProfileData] = useState(null);
+
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  // User profile data
-  const [profileData, setProfileData] = useState({
-    firstName: 'Alex',
-    lastName: 'Johnson',
-    username: 'alexcodes',
-    email: 'alex.johnson@email.com',
-    bio: 'Full-stack developer passionate about algorithms and data structures. Always learning, always coding!',
-    location: 'San Francisco, CA',
-    dateOfBirth: '1995-06-15',
-    website: 'https://alexjohnson.dev',
-    github: 'alexjohnson',
-    linkedin: 'alex-johnson-dev',
-    twitter: 'alexcodes',
-    isPublic: true,
-    profileImage: null
-  });
 
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
@@ -67,6 +60,48 @@ const UserProfilePage = () => {
     showActivity: true
   });
 
+  useEffect(() => {
+    const fetchUser = () => {
+      try {
+        const data = getUser();
+
+        if (data && data.id) {
+          setUser(data);
+          setProfileData({
+            username: data.username || 'User',
+            email: data.email || '',
+            bio: 'Full-stack developer passionate about algorithms and data structures. Always learning, always coding!',
+            location: 'San Francisco, CA',
+            dateOfBirth: '1995-06-15',
+            website: 'https://alexjohnson.dev',
+            github: 'alexjohnson',
+            linkedin: 'alex-johnson-dev',
+            twitter: 'alexcodes',
+            isPublic: true,
+            profileImage: null
+          });
+        } else {
+          toast.error('User not found or invalid credentials.');
+          router.push('/');
+        }
+      } catch (err) {
+        toast.error('Error fetching user: ' + err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [router]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!user || !profileData) {
+    router.push('/');
+  }
+
   const handleProfileUpdate = (field, value) => {
     setProfileData(prev => ({ ...prev, [field]: value }));
   };
@@ -81,26 +116,37 @@ const UserProfilePage = () => {
 
   const handleSaveProfile = () => {
     // API call to save profile
-    alert('Profile updated successfully!');
+    toast.success('Profile updated successfully!');
     setEditMode(false);
   };
 
   const handlePasswordChange = () => {
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      alert('Passwords do not match!');
+      toast.error('Passwords do not match!');
       return;
     }
     // API call to change password
-    alert('Password changed successfully!');
+    toast.success('Password changed successfully!');
     setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
   };
 
   const handleDeleteAccount = () => {
     if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
       // API call to delete account
-      alert('Account deletion initiated. You will receive a confirmation email.');
+      toast.success('Account deletion initiated. You will receive a confirmation email.');
     }
   };
+
+  const handleLogout = () => {
+    try {
+      logout();
+      toast.success('Account deletion initiated. You will receive a confirmation email.');
+      router.push('/');
+    } catch (err) {
+      toast.error('Failed to delete account. Please try again.');
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
@@ -112,14 +158,14 @@ const UserProfilePage = () => {
               <div className="flex items-center space-x-6">
                 <div className="relative">
                   <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-purple-600 font-bold text-2xl shadow-lg">
-                    {profileData.firstName[0]}{profileData.lastName[0]}
+                    {profileData.username[0]}
                   </div>
                   <button className="absolute bottom-0 cursor-pointer right-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white hover:bg-purple-700 transition-colors">
                     <Camera className="w-4 h-4" />
                   </button>
                 </div>
                 <div className="text-white">
-                  <h1 className="text-3xl font-bold mb-1">{profileData.firstName} {profileData.lastName}</h1>
+                  <h1 className="text-3xl font-bold mb-1">{profileData.username}</h1>
                   <p className="text-purple-100 mb-2">@{profileData.username}</p>
                   <div className="flex items-center space-x-1 text-sm">
                     <MapPin className="w-4 h-4" />
@@ -127,7 +173,7 @@ const UserProfilePage = () => {
                   </div>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setEditMode(!editMode)}
                 className="bg-white/20 cursor-pointer backdrop-blur-sm text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-colors flex items-center space-x-2"
               >
@@ -151,11 +197,10 @@ const UserProfilePage = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center cursor-pointer space-x-2 py-4 border-b-2 transition-colors ${
-                    activeTab === tab.id
-                      ? 'border-purple-600 text-purple-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
-                  }`}
+                  className={`flex items-center cursor-pointer space-x-2 py-4 border-b-2 transition-colors ${activeTab === tab.id
+                    ? 'border-purple-600 text-purple-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
                 >
                   {tab.icon}
                   <span className="font-medium">{tab.label}</span>
@@ -169,30 +214,8 @@ const UserProfilePage = () => {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Personal Information</h3>
-                  
+
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                      <input
-                        type="text"
-                        value={profileData.firstName}
-                        onChange={(e) => handleProfileUpdate('firstName', e.target.value)}
-                        disabled={!editMode}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                      <input
-                        type="text"
-                        value={profileData.lastName}
-                        onChange={(e) => handleProfileUpdate('lastName', e.target.value)}
-                        disabled={!editMode}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Username</label>
                       <input
@@ -214,130 +237,45 @@ const UserProfilePage = () => {
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
                       />
                     </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                      <input
-                        type="text"
-                        value={profileData.location}
-                        onChange={(e) => handleProfileUpdate('location', e.target.value)}
-                        disabled={!editMode}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
-                      <input
-                        type="date"
-                        value={profileData.dateOfBirth}
-                        onChange={(e) => handleProfileUpdate('dateOfBirth', e.target.value)}
-                        disabled={!editMode}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="mt-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
-                    <textarea
-                      value={profileData.bio}
-                      onChange={(e) => handleProfileUpdate('bio', e.target.value)}
-                      disabled={!editMode}
-                      rows={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-                      placeholder="Tell us about yourself..."
-                    />
                   </div>
                 </div>
 
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Social Links</h3>
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <Globe className="w-5 h-5 text-gray-600" />
-                      </div>
-                      <input
-                        type="url"
-                        value={profileData.website}
-                        onChange={(e) => handleProfileUpdate('website', e.target.value)}
-                        disabled={!editMode}
-                        placeholder="Your website URL"
-                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <Github className="w-5 h-5 text-gray-600" />
-                      </div>
-                      <input
-                        type="text"
-                        value={profileData.github}
-                        onChange={(e) => handleProfileUpdate('github', e.target.value)}
-                        disabled={!editMode}
-                        placeholder="GitHub username"
-                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <Linkedin className="w-5 h-5 text-gray-600" />
-                      </div>
-                      <input
-                        type="text"
-                        value={profileData.linkedin}
-                        onChange={(e) => handleProfileUpdate('linkedin', e.target.value)}
-                        disabled={!editMode}
-                        placeholder="LinkedIn username"
-                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <Twitter className="w-5 h-5 text-gray-600" />
-                      </div>
-                      <input
-                        type="text"
-                        value={profileData.twitter}
-                        onChange={(e) => handleProfileUpdate('twitter', e.target.value)}
-                        disabled={!editMode}
-                        placeholder="Twitter username"
-                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
+                <div className={`flex items-center ${editMode ? 'justify-between':'justify-start'} space-x-4 pt-6 border-t border-gray-200`}>
+                  <div>
+                    <button
+                      onClick={handleLogout}
+                      className="px-6 py-2 bg-gradient-to-r cursor-pointer from-purple-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all"
+                    >
+                      Logout
+                    </button>
                   </div>
+                  {editMode && (
+                    <div className='flex items-center justify-end space-x-4'>
+                      <button
+                        onClick={() => setEditMode(false)}
+                        className="px-6 py-2 border border-gray-300 cursor-pointer text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={handleSaveProfile}
+                        className="px-6 py-2 bg-gradient-to-r from-purple-600 to-purple-700 cursor-pointer text-white rounded-lg hover:shadow-lg transition-all flex items-center space-x-2"
+                      >
+                        <Save className="w-4 h-4" />
+                        <span>Save Changes</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
-
-                {editMode && (
-                  <div className="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
-                    <button
-                      onClick={() => setEditMode(false)}
-                      className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={handleSaveProfile}
-                      className="px-6 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg hover:shadow-lg transition-all flex items-center space-x-2"
-                    >
-                      <Save className="w-4 h-4" />
-                      <span>Save Changes</span>
-                    </button>
-                  </div>
-                )}
               </div>
             )}
+
 
             {activeTab === 'security' && (
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Change Password</h3>
-                  
+
                   <div className="space-y-4 max-w-md">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
@@ -345,7 +283,7 @@ const UserProfilePage = () => {
                         <input
                           type={showCurrentPassword ? "text" : "password"}
                           value={passwordData.currentPassword}
-                          onChange={(e) => setPasswordData(prev => ({...prev, currentPassword: e.target.value}))}
+                          onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
                           className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                         />
                         <button
@@ -364,7 +302,7 @@ const UserProfilePage = () => {
                         <input
                           type={showNewPassword ? "text" : "password"}
                           value={passwordData.newPassword}
-                          onChange={(e) => setPasswordData(prev => ({...prev, newPassword: e.target.value}))}
+                          onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
                           className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                         />
                         <button
@@ -383,7 +321,7 @@ const UserProfilePage = () => {
                         <input
                           type={showConfirmPassword ? "text" : "password"}
                           value={passwordData.confirmPassword}
-                          onChange={(e) => setPasswordData(prev => ({...prev, confirmPassword: e.target.value}))}
+                          onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
                           className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                         />
                         <button
@@ -445,7 +383,7 @@ const UserProfilePage = () => {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Email Notifications</h3>
-                  
+
                   <div className="space-y-4">
                     {[
                       { key: 'emailNotifications', label: 'Email Notifications', desc: 'Receive notifications via email' },
@@ -481,7 +419,7 @@ const UserProfilePage = () => {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Profile Privacy</h3>
-                  
+
                   <div className="space-y-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-3">Profile Visibility</label>
