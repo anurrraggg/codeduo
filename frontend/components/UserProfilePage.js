@@ -93,10 +93,6 @@ const UserProfilePage = () => {
     return <LoaderPage />;
   }
 
-  if (!user || !profileData) {
-    router.push('/');
-  }
-
   const handleProfileUpdate = (field, value) => {
     setProfileData(prev => ({ ...prev, [field]: value }));
   };
