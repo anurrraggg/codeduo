@@ -1,20 +1,15 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import {
-  Code,
   User,
   Lock,
   Bell,
   Shield,
-  Globe,
   Camera,
   Save,
   Eye,
   EyeOff,
   MapPin,
-  Github,
-  Linkedin,
-  Twitter,
   Edit3,
   Trash2
 } from 'lucide-react';
@@ -240,7 +235,7 @@ const UserProfilePage = () => {
                   </div>
                 </div>
 
-                <div className={`flex items-center ${editMode ? 'justify-between':'justify-start'} space-x-4 pt-6 border-t border-gray-200`}>
+                <div className={`flex items-center ${editMode ? 'justify-between' : 'justify-start'} space-x-4 pt-6 border-t border-gray-200`}>
                   <div>
                     <button
                       onClick={handleLogout}

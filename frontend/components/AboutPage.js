@@ -63,22 +63,22 @@ const AboutPage = () => {
 
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div className="bg-white rounded-2xl p-8 shadow-lg">
-                            <h4 className="text-xl font-bold text-gray-900 mb-4 text-red-600">The Problem</h4>
+                            <h4 className="text-xl font-bold text-gray-900 mb-4 text-rose-400">The Problem</h4>
                             <ul className="space-y-3 text-gray-600">
                                 <li className="flex items-start space-x-3">
-                                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <div className="w-2 h-2 bg-rose-400 rounded-full mt-2 flex-shrink-0"></div>
                                     <span>High abandonment rates due to overwhelming content delivery</span>
                                 </li>
                                 <li className="flex items-start space-x-3">
-                                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <div className="w-2 h-2 bg-rose-400 rounded-full mt-2 flex-shrink-0"></div>
                                     <span>Steep learning curves that intimidate beginners</span>
                                 </li>
                                 <li className="flex items-start space-x-3">
-                                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <div className="w-2 h-2 bg-rose-400 rounded-full mt-2 flex-shrink-0"></div>
                                     <span>Lack of structured progression and interactive feedback</span>
                                 </li>
                                 <li className="flex items-start space-x-3">
-                                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <div className="w-2 h-2 bg-rose-400 rounded-full mt-2 flex-shrink-0"></div>
                                     <span>Inconsistent learning habits and decreased motivation</span>
                                 </li>
                             </ul>
@@ -159,7 +159,7 @@ const AboutPage = () => {
                     <div className="flex flex-wrap justify-center gap-8 md:gap-12">
                         {teamMembers.map((member) => (
                             <div key={member.name} className="text-center">
-                                <div className="w-32 h-32 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full mx-auto mb-4 shadow-md flex items-center justify-center text-white font-bold text-3xl">
+                                <div className="w-32 h-32 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full mx-auto mb-4 shadow-md flex items-center justify-center text-white font-bold text-5xl">
                                     {member.name.split(' ').map(n => n[0]).join('')}
                                 </div>
                                 <h4 className="font-bold text-lg text-slate-800">{member.name}</h4>
