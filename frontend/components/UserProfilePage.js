@@ -93,6 +93,10 @@ const UserProfilePage = () => {
     return <LoaderPage />;
   }
 
+  if (!user || !profileData) {
+    return;
+  }
+
   const handleProfileUpdate = (field, value) => {
     setProfileData(prev => ({ ...prev, [field]: value }));
   };
