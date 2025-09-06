@@ -79,7 +79,7 @@ const LoginPage = () => {
                 <div className="bg-white/80 backdrop-blur-xl border border-purple-100 rounded-2xl shadow-2xl p-8 md:p-12 animate-float">
                     <div className="flex flex-col items-center mb-8">
                         <div className="w-25 h-25 bg-gradient-to-r from-purple-200 to-purple-400 rounded-xl flex items-center justify-center mb-4">
-                            <Image className="w-18" src='/images/mascot.png' height={200} width={200} />
+                            <Image className="w-18" src='/images/mascot.png' height={200} width={200} alt='mascot' />
                         </div>
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
                             CodeDuo

@@ -7,7 +7,7 @@ import { getDifficultyColor, leaderboard, quizCategories, recentResults } from '
 import Image from 'next/image';
 import { getUser } from '@/services/UserService';
 import { toast } from 'react-toastify';
-import Loader from './Loader';
+import LoaderPage from './LoaderPage';
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -38,7 +38,7 @@ const DashboardPage = () => {
 
   
   if (loading) {
-    return <Loader />;
+    return <LoaderPage />;
   }
 
   const openQuiz = (id) => {
