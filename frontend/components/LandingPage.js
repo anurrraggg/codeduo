@@ -1,10 +1,39 @@
 'use client';
+import { getUser } from '@/services/UserService';
+import { Loader } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const LandingPage = () => {
     const router = useRouter();
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchUser = () => {
+            try {
+                const data = getUser();
+
+                if (data && data.id) {
+                    setUser(data);
+                } else {
+                    toast.error('User not found or invalid credentials.');
+                }
+            } catch (err) {
+                toast.error('Error fetching user: ' + err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUser();
+    }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     const openPage = (link) => {
         router.push(link);
@@ -291,9 +320,9 @@ const LandingPage = () => {
                         Join thousands of students already mastering algorithms, data structures, and more through gamified learning.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <button onClick={() => openPage('/dashboard')} className="bg-white cursor-pointer text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-200 shadow-lg flex items-center justify-center space-x-2">
+                        <Link href={user ? '/dashboard' : '/login'} className="bg-white cursor-pointer text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-200 shadow-lg flex items-center justify-center space-x-2">
                             <span>Start Your First Quiz</span>
-                        </button>
+                        </Link>
                         <button onClick={() => openPage('/about')} className="bg-transparent cursor-pointer text-white border-2 border-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-purple-600 transition-all duration-200 flex items-center justify-center space-x-2">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
@@ -316,7 +345,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </div>
-            </section>            
+            </section>
         </div>
     );
 };
