@@ -1,11 +1,11 @@
 'use client';
 import { getUser } from '@/services/UserService';
-import { Loader, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'; // Import useState
 import { toast } from 'react-toastify';
+import LoaderPage from './LoaderPage';
 
 function Header() {
     const router = useRouter();
@@ -34,7 +34,7 @@ function Header() {
     }, [router]);
 
     if (loading) {
-        return <Loader />;
+        return <LoaderPage />;
     }
 
     const openPage = (link) => {
@@ -51,9 +51,9 @@ function Header() {
         <nav className={'bg-white/80 backdrop-blur-md border-b border-purple-100 sticky top-0 z-50 transition-shadow '}>
             <div className="max-w-7xl mx-auto px-6 py-2">
                 <div className="flex items-center justify-between">
-                    <button onClick={() => openPage('/')} className="cursor-pointer">
+                    <Link href='/' className="cursor-pointer">
                         <Image className='w-40' height={10} width={180} src={'/icons/logo.png'} alt="logo" />
-                    </button>
+                    </Link>
 
                     {/* Desktop Menu */}
                     <div className='hidden lg:flex items-center justify-end space-x-5'>
