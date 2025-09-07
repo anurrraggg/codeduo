@@ -8,38 +8,88 @@ import Image from 'next/image';
 import { getUser } from '@/services/UserService';
 import { toast } from 'react-toastify';
 import LoaderPage from './LoaderPage';
+import PerformanceRadarChart from './PerformanceRadarChart';
+import { kmeans } from 'ml-kmeans';
 
 const DashboardPage = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('browse');
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [playerType, setPlayerType] = useState(null);
 
   useEffect(() => {
-    const fetchUser = () => {
+    const fetchUserAndCluster = () => {
       try {
         const data = getUser();
 
         if (data && data.id) {
-          setUser(data);
+          // Add dummy parameters directly to the user
+          const updatedUser = {
+            ...data,
+            Accuracy: 85,
+            Speed: 90,
+            Consistency: 80,
+            ProblemSolving: 88,
+            KnowledgeBreadth: 75,
+            Endurance: 82,
+            Improvement_Rate: 70,
+          };
+
+          setUser(updatedUser);
+
+          // Simple rule-based "clustering" for a single user
+          const avgScore =
+            (updatedUser.Accuracy +
+              updatedUser.Speed +
+              updatedUser.Consistency +
+              updatedUser.ProblemSolving +
+              updatedUser.KnowledgeBreadth +
+              updatedUser.Endurance +
+              updatedUser.Improvement_Rate) /
+            7;
+
+          let playerType = "Analyzing...";
+
+          if (avgScore >= 85) {
+            playerType = "Top Performer";
+          } else if (avgScore >= 70) {
+            playerType = "Balanced Improver";
+          } else if (avgScore >= 55) {
+            playerType = "Consistent Specialist";
+          } else {
+            playerType = "Developing Learner";
+          }
+
+          setPlayerType(playerType);
         } else {
-          toast.error('User not found or invalid credentials.');
-          router.push('/');
+          toast.error("User not found or invalid credentials.");
+          router.push("/");
         }
       } catch (err) {
-        toast.error('Error fetching user: ' + err.message);
+        toast.error("Error during setup: " + err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUser();
-  }, []);
 
+    fetchUserAndCluster();
+  }, []);
 
   if (loading) {
     return <LoaderPage />;
   }
+
+  const getClusterBadgeColor = (clusterName) => {
+    switch (clusterName) {
+      case 'Top Performer': return 'bg-purple-100 text-purple-700';
+      case 'Consistent Specialist': return 'bg-blue-100 text-blue-700';
+      case 'Balanced Improver': return 'bg-green-100 text-green-700';
+      case 'Developing Learner': return 'bg-yellow-100 text-yellow-700';
+      default: return 'bg-gray-100 text-gray-700';
+    }
+  };
 
   const openQuiz = (id) => {
     router.push(`/quiz/${id}`)
@@ -67,8 +117,32 @@ const DashboardPage = () => {
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome back, Developer!</h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome back, {user.username}!</h2>
           <p className="text-gray-600">Ready to challenge your coding knowledge today?</p>
+        </div>
+
+        {/* Radar Chart Section */}
+        <div className="bg-white rounded-xl p-6 border border-purple-100 hover:shadow-lg transition-shadow mb-8">
+          {/* 5. DISPLAY CLUSTER RESULT HERE */}
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-gray-800">Your Skill Profile</h3>
+            {playerType && (
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-medium ${getClusterBadgeColor(
+                  playerType
+                )}`}
+              >
+                {playerType}
+              </span>
+            )}
+          </div>
+          <div className="relative h-80">
+            {user ? (
+              <PerformanceRadarChart user={user} />
+            ) : (
+              <p className="text-gray-500 text-center mt-12">Loading profile...</p>
+            )}
+          </div>
         </div>
 
         {/* Stats Cards */}
@@ -126,8 +200,8 @@ const DashboardPage = () => {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-all duration-200 cursor-pointer ${activeTab === tab.id
-                    ? 'bg-white text-purple-600 shadow-sm'
-                    : 'text-gray-600 hover:text-purple-600'
+                  ? 'bg-white text-purple-600 shadow-sm'
+                  : 'text-gray-600 hover:text-purple-600'
                   }`}
               >
                 {tab.icon}
