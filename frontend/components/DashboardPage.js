@@ -92,7 +92,7 @@ const DashboardPage = () => {
   };
 
   const openQuiz = (id) => {
-    router.push(`/quiz/${id}`)
+    router.push(`/quiz?${id}`);
   }
 
   return (
