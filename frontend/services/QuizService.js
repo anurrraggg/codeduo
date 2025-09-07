@@ -140,3 +140,106 @@ export const quizQuestions = [
         explanation: "Building a heap from an unsorted array using bottom-up heapify takes O(n) time."
     }
 ];
+
+export const quizzes = [
+    {
+        id: 1,
+        title: 'Binary Tree Fundamentals',
+        category: 'Data Structures',
+        difficulty: 'Beginner',
+        duration: '15 min',
+        questions: 20,
+        participants: 2847,
+        rating: 4.8,
+        description: 'Master the basics of binary trees with traversal algorithms and basic operations.',
+        tags: ['Trees', 'Traversal', 'Recursion'],
+        isPopular: true
+    },
+    {
+        id: 2,
+        title: 'Dynamic Programming Mastery',
+        category: 'Dynamic Programming',
+        difficulty: 'Advanced',
+        duration: '25 min',
+        questions: 15,
+        participants: 1523,
+        rating: 4.9,
+        description: 'Solve complex DP problems including knapsack, LIS, and optimization challenges.',
+        tags: ['Optimization', 'Memoization', 'Tabulation'],
+        isNew: true
+    },
+    {
+        id: 3,
+        title: 'Graph Traversal Algorithms',
+        category: 'Graph Algorithms',
+        difficulty: 'Intermediate',
+        duration: '18 min',
+        questions: 12,
+        participants: 1876,
+        rating: 4.7,
+        description: 'Deep dive into BFS, DFS, and shortest path algorithms.',
+        tags: ['BFS', 'DFS', 'Shortest Path']
+    },
+    {
+        id: 4,
+        title: 'Array Manipulation Techniques',
+        category: 'Data Structures',
+        difficulty: 'Beginner',
+        duration: '12 min',
+        questions: 18,
+        participants: 3421,
+        rating: 4.6,
+        description: 'Learn essential array operations, sorting, and searching techniques.',
+        tags: ['Arrays', 'Sorting', 'Searching'],
+        isPopular: true
+    },
+    {
+        id: 5,
+        title: 'Backtracking Problem Solving',
+        category: 'Backtracking',
+        difficulty: 'Intermediate',
+        duration: '20 min',
+        questions: 14,
+        participants: 987,
+        rating: 4.8,
+        description: 'Solve N-Queens, Sudoku, and permutation problems using backtracking.',
+        tags: ['N-Queens', 'Sudoku', 'Permutations']
+    },
+    {
+        id: 6,
+        title: 'System Design Fundamentals',
+        category: 'System Design',
+        difficulty: 'Advanced',
+        duration: '30 min',
+        questions: 10,
+        participants: 756,
+        rating: 4.9,
+        description: 'Learn scalability, load balancing, and distributed system concepts.',
+        tags: ['Scalability', 'Load Balancing', 'Distributed Systems'],
+        isNew: true
+    },
+    {
+        id: 7,
+        title: 'Sorting Algorithm Deep Dive',
+        category: 'Algorithms',
+        difficulty: 'Intermediate',
+        duration: '16 min',
+        questions: 16,
+        participants: 2134,
+        rating: 4.7,
+        description: 'Compare and analyze various sorting algorithms and their complexities.',
+        tags: ['Quicksort', 'Mergesort', 'Time Complexity']
+    },
+    {
+        id: 8,
+        title: 'Hash Table Implementation',
+        category: 'Data Structures',
+        difficulty: 'Intermediate',
+        duration: '14 min',
+        questions: 13,
+        participants: 1654,
+        rating: 4.8,
+        description: 'Understand hash functions, collision resolution, and hash table design.',
+        tags: ['Hashing', 'Collision Resolution', 'Hash Functions']
+    }
+];
