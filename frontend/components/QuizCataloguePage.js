@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 
 export default function QuizCataloguePage({ quizCateroryId }) {
     const router = useRouter();
-    const [searchTerm, setSearchTerm] = useState('');
 
     const openQuiz = (id) => {
         router.push(`/quiz/${id}`);
