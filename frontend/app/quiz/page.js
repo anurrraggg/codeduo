@@ -1,19 +1,26 @@
 'use client';
-import Header from '@/components/Header'
-import QuizCataloguePage from '@/components/QuizCataloguePage'
-import { useSearchParams } from 'next/navigation'
-import React from 'react'
 
-function QuizCatalogue() {
-    const searchParams = useSearchParams();
-    const id = searchParams.get('id');
+import Header from '@/components/Header';
+import QuizCataloguePage from '@/components/QuizCataloguePage';
+import { useSearchParams } from 'next/navigation';
+import React, { Suspense } from 'react';
 
-    return (
-        <div>
-            <Header />
-            <QuizCataloguePage quizCateroryId={id} />
-        </div>
-    )
+function QuizCatalogueContent() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
+
+  return (
+    <div>
+      <Header />
+      <QuizCataloguePage quizCategoryId={id} />
+    </div>
+  );
 }
 
-export default QuizCatalogue
+export default function QuizCatalogue() {
+  return (
+    <Suspense fallback={<div>Loading quizzes...</div>}>
+      <QuizCatalogueContent />
+    </Suspense>
+  );
+}

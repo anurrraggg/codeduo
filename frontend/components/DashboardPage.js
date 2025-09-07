@@ -38,30 +38,50 @@ const DashboardPage = () => {
 
           setUser(updatedUser);
 
-          // Simple rule-based "clustering" for a single user
-          const avgScore =
-            (updatedUser.Accuracy +
-              updatedUser.Speed +
-              updatedUser.Consistency +
-              updatedUser.ProblemSolving +
-              updatedUser.KnowledgeBreadth +
-              updatedUser.Endurance +
-              updatedUser.Improvement_Rate) /
-            7;
+          // --- Generate dummy users for clustering ---
+          const dummyUsers = [];
+          const k = 4; // number of clusters
 
-          let playerType = "Analyzing...";
-
-          if (avgScore >= 85) {
-            playerType = "Top Performer";
-          } else if (avgScore >= 70) {
-            playerType = "Balanced Improver";
-          } else if (avgScore >= 55) {
-            playerType = "Consistent Specialist";
-          } else {
-            playerType = "Developing Learner";
+          for (let i = 0; i < 20; i++) {
+            dummyUsers.push([
+              Math.floor(Math.random() * 50) + 50, // Accuracy 50-100
+              Math.floor(Math.random() * 50) + 50, // Speed
+              Math.floor(Math.random() * 50) + 50, // Consistency
+              Math.floor(Math.random() * 50) + 50, // ProblemSolving
+              Math.floor(Math.random() * 50) + 50, // KnowledgeBreadth
+              Math.floor(Math.random() * 50) + 50, // Endurance
+              Math.floor(Math.random() * 50) + 50, // Improvement_Rate
+            ]);
           }
 
-          setPlayerType(playerType);
+          // Add current user at the end
+          const allFeatures = [
+            ...dummyUsers,
+            [
+              updatedUser.Accuracy,
+              updatedUser.Speed,
+              updatedUser.Consistency,
+              updatedUser.ProblemSolving,
+              updatedUser.KnowledgeBreadth,
+              updatedUser.Endurance,
+              updatedUser.Improvement_Rate,
+            ],
+          ];
+
+          // Run k-means
+          const result = kmeans(allFeatures, k, { seed: 42 });
+
+          // Current user is the last element
+          const userClusterIndex = result.clusters[allFeatures.length - 1];
+
+          const clusterNames = {
+            0: 'Top Performer',
+            1: 'Balanced Improver',
+            2: 'Developing Learner',
+            3: 'Consistent Specialist',
+          };
+
+          setPlayerType(clusterNames[userClusterIndex] || 'Analyzing...');
         } else {
           toast.error("User not found or invalid credentials.");
           router.push("/");
@@ -72,7 +92,6 @@ const DashboardPage = () => {
         setLoading(false);
       }
     };
-
 
     fetchUserAndCluster();
   }, []);
