@@ -109,7 +109,7 @@ const LoginPage = () => {
                         <div>
                             <div className="flex items-center justify-between">
                                 <label htmlFor="password" className="text-sm font-medium text-gray-700">Password</label>
-                                <Link href="#" className="text-sm font-medium text-purple-600 hover:text-purple-500">
+                                <Link href="/reset" className="text-sm font-medium text-purple-600 hover:text-purple-500">
                                     Forgot password?
                                 </Link>
                             </div>

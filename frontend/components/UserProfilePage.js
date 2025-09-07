@@ -235,7 +235,7 @@ const UserProfilePage = () => {
                   </div>
                 </div>
 
-                <div className={`flex items-center ${editMode ? 'justify-between' : 'justify-start'} space-x-4 pt-6 border-t border-gray-200`}>
+                <div className={`flex items-center ${editMode ? 'justify-between' : 'justify-start'} space-x-4 pt-6 border-t border-gray-200 overflow-x-auto`}>
                   <div>
                     <button
                       onClick={handleLogout}
@@ -257,7 +257,7 @@ const UserProfilePage = () => {
                         className="px-6 py-2 bg-gradient-to-r from-purple-600 to-purple-700 cursor-pointer text-white rounded-lg hover:shadow-lg transition-all flex items-center space-x-2"
                       >
                         <Save className="w-4 h-4" />
-                        <span>Save Changes</span>
+                        <span>Save</span>
                       </button>
                     </div>
                   )}
@@ -341,10 +341,10 @@ const UserProfilePage = () => {
                 <div className="border-t border-gray-200 pt-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Two-Factor Authentication</h3>
                   <div className="bg-gray-50 rounded-xl p-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row gap-8 items-center justify-between">
                       <div>
-                        <h4 className="font-medium text-gray-900">Authenticator App</h4>
-                        <p className="text-sm text-gray-600">Use an authenticator app to generate verification codes</p>
+                        <h4 className="font-medium text-gray-900">Two Factor Authentication</h4>
+                        <p className="text-sm text-gray-600">Use your email to generate verification codes before signing in to the website</p>
                       </div>
                       <button className="px-4 py-2 bg-green-600 text-white cursor-pointer rounded-lg hover:bg-green-700 transition-colors">
                         Enable
@@ -356,7 +356,7 @@ const UserProfilePage = () => {
                 <div className="border-t border-gray-200 pt-6">
                   <h3 className="text-lg font-semibold text-red-600 mb-4">Danger Zone</h3>
                   <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row gap-8 items-center justify-between">
                       <div>
                         <h4 className="font-medium text-red-900">Delete Account</h4>
                         <p className="text-sm text-red-700">Permanently delete your account and all data</p>
