@@ -48,7 +48,7 @@ const ForgotPasswordPage = () => {
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
                             Forgot Password?
                         </h1>
-                        <p className="text-gray-500 mt-2">No worries! Enter your email and we'll send you a reset link.</p>
+                        <p className="text-gray-500 mt-2">No worries! Enter your email and we&apos;ll send you a reset link.</p>
                     </div>
 
                     {/* Corrected Form */}

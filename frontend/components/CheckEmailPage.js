@@ -19,13 +19,13 @@ const CheckEmailPage = () => {
               Check Your Email
             </h1>
             <p className="text-gray-500 mt-2 max-w-sm">
-              We've sent a password reset link to your email address. Please check your inbox and follow the instructions.
+              We&apos;ve sent a password reset link to your email address. Please check your inbox and follow the instructions.
             </p>
           </div>
 
           {/* Information */}
           <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-sm text-gray-600 mb-8">
-            <p>Didn't receive the email? Check your spam folder or try again in a few minutes.</p>
+            <p>Didn&apos;t receive the email? Check your spam folder or try again in a few minutes.</p>
           </div>
 
           {/* Back to Login Link */}
