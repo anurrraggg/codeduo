@@ -109,8 +109,8 @@ function Header() {
                         </button>
                     ) : (
                         <div className='w-full flex flex-col items-center gap-5'>
-                            <button className="w-full text-center bg-white text-purple-500 px-4 py-2 rounded-lg shadow-md" onClick={() => openPage('/login')}>Sign In</button>
-                            <button className="w-full text-center bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-lg shadow-sm" onClick={() => openPage('/register')}>
+                            <button className="w-full text-center cursor-pointer bg-white text-purple-500 px-4 py-2 rounded-lg shadow-md" onClick={() => openPage('/login')}>Sign In</button>
+                            <button className="w-full text-center cursor-pointer bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-lg shadow-sm" onClick={() => openPage('/register')}>
                                 Register
                             </button>
                         </div>
