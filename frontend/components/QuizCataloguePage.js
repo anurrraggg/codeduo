@@ -3,7 +3,7 @@ import { Search, Filter, Clock, Users, Trophy, Star, Code, Database, Cpu, Networ
 import { quizzes } from '@/services/QuizService';
 import { useRouter } from 'next/navigation';
 
-export default function QuizCataloguePage({ quizCateroryId }) {
+export default function QuizCataloguePage({ quizCategoryId }) {
     const router = useRouter();
 
     const openQuiz = (id) => {
