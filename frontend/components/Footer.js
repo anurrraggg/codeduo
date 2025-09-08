@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -16,12 +17,9 @@ function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
                     <div>
                         <div className="flex items-center space-x-3 mb-6">
-                            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                                </svg>
-                            </div>
-                            <h3 className="text-2xl font-bold text-white">CodeDuo</h3>
+                            <Link href='/' className="cursor-pointer">
+                                <Image className='w-40' height={10} width={180} src={'/icons/logo2.png'} alt="logo" />
+                            </Link>
                         </div>
                         <p className="text-gray-400 mb-6">Master coding through gamified quizzes and competitive learning.</p>
                         <div className="flex space-x-4">
