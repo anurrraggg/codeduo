@@ -79,12 +79,12 @@ const RegisterPage = () => {
       });
 
       if (!user) {
-        toast.error('Registration failed. Please try again.');
+        console.error('Registration failed. Please try again.');
         setLoading(false);
         return;
       }
 
-      toast.success(`Welcome ${user.username || user.username}! Your account has been created.`);
+      toast.success(`Welcome ${user.username}! Your account has been created.`);
       router.push('/dashboard');
     } catch (err) {
       toast.error(err.message || 'An error occurred during registration.');
