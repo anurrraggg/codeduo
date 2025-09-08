@@ -59,12 +59,11 @@ const LoginPage = () => {
             });
 
             if (!result || !result.id) {
-                toast.error("Login failed");
+                console.error("Login failed");
                 setLoading(false);
                 return;
             }
 
-            toast.success(`Login successful \n You are signed in as ${result.username}`);
             setLoading(false);
             router.push('/dashboard');
         } catch (err) {
