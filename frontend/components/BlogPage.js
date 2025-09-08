@@ -2,6 +2,7 @@
 import React from 'react';
 import { Clock, Tag, TrendingUp, ChevronRight, Mail, Eye, Heart, Share2 } from 'lucide-react';
 import { blogPosts, featuredPost, getCategoryColor, recentPosts } from '@/services/BlogService';
+import Link from 'next/link';
 
 const BlogPage = () => {
     const formatDate = (dateString) => {
@@ -53,10 +54,10 @@ const BlogPage = () => {
                                         </div>
                                     </div>
 
-                                    <button className="bg-gradient-to-r from-purple-500 to-purple-600 text-white cursor-pointer px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-200 flex items-center space-x-2">
+                                    <Link href='/blogs/dsa' className="bg-gradient-to-r from-purple-500 to-purple-600 text-white cursor-pointer px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-200 flex items-center space-x-2">
                                         <span>Read More</span>
                                         <ChevronRight className="w-4 h-4" />
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -69,56 +70,67 @@ const BlogPage = () => {
                         {/* Blog Posts Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {blogPosts.map(post => (
-                                <article key={post.id} className="bg-white rounded-xl shadow-lg border border-purple-100 hover:shadow-xl transition-all duration-200 overflow-hidden group">
-                                    <div className="relative">
+                                <article
+                                    key={post.id}
+                                    className="bg-white rounded-xl shadow-lg border border-purple-100 hover:shadow-xl transition-all duration-200 overflow-hidden group"
+                                >
+                                    {/* Wrap the main card content inside the Link */}
+                                    <Link href={`/blogs/${post.id}`} className="block relative">
                                         <img
                                             src={post.image}
                                             alt={post.title}
                                             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
                                         />
                                         <div className="absolute top-4 left-4">
-                                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColor(post.category)}`}>
+                                            <span
+                                                className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColor(
+                                                    post.category
+                                                )}`}
+                                            >
                                                 {post.category}
                                             </span>
                                         </div>
-                                    </div>
 
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">
-                                            {post.title}
-                                        </h3>
+                                        <div className="p-6">
+                                            <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">
+                                                {post.title}
+                                            </h3>
 
-                                        <p className="text-gray-600 mb-4 line-clamp-3">
-                                            {post.excerpt}
-                                        </p>
+                                            <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
 
-                                        <div className="flex flex-wrap gap-2 mb-4">
-                                            {post.tags.slice(0, 3).map(tag => (
-                                                <span key={tag} className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
-                                                    #{tag}
-                                                </span>
-                                            ))}
+                                            <div className="flex flex-wrap gap-2 mb-4">
+                                                {post.tags.slice(0, 3).map((tag) => (
+                                                    <span
+                                                        key={tag}
+                                                        className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs"
+                                                    >
+                                                        #{tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </Link>
+
+                                    {/* Footer with meta + actions */}
+                                    <div className="flex items-center justify-between px-6 pb-4">
+                                        <div className="flex items-center space-x-3 text-sm text-gray-500">
+                                            <div className="flex items-center space-x-1">
+                                                <Clock className="w-4 h-4" />
+                                                <span>{post.readTime}</span>
+                                            </div>
                                         </div>
 
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center space-x-3 text-sm text-gray-500">
-                                                <div className="flex items-center space-x-1">
-                                                    <Clock className="w-4 h-4" />
-                                                    <span>{post.readTime}</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="flex items-center space-x-2">
-                                                <button className="p-2 text-gray-400 hover:text-red-500 transition-colors">
-                                                    <Heart className="w-4 h-4" />
-                                                </button>
-                                                <button className="p-2 text-gray-400 hover:text-blue-500 transition-colors">
-                                                    <Share2 className="w-4 h-4" />
-                                                </button>
-                                            </div>
+                                        <div className="flex items-center space-x-2">
+                                            <button className="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                                                <Heart className="w-4 h-4" />
+                                            </button>
+                                            <button className="p-2 text-gray-400 hover:text-blue-500 transition-colors">
+                                                <Share2 className="w-4 h-4" />
+                                            </button>
                                         </div>
                                     </div>
                                 </article>
+
                             ))}
                         </div>
                     </div>
