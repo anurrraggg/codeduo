@@ -2,6 +2,7 @@
 import React from 'react';
 import { Clock, Tag, TrendingUp, ChevronRight, Mail, Eye, Heart, Share2 } from 'lucide-react';
 import { blogPosts, featuredPost, getCategoryColor, recentPosts } from '@/services/BlogService';
+import Link from 'next/link';
 
 const BlogPage = () => {
     const formatDate = (dateString) => {
@@ -53,10 +54,10 @@ const BlogPage = () => {
                                         </div>
                                     </div>
 
-                                    <button className="bg-gradient-to-r from-purple-500 to-purple-600 text-white cursor-pointer px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-200 flex items-center space-x-2">
+                                    <Link href='/blogs/dsa' className="bg-gradient-to-r from-purple-500 to-purple-600 text-white cursor-pointer px-6 py-2 rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all duration-200 flex items-center space-x-2">
                                         <span>Read More</span>
                                         <ChevronRight className="w-4 h-4" />
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
