@@ -3,7 +3,6 @@ import { getUser } from '@/services/UserService';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import LoaderPage from './LoaderPage';
 
@@ -20,7 +19,7 @@ const LandingPage = () => {
                     setUser(data);
                 }
             } catch (err) {
-                toast.error('Error fetching user: ' + err.message);
+                console.error('Error fetching user: ' + err.message);
             } finally {
                 setLoading(false);
             }
