@@ -1,3 +1,4 @@
+'use client';
 import { USER_LOGIN_URL, USER_REGISTER_URL } from "@/shared/urls";
 import { toast } from "react-toastify";
 
@@ -64,7 +65,8 @@ export async function signup(userForm) {
         }
         
         if(response.status === 409) {
-            toast.info("User already exists, please login");
+            const errData = await response.json();
+            toast.error(errData.message || 'User already exist, Please signin');
             return null;
         }
 
