@@ -41,7 +41,7 @@ export default function QuizCataloguePage({ quizCategoryId }) {
                                         key={index}
                                         className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group"
                                     >
-                                        <div className="flex items-start justify-between mb-4">
+                                        <button onClick={() => openQuiz(quiz.id)} className="flex items-start justify-between mb-4">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <h3 className="text-lg font-semibold text-gray-800 group-hover:text-purple-700 transition-colors">
@@ -63,7 +63,7 @@ export default function QuizCataloguePage({ quizCategoryId }) {
                                                 </p>
                                             </div>
                                             <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
-                                        </div>
+                                        </button>
 
                                         {/* Tags */}
                                         <div className="flex flex-wrap gap-2 mb-4">
