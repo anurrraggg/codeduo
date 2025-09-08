@@ -87,7 +87,7 @@ const DashboardPage = () => {
           router.push("/");
         }
       } catch (err) {
-        toast.error("Error during setup: " + err.message);
+        console.error("Error during setup: " + err.message);
       } finally {
         setLoading(false);
       }
