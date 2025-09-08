@@ -7,7 +7,7 @@ export const teamMembers = [
     },
     {
         name: "Ayush Raj",
-        role: "Frontend Engineer"
+        role: "Backend Engineer"
     },
     {
         name: "Bhoomika Seth",
