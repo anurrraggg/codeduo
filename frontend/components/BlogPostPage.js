@@ -175,7 +175,7 @@ const BlogPostPage = () => {
                             <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Posts</h2>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 {relatedPosts.map(relatedPost => (
-                                    <div key={relatedPost.id} className="bg-white rounded-xl shadow-lg border border-purple-100 hover:shadow-xl transition-all duration-200 overflow-hidden group cursor-pointer">
+                                    <Link href={`/blogs/${relatedPost.id}`} key={relatedPost.id} className="bg-white rounded-xl shadow-lg border border-purple-100 hover:shadow-xl transition-all duration-200 overflow-hidden group cursor-pointer">
                                         <Image
                                             src={relatedPost.image}
                                             alt={relatedPost.title}
@@ -195,7 +195,7 @@ const BlogPostPage = () => {
                                                 <span>{relatedPost.readTime}</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))}
                             </div>
                         </div>
