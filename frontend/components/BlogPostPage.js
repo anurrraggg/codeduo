@@ -230,7 +230,7 @@ const BlogPostPage = () => {
                             </h3>
                             <div className="space-y-4">
                                 {recentPosts.map(recentPost => (
-                                    <Link key={recentPost.id} href={`/blog/${recentPost.id}`}>
+                                    <Link key={recentPost.id} href={`/blogs/${recentPost.id}`}>
                                         <div className="flex items-start space-x-3 pb-4 border-b border-gray-100 last:border-b-0 last:pb-0">
                                             <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
                                             <div>
