@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
         points: {
             type: Number, default: 0
         },
+        role:{
+            type:String,
+            enum:["Top Performer","Balanced Performer","Developing Learner","Consistent Specialist"],
+        },
         profile: { type: Buffer }
     },
     {
