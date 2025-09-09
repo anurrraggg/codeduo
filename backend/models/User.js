@@ -5,21 +5,25 @@ const userSchema = new mongoose.Schema(
         username: {
             type: String, required: true, unique: true, trim: true
         },
-        email: { 
+        email: {
             type: String, required: true, unique: true, lowercase: true, trim: true
-         },
-        passwordHash: { 
-            type: String, required: true 
         },
-        displayName: { 
-            type: String, default: 'User' 
+        passwordHash: {
+            type: String, required: true
+        },
+        displayName: {
+            type: String, default: 'User'
         },
         points: {
             type: Number, default: 0
         },
         profile: { type: Buffer }
     },
-    { timestamps: true }
+    {
+        timestamps: true,
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
+    }
 );
 
 module.exports = mongoose.model('User', userSchema);
