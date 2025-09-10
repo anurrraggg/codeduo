@@ -241,31 +241,6 @@ const LandingPage = () => {
                                 </motion.div>
                             ))
                         }
-
-                        {/* <motion.div variants={fadeInUp} className="bg-blue-50 p-8 rounded-2xl">
-                            <div className="flex items-center mb-4">
-                                <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center">
-                                    <span className="text-blue-700 font-semibold">MJ</span>
-                                </div>
-                                <div className="ml-4">
-                                    <h4 className="font-semibold text-gray-900">Maria Johnson</h4>
-                                    <p className="text-gray-600 text-sm">Bootcamp Graduate</p>
-                                </div>
-                            </div>
-                            <p className="text-gray-700 italic">&ldquo;The progress tracking feature is amazing! I can see exactly where I need to improve. Got my dream job thanks to the interview prep quizzes.&rdquo;</p>
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-green-50 p-8 rounded-2xl">
-                            <div className="flex items-center mb-4">
-                                <div className="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center">
-                                    <span className="text-green-700 font-semibold">RK</span>
-                                </div>
-                                <div className="ml-4">
-                                    <h4 className="font-semibold text-gray-900">Raj Kumar</h4>
-                                    <p className="text-gray-600 text-sm">Self-taught Developer</p>
-                                </div>
-                            </div>
-                            <p className="text-gray-700 italic">&ldquo;Perfect for self-study! The explanations are clear, and competing with others made learning fun. Highly recommend for coding beginners.&rdquo;</p>
-                        </motion.div> */}
                     </div>
                 </div>
             </motion.section>
@@ -317,74 +292,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
-// const features = [
-//         {
-//             icon: (
-//                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 00-2-2z"></path></svg>
-//             ),
-//             bg: "bg-purple-100 group-hover:bg-purple-200",
-//             title: "Progress Tracking",
-//             desc: "Monitor your improvement with detailed analytics, score history, and personalized insights on your coding journey."
-//         },
-//         {
-//             icon: (
-//                 <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-//             ),
-//             bg: "bg-blue-100 group-hover:bg-blue-200",
-//             title: "Compete with Others",
-//             desc: "Challenge friends and global community. Climb leaderboards and earn achievements as you master coding concepts."
-//         },
-//         {
-//             icon: (
-//                 <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-//             ),
-//             bg: "bg-green-100 group-hover:bg-green-200",
-//             title: "Comprehensive Topics",
-//             desc: "From algorithms to system design, cover all essential coding topics with carefully curated questions and explanations."
-//         },
-//         {
-//             icon: (
-//                 <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-//             ),
-//             bg: "bg-yellow-100 group-hover:bg-yellow-200",
-//             title: "Instant Feedback",
-//             desc: "Get immediate explanations for every question. Learn from mistakes and understand concepts with detailed solutions."
-//         },
-//         {
-//             icon: (
-//                 <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-//             ),
-//             bg: "bg-red-100 group-hover:bg-red-200",
-//             title: "Multiple Difficulty Levels",
-//             desc: "Start with basics and gradually advance. Choose from Easy, Medium, and Hard questions tailored to your skill level."
-//         },
-//         {
-//             icon: (
-//                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-//             ),
-//             bg: "bg-purple-100 group-hover:bg-purple-200",
-//             title: "100% Free",
-//             desc: "Access all features completely free. No hidden costs, no premium tiers. Just pure learning and competition."
-//         }
-//     ];
-
-// <motion.section id="features" className="py-20 bg-white" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
-//     <div className="max-w-7xl mx-auto px-6">
-//         <motion.div variants={fadeInUp} className="text-center mb-16">
-//             <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose CodeDuo?</h2>
-//             <p className="text-xl text-gray-600 max-w-3xl mx-auto">Everything you need to master coding concepts and compete with fellow developers</p>
-//         </motion.div>
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//             {features.map((feature, idx) => (
-//                 <motion.div key={idx} variants={fadeInUp} className={`bg-white p-8 rounded-2xl border border-purple-100 hover:shadow-lg transition-all duration-200 group`}>
-//                     <div className={`w-16 h-16 ${feature.bg} rounded-xl flex items-center justify-center mb-6 transition-colors`}>
-//                         {feature.icon}
-//                     </div>
-//                     <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
-//                     <p className="text-gray-600">{feature.desc}</p>
-//                 </motion.div>
-//             ))}
-//         </div>
-//     </div>
-// </motion.section>
