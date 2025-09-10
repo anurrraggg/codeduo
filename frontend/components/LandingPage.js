@@ -241,6 +241,8 @@ const LandingPage = () => {
                                 </motion.div>
                             ))
                         }
+
+                        {/* this includes testimonials */}
                     </div>
                 </div>
             </motion.section>
