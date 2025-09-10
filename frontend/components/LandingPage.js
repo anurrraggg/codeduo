@@ -234,15 +234,13 @@ const LandingPage = () => {
                                         </div>
                                         <div className="ml-4">
                                             <h4 className="font-semibold text-gray-900">{testimonials.name}</h4>
-                                            <p className="text-gray-600 text-sm">{testimonials.branch}</p>
+                                            <p className="text-gray-600 text-sm">{testimonials.role}</p>
                                         </div>
                                     </div>
                                     <p className="text-gray-700 italic">&ldquo;{testimonials.review}&rdquo;</p>
                                 </motion.div>
                             ))
                         }
-
-                        {/* this includes testimonials */}
                     </div>
                 </div>
             </motion.section>
