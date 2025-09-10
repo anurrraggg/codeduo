@@ -229,7 +229,7 @@ const LandingPage = () => {
                             testimonials.map((testimonials, index) => (
                                 <motion.div key={index} variants={fadeInUp} className={`bg-${testimonials.color}-50 p-8 rounded-2xl`}>
                                     <div className="flex items-center mb-4">
-                                        <div className={`w-12 h-12 bg-${testimonials.color}-200 rounded-full flex items-center justify-center`}>
+                                        <div className={`w-12 h-12 bg-white rounded-full flex items-center justify-center`}>
                                             <span className={`text-${testimonials.color}-700 font-semibold`}>{testimonials.profile}</span>
                                         </div>
                                         <div className="ml-4">
