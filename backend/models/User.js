@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
             type: String, required: true, unique: true, lowercase: true, trim: true
          },
         passwordHash: { 
-            type: String, required: true 
+            type: String, required: false 
         },
         displayName: { 
             type: String, default: 'User' 
@@ -17,7 +17,9 @@ const userSchema = new mongoose.Schema(
         points: {
             type: Number, default: 0
         },
-        // avatarUrl: { type: String, default: '' }
+        avatarUrl: { type: String, default: '' },
+        provider: { type: String, enum: ['local', 'google'], default: 'local' },
+        googleId: { type: String, unique: true, sparse: true }
     },
     { timestamps: true }
 );

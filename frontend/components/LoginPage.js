@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { login } from '@/services/UserService';
+import { AUTH_GOOGLE_URL } from '@/shared/urls';
 import Image from 'next/image';
 
 const GoogleIcon = ({ className = "w-5 h-5", ...props }) => {
@@ -157,7 +158,22 @@ const LoginPage = () => {
                     </div>
 
                     <div className="space-y-4">
-                        <button className="w-full flex items-center cursor-pointer justify-center py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                        <button
+                            className="w-full flex items-center cursor-pointer justify-center py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                            onClick={async () => {
+                                try {
+                                    const res = await fetch(AUTH_GOOGLE_URL);
+                                    const data = await res.json();
+                                    if (res.ok && data?.url) {
+                                        window.location.href = data.url;
+                                    } else {
+                                        toast.error('Failed to start Google sign-in');
+                                    }
+                                } catch (e) {
+                                    toast.error('Error starting Google sign-in');
+                                }
+                            }}
+                        >
                             <GoogleIcon className="w-5 h-5 mr-3" />
                             Continue with Google
                         </button>
