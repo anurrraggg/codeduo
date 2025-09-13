@@ -35,13 +35,14 @@ export default function QuizCataloguePage({ quizCategoryId }) {
                                 <p className="text-gray-600">Try adjusting your search or filters to find more quizzes.</p>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 cursor-pointer">
                                 {quizzes.map((quiz, index) => (
                                     <div
+                                        onClick={() => openQuiz(quiz.id)} 
                                         key={index}
                                         className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group"
                                     >
-                                        <button onClick={() => openQuiz(quiz.id)} className="flex items-start justify-between mb-4">
+                                        <button onClick={() => openQuiz(quiz.id)} className="flex items-start justify-between mb-4 cursor-pointer">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <h3 className="text-lg font-semibold text-gray-800 group-hover:text-purple-700 transition-colors">
