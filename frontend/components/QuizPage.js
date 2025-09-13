@@ -51,10 +51,10 @@ const QuizPage = () => {
             const villainRect = villainRef.current.getBoundingClientRect();
 
             // Calculate center points for the laser's start and end
-            const startX = villainRect.left + villainRect.width / 2 - 15;
-            const startY = villainRect.top + villainRect.height / 2 - 70;
-            const endX = heroRect.left + heroRect.width / 2 + 30;
-            const endY = heroRect.top + heroRect.height / 2 - 70;
+            const startX = villainRect.left + villainRect.width / 2-window.innerWidth*.02;
+            const startY = villainRect.top + villainRect.height / 2;
+            const endX = heroRect.left + heroRect.width / 2;
+            const endY = heroRect.top + heroRect.height / 2;
 
             // Calculate distance for the laser's width
             const distance = Math.hypot(endX - startX, endY - startY);
@@ -324,8 +324,8 @@ const QuizPage = () => {
         <div className="relative flex flex-col md:flex-row items-end min-h-screen bg-gradient-to-br from-purple-50 to-white overflow-hidden z-10">
             {showLaser && <LaserBeam style={laserStyle} />}
 
-            <div ref={heroRef} className="flex-1 hidden lg:block">
-                <div className="relative h-[40px] mb-10 -ml-1">
+            <div className="flex-1 hidden lg:block justify-center items-center">
+                <div ref={heroRef} className="relative mb-2 ml-10">
                     <Hero status={showLaser?'lost':correct?'won':'none'} />
                 </div>
                 <div className="relative ml-10 m-0 p-0">
@@ -333,7 +333,7 @@ const QuizPage = () => {
                 </div>
             </div>
 
-            <div className="flex-grow-[5] max-w-4xl mx-auto px-6 py-8 z-0">
+            <div className="flex-5 max-h-screen max-w-4xl mx-auto px-6 py-8 z-0">
                 {/* Progress Bar */}
                 <div className="mb-8 z-10">
                     <div className="flex justify-between items-center mb-2">
@@ -439,11 +439,11 @@ const QuizPage = () => {
                 )}
             </div>
 
-            <div ref={villainRef} className="flex-1 hidden lg:block z-[-20]">
-                <div className="relative h-[40px] mb-15 ml-7">
-                    <Villain />
+            <div className="flex-1 hidden lg:block z-[-20]">
+                <div ref={villainRef} className="relative ml-3">
+                    <Villain laser={showLaser} />
                 </div>
-                <div className="relative ml-10 m-0 p-0">
+                <div className="relative ml-5 m-0 p-0">
                     <Image src='/sprites/pillar-sprite.png' height={400} width={100} alt='pillar' className="block" />
                 </div>
             </div>

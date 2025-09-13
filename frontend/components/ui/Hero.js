@@ -1,47 +1,57 @@
 'use client';
-
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export default function Hero({ status }) {
-  const imageSrc =
-    status === 'won' ? '/sprites/mascotf2.png' : '/sprites/mascotf1.png';
-
   if (status === 'lost') {
     return (
-      <div className="absolute w-full h-full flex justify-center items-center">
-        <Image
-          src="/sprites/lost-hero.png"
-          alt="lost"
-          width={100}
-          height={100}
-          priority
-          className="object-contain"
-        />
-      </div>
+      <Image
+        src="/sprites/lost-hero.png"
+        alt="lost"
+        width={100}
+        height={100}
+        priority
+        className="object-contain"
+      />
     );
   }
 
-  // base bounce animation
-  const animationProps =
-    status === 'won'
-      ? { y: [0, -40, 0], rotate: [0, 720] }
-      : { y: [0, -40, 0] };
+  // choose image for won/idle
+  const imageSrc =
+    status === 'won' ? '/sprites/mascotf2.png' : '/sprites/mascotf1.png';
 
-  // separate transition for rotation if needed
-  const transitionProps =
+  // bounce animation (outer wrapper)
+  const bounce = {
+    y: status === 'won' ? [0, -40, 0] : [0, -40, 0],
+  };
+
+  const bounceTransition = {
+    y: { duration: 1.5, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' },
+  };
+
+  // rotation animation (inner wrapper)
+  const spin =
     status === 'won'
-      ? {
-          y: { duration: 1.5, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' },
-          rotate: { duration: 2, repeat: Infinity, ease: 'linear' },
-        }
-      : {
-          y: { duration: 1.5, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' },
-        };
+      ? { rotate: [0, 720] }
+      : {};
+
+  const spinTransition =
+    status === 'won'
+      ? { rotate: { duration: 2, repeat: Infinity, ease: 'linear' } }
+      : {};
 
   return (
-    <div className="absolute w-full h-full flex justify-center items-center">
-      <motion.div animate={animationProps} transition={transitionProps}>
+    <motion.div
+      animate={bounce}
+      transition={bounceTransition}
+      className="inline-block"
+    >
+      <motion.div
+        animate={spin}
+        transition={spinTransition}
+        className="inline-block origin-center"
+        style={{ transformOrigin: '50% 50%' }} 
+      >
         <Image
           src={imageSrc}
           alt="hero"
@@ -51,6 +61,6 @@ export default function Hero({ status }) {
           className="object-contain"
         />
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
