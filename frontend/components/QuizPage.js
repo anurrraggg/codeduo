@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Villain from './ui/Villain';
 import Hero from './ui/Hero';
 import LaserBeam from './ui/LaserBeam';
+import LoaderPage from './LoaderPage';
 
 const QuizPage = () => {
     const router = useRouter();
@@ -20,6 +21,7 @@ const QuizPage = () => {
     const [multiplier, setMultiplier] = useState(1);
     const [showResults, setShowResults] = useState(false);
     const [correct, setCorrect] = useState(false);
+    const [isLoading, setIsLoading] = useState(true); 
 
     // States and refs for the laser beam animation
     const [showLaser, setShowLaser] = useState(false);
@@ -36,6 +38,11 @@ const QuizPage = () => {
             handleNextQuestion();
         }
     }, [timeLeft, isQuizComplete, showResults]);
+
+    useEffect(() => {
+        const loadTimer = setTimeout(() => setIsLoading(false), 1500);
+        return () => clearTimeout(loadTimer);
+    }, []);
 
     // Effect to calculate laser position
     useEffect(() => {
@@ -161,6 +168,10 @@ const QuizPage = () => {
             alert('Score copied to clipboard!');
         }
     };
+
+    if (isLoading) {
+        return <LoaderPage />;
+    }
 
     if (showResults) {
         const correctAnswers = userAnswers.filter(answer => answer.isCorrect).length;
@@ -313,7 +324,7 @@ const QuizPage = () => {
         <div className="relative flex flex-col md:flex-row items-end min-h-screen bg-gradient-to-br from-purple-50 to-white overflow-hidden z-10">
             {showLaser && <LaserBeam style={laserStyle} />}
 
-            <div ref={heroRef} className="flex-1 hidden md:block">
+            <div ref={heroRef} className="flex-1 hidden lg:block">
                 <div className="relative h-[40px] mb-10 -ml-1">
                     <Hero status={showLaser?'lost':correct?'won':'none'} />
                 </div>
@@ -428,7 +439,7 @@ const QuizPage = () => {
                 )}
             </div>
 
-            <div ref={villainRef} className="flex-1 hidden md:block z-[-20]">
+            <div ref={villainRef} className="flex-1 hidden lg:block z-[-20]">
                 <div className="relative h-[40px] mb-15 ml-7">
                     <Villain />
                 </div>
