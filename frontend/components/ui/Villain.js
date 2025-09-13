@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-export default function Villain() {
+export default function Villain({ laser }) {
     const frames = [
         '/sprites/villain-frame-1.png',
         '/sprites/villain-frame-2.png',
@@ -25,7 +25,8 @@ export default function Villain() {
     return (
         <Image
             className='z-[-15]'
-            src={frames[index]}
+            src={laser ? '/sprites/laser-beam.png' : frames[index]}
+            style={{ transformOrigin: '50% 50%' }} 
             alt="villain"
             width={100}
             height={100}
