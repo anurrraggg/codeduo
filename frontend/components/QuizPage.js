@@ -51,7 +51,7 @@ const QuizPage = () => {
             const villainRect = villainRef.current.getBoundingClientRect();
 
             // Calculate center points for the laser's start and end
-            const startX = villainRect.left + villainRect.width / 2-window.innerWidth*.02;
+            const startX = villainRect.left + villainRect.width / 2 - 25;
             const startY = villainRect.top + villainRect.height / 2;
             const endX = heroRect.left + heroRect.width / 2;
             const endY = heroRect.top + heroRect.height / 2;
@@ -383,7 +383,7 @@ const QuizPage = () => {
 
                             if (selectedAnswer === null) {
                                 buttonClass +=
-                                    " border-gray-200 hover:border-purple-300 hover:bg-purple-50 cursor-pointer";
+                                    " border-gray-200 hover:border-purple-300 text-[var(--color-text)] hover:bg-purple-50 cursor-pointer";
                             } else if (index === currentQ.correctAnswer) {
                                 buttonClass += " border-green-500 bg-green-50 text-green-800";
                             } else if (
