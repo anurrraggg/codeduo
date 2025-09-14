@@ -15,11 +15,18 @@ const BlogPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
+        <div className="min-h-screen bg-[var(--background-textured)]">
             <div className="max-w-7xl mx-auto px-6 py-8">
                 {/* Featured Post */}
                 <section className="mb-12">
-                    <div className="bg-white rounded-2xl shadow-xl border border-purple-100 overflow-hidden">
+                    <div
+                        className="rounded-2xl shadow-xl border overflow-hidden"
+                        style={{
+                            backgroundColor: "rgba(181, 183, 185, 0.1)",
+                            borderColor: "rgba(124, 126, 129, 0.3)",
+                            color: "var(--foreground)",
+                        }}
+                    >
                         <div className="md:flex">
                             <div className="md:w-1/2">
                                 <img
@@ -38,11 +45,11 @@ const BlogPage = () => {
                                     </span>
                                 </div>
 
-                                <h2 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                                <h2 className="text-3xl font-bold text-[var(--color-text)] mb-4 leading-tight">
                                     {featuredPost.title}
                                 </h2>
 
-                                <p className="text-gray-600 mb-6 text-lg">
+                                <p className="text-[var(--color-text-secondary)] mb-6 text-lg">
                                     {featuredPost.excerpt}
                                 </p>
 
@@ -72,7 +79,12 @@ const BlogPage = () => {
                             {blogPosts.map(post => (
                                 <article
                                     key={post.id}
-                                    className="bg-white rounded-xl shadow-lg border border-purple-100 hover:shadow-xl transition-all duration-200 overflow-hidden group"
+                                    className="rounded-xl shadow-lg border hover:shadow-xl transition-all duration-200 overflow-hidden group"
+                                    style={{
+                                        backgroundColor: "rgba(181, 183, 185, 0.1)",
+                                        borderColor: "rgba(124, 126, 129, 0.3)",
+                                        color: "var(--foreground)",
+                                    }}
                                 >
                                     {/* Wrap the main card content inside the Link */}
                                     <Link href={`/blogs/${post.id}`} className="block relative">
@@ -92,17 +104,17 @@ const BlogPage = () => {
                                         </div>
 
                                         <div className="p-6">
-                                            <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">
+                                            <h3 className="text-xl font-semibold text-[var(--color-text)] mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">
                                                 {post.title}
                                             </h3>
 
-                                            <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
+                                            <p className="text-[var(--color-text-secondary)] mb-4 line-clamp-3">{post.excerpt}</p>
 
                                             <div className="flex flex-wrap gap-2 mb-4">
                                                 {post.tags.slice(0, 3).map((tag) => (
                                                     <span
                                                         key={tag}
-                                                        className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs"
+                                                        className="bg-[var(--background)] text-[var(--color-text-secondary)] px-2 py-1 rounded text-xs"
                                                     >
                                                         #{tag}
                                                     </span>
