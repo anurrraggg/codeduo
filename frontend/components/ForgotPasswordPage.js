@@ -36,9 +36,9 @@ const ForgotPasswordPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-100 p-4">
+        <div className="min-h-screen flex items-center justify-center bg-[var(--background)] p-4">
             <div className="w-full max-w-md">
-                <div className="bg-white/80 backdrop-blur-xl border border-purple-100 rounded-2xl shadow-2xl p-8 md:p-12 animate-float">
+                <div className="bg-white/10 backdrop-blur-xl border border-purple-100 rounded-2xl shadow-2xl p-8 md:p-12 animate-float">
 
                     {/* Header */}
                     <div className="flex flex-col items-center mb-8 text-center">
@@ -48,14 +48,14 @@ const ForgotPasswordPage = () => {
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
                             Forgot Password?
                         </h1>
-                        <p className="text-gray-500 mt-2">No worries! Enter your email and we&apos;ll send you a reset link.</p>
+                        <p className="text-[var(--color-text)] mt-2">No worries! Enter your email and we&apos;ll send you a reset link.</p>
                     </div>
 
                     {/* Corrected Form */}
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Email Input */}
                         <div>
-                            <label htmlFor="email" className="text-sm font-medium text-gray-700">Email Address</label>
+                            <label htmlFor="email" className="text-sm font-medium text-[var(--color-text)]">Email Address</label>
                             <div className="mt-1 relative rounded-md shadow-sm">
                                 <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                                     <Mail className="h-5 w-5 text-gray-400" />
@@ -66,7 +66,7 @@ const ForgotPasswordPage = () => {
                                     id="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="block w-full rounded-lg border-gray-200 pl-10 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all"
+                                    className="block w-full rounded-lg border-b border-gray-200 pl-10 py-3 text-[var(--color-text)] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all"
                                     placeholder="you@example.com"
                                 />
                             </div>
@@ -84,7 +84,7 @@ const ForgotPasswordPage = () => {
 
                     {/* Back to Login Link */}
                     <div className="mt-8 text-center">
-                        <a href="/login" className="font-medium text-purple-600 hover:text-purple-500 flex items-center justify-center group">
+                        <a href="/login" className="font-medium text-purple-500 hover:text-purple-300 flex items-center justify-center group">
                             <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" />
                             Back to Sign In
                         </a>
