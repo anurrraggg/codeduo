@@ -7,6 +7,7 @@ import Villain from './ui/Villain';
 import Hero from './ui/Hero';
 import LaserBeam from './ui/LaserBeam';
 import LoaderPage from './LoaderPage';
+import useTheme from '@/services/hooks/useTheme';
 
 const QuizPage = () => {
     const router = useRouter();
@@ -21,7 +22,8 @@ const QuizPage = () => {
     const [multiplier, setMultiplier] = useState(1);
     const [showResults, setShowResults] = useState(false);
     const [correct, setCorrect] = useState(false);
-    const [isLoading, setIsLoading] = useState(true); 
+    const [isLoading, setIsLoading] = useState(true);
+    const { isDark, toggleTheme } = useTheme();
 
     // States and refs for the laser beam animation
     const [showLaser, setShowLaser] = useState(false);
@@ -179,7 +181,7 @@ const QuizPage = () => {
         const scoreGrade = getScoreGrade();
 
         return (
-            <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
+            <div className="min-h-screen bg-[var(--background)]">
                 <div className="max-w-4xl mx-auto px-6 py-8">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-8">
@@ -274,9 +276,9 @@ const QuizPage = () => {
                                 <div key={index} className={`flex items-center justify-between p-3 rounded-lg ${user.isUser ? 'bg-purple-50 border border-purple-200' : 'hover:bg-gray-50'}`}>
                                     <div className="flex items-center space-x-3">
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${user.rank === 1 ? 'bg-yellow-100 text-yellow-700' :
-                                                user.rank === 2 ? 'bg-gray-100 text-gray-700' :
-                                                    user.rank === 3 ? 'bg-orange-100 text-orange-700' :
-                                                        user.isUser ? 'bg-purple-200 text-purple-700' : 'bg-gray-100 text-gray-600'
+                                            user.rank === 2 ? 'bg-gray-100 text-gray-700' :
+                                                user.rank === 3 ? 'bg-orange-100 text-orange-700' :
+                                                    user.isUser ? 'bg-purple-200 text-purple-700' : 'bg-gray-100 text-gray-600'
                                             }`}>
                                             {user.rank}
                                         </div>
@@ -305,7 +307,7 @@ const QuizPage = () => {
 
     if (isQuizComplete) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white flex items-center justify-center">
+            <div className="min-h-screen bg-[var(--background)] flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
                         <CheckCircle className="w-10 h-10 text-white" />
@@ -321,12 +323,12 @@ const QuizPage = () => {
     const currentQ = quizQuestions[currentQuestion];
 
     return (
-        <div className="relative flex flex-col md:flex-row items-end min-h-screen bg-gradient-to-br from-purple-50 to-white overflow-hidden z-10">
+        <div className="relative flex flex-col md:flex-row items-end min-h-screen bg-[var(--background)] overflow-hidden z-10">
             {showLaser && <LaserBeam style={laserStyle} />}
 
             <div className="flex-1 hidden lg:block justify-center items-center">
                 <div ref={heroRef} className="relative mb-2 ml-10">
-                    <Hero status={showLaser?'lost':correct?'won':'none'} />
+                    <Hero status={showLaser ? 'lost' : correct ? 'won' : 'none'} />
                 </div>
                 <div className="relative ml-10 m-0 p-0">
                     <Image src='/sprites/pillar-sprite.png' height={400} width={100} alt='pillar' className="block" />
@@ -337,12 +339,12 @@ const QuizPage = () => {
                 {/* Progress Bar */}
                 <div className="mb-8 z-10">
                     <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm text-gray-600">
+                        <span className="text-sm text-[var(--color-text-secondary)]">
                             Question {currentQuestion + 1} of {quizQuestions.length}
                         </span>
-                        <span className="text-sm text-gray-600">{Math.round(progress)}% Complete</span>
+                        <span className="text-sm text-[var(--color-text-secondary)]">{Math.round(progress)}% Complete</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-gray-200/20 rounded-full h-2">
                         <div
                             className="bg-gradient-to-r from-purple-500 to-purple-600 h-2 rounded-full transition-all duration-300"
                             style={{ width: `${progress}%` }}
@@ -368,9 +370,9 @@ const QuizPage = () => {
                 </div>
 
                 {/* Question Card */}
-                <div className="bg-white rounded-2xl shadow-xl border border-purple-100 p-8 mb-8 z-10">
+                <div className="bg-white/20 rounded-2xl shadow-xl border border-purple-100 p-8 mb-8 z-10">
                     <div className="mb-8">
-                        <h2 className="text-xl font-semibold text-gray-900 leading-relaxed">
+                        <h2 className="text-xl font-semibold text-[var(--color-text)] leading-relaxed">
                             {currentQ.question}
                         </h2>
                     </div>
@@ -383,7 +385,7 @@ const QuizPage = () => {
 
                             if (selectedAnswer === null) {
                                 buttonClass +=
-                                    " border-gray-200 hover:border-purple-300 text-[var(--color-text)] hover:bg-purple-50 cursor-pointer";
+                                    " border-gray-200 hover:border-purple-300 text-[var(--color-text)] hover:bg-purple-50/20 cursor-pointer";
                             } else if (index === currentQ.correctAnswer) {
                                 buttonClass += " border-green-500 bg-green-50 text-green-800";
                             } else if (
