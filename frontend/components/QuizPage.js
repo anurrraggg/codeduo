@@ -334,10 +334,14 @@ const QuizPage = () => {
             {showLaser && <LaserBeam style={laserStyle} />}
 
             <div className="flex-1 hidden w-full lg:flex flex-col justify-center items-center">
-                <div ref={heroRef} className="relative mb-2">
+                {/* Yellow light behind hero */}
+                <div className="relative left-1/2 top-1/2 -translate-x-1/2 translate-y-1/2 pointer-events-none z-0">
+                    <div className="w-56 h-56 rounded-full bg-purple-300 opacity-45 blur-3xl"></div>
+                </div>
+                <div ref={heroRef} className="relative mb-2 z-10">
                     <Hero status={showLaser ? 'lost' : correct ? 'won' : 'none'} />
                 </div>
-                <div className="relative">
+                <div className="relative z-10">
                     <Image src='/sprites/pillar-sprite.png' height={400} width={100} alt='pillar' className="block" />
                 </div>
             </div>
@@ -449,10 +453,13 @@ const QuizPage = () => {
             </div>
 
             <div className="flex-1 hidden lg:flex flex-col justify-center items-center z-[-20]">
-                <div ref={villainRef} className="">
+                <div className="relative left-1/2 top-1/2 -translate-x-1/2 translate-y-1/2 pointer-events-none z-0">
+                    <div className="w-56 h-56 rounded-full bg-rose-300 opacity-45 blur-3xl"></div>
+                </div>
+                <div ref={villainRef} className="z-10">
                     <Villain laser={showLaser} />
                 </div>
-                <div className="">
+                <div className="z-10">
                     <Image src='/sprites/pillar-sprite.png' height={400} width={100} alt='pillar' className="block" />
                 </div>
             </div>
