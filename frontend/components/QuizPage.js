@@ -53,7 +53,7 @@ const QuizPage = () => {
             const villainRect = villainRef.current.getBoundingClientRect();
 
             // Calculate center points for the laser's start and end
-            const startX = villainRect.left + villainRect.width / 2 - 25;
+            const startX = villainRect.left + villainRect.width / 2;
             const startY = villainRect.top + villainRect.height / 2;
             const endX = heroRect.left + heroRect.width / 2;
             const endY = heroRect.top + heroRect.height / 2;
@@ -323,21 +323,21 @@ const QuizPage = () => {
     const currentQ = quizQuestions[currentQuestion];
 
     return (
-        <div className="relative flex flex-col md:flex-row items-end min-h-screen bg-[var(--background)] overflow-hidden z-10">
+        <div className="relative flex flex-col md:flex-row justify-center items-end min-h-screen bg-[var(--background)] overflow-hidden z-10">
             {showLaser && <LaserBeam style={laserStyle} />}
 
-            <div className="flex-1 hidden lg:block justify-center items-center">
-                <div ref={heroRef} className="relative mb-2 ml-10">
+            <div className="flex-1 hidden w-full lg:flex flex-col justify-center items-center">
+                <div ref={heroRef} className="relative mb-2">
                     <Hero status={showLaser ? 'lost' : correct ? 'won' : 'none'} />
                 </div>
-                <div className="relative ml-10 m-0 p-0">
+                <div className="relative">
                     <Image src='/sprites/pillar-sprite.png' height={400} width={100} alt='pillar' className="block" />
                 </div>
             </div>
 
-            <div className="flex-5 max-h-screen max-w-4xl mx-auto px-6 py-8 z-0">
+            <div className="flex-5 max-h-screen max-w-4xl mx-auto px-6 py-8 z-0 flex flex-col justify-center items-center">
                 {/* Progress Bar */}
-                <div className="mb-8 z-10">
+                <div className="mb-8 z-10 w-full">
                     <div className="flex justify-between items-center mb-2">
                         <span className="text-sm text-[var(--color-text-secondary)]">
                             Question {currentQuestion + 1} of {quizQuestions.length}
@@ -353,7 +353,7 @@ const QuizPage = () => {
                 </div>
 
                 {/* Timer and Streak */}
-                <div className="flex justify-between items-center mb-8 z-10">
+                <div className="flex justify-between items-center mb-8 z-10 w-full">
                     <div className="flex items-center space-x-4">
                         <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg ${timeLeft <= 10 ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
                             }`}>
@@ -370,7 +370,7 @@ const QuizPage = () => {
                 </div>
 
                 {/* Question Card */}
-                <div className="bg-white/20 rounded-2xl shadow-xl border border-purple-100 p-8 mb-8 z-10">
+                <div className="bg-white/20 rounded-2xl shadow-xl border border-purple-100 p-8 mb-8 z-10 w-full">
                     <div className="mb-8">
                         <h2 className="text-xl font-semibold text-[var(--color-text)] leading-relaxed">
                             {currentQ.question}
@@ -435,17 +435,17 @@ const QuizPage = () => {
 
                 {/* Auto-advance indicator */}
                 {selectedAnswer !== null && (
-                    <div className="text-center text-gray-500 text-sm">
+                    <div className="text-center text-gray-500 text-sm w-full">
                         Next question loading automatically...
                     </div>
                 )}
             </div>
 
-            <div className="flex-1 hidden lg:block z-[-20]">
-                <div ref={villainRef} className="relative ml-3">
+            <div className="flex-1 hidden lg:flex flex-col justify-center items-center z-[-20]">
+                <div ref={villainRef} className="">
                     <Villain laser={showLaser} />
                 </div>
-                <div className="relative ml-5 m-0 p-0">
+                <div className="">
                     <Image src='/sprites/pillar-sprite.png' height={400} width={100} alt='pillar' className="block" />
                 </div>
             </div>
