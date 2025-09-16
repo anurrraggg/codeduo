@@ -20,7 +20,7 @@ export default function QuizCataloguePage({ quizCategoryId }) {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
+        <div className="min-h-screen bg-[var(--background)]">
             <div className="max-w-7xl mx-auto px-4 py-8">
                 <div className="flex gap-8">
 
@@ -35,16 +35,17 @@ export default function QuizCataloguePage({ quizCategoryId }) {
                                 <p className="text-gray-600">Try adjusting your search or filters to find more quizzes.</p>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 cursor-pointer">
                                 {quizzes.map((quiz, index) => (
                                     <div
+                                        onClick={() => openQuiz(quiz.id)} 
                                         key={index}
-                                        className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group"
+                                        className="bg-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group"
                                     >
-                                        <button onClick={() => openQuiz(quiz.id)} className="flex items-start justify-between mb-4">
+                                        <button onClick={() => openQuiz(quiz.id)} className="flex items-start justify-between mb-4 cursor-pointer">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
-                                                    <h3 className="text-lg font-semibold text-gray-800 group-hover:text-purple-700 transition-colors">
+                                                    <h3 className="text-lg font-semibold text-[var(--color-text)] group-hover:text-purple-700 transition-colors">
                                                         {quiz.title}
                                                     </h3>
                                                     {quiz.isNew && (
@@ -58,11 +59,11 @@ export default function QuizCataloguePage({ quizCategoryId }) {
                                                         </span>
                                                     )}
                                                 </div>
-                                                <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                                                <p className="text-[var(--color-text-secondary)] text-sm mb-3 line-clamp-2">
                                                     {quiz.description}
                                                 </p>
                                             </div>
-                                            <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+                                            <ChevronRight className="w-5 h-5 text-[var(--color-text-secondary)] group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
                                         </button>
 
                                         {/* Tags */}
@@ -79,7 +80,7 @@ export default function QuizCataloguePage({ quizCategoryId }) {
 
                                         {/* Quiz Info */}
                                         <div className="flex items-center justify-between mb-4">
-                                            <div className="flex items-center gap-4 text-sm text-gray-600">
+                                            <div className="flex items-center gap-4 text-sm text-[var(--color-text-secondary)]">
                                                 <div className="flex items-center gap-1">
                                                     <Clock className="w-4 h-4" />
                                                     <span>{quiz.duration}</span>
@@ -95,14 +96,14 @@ export default function QuizCataloguePage({ quizCategoryId }) {
                                             </div>
                                             <div className="flex items-center gap-1">
                                                 <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                                                <span className="text-sm font-medium text-gray-700">{quiz.rating}</span>
+                                                <span className="text-sm font-medium text-[var(--color-text-secondary)]">{quiz.rating}</span>
                                             </div>
                                         </div>
 
                                         {/* Bottom Row */}
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-3">
-                                                <span className="text-sm text-gray-600">{quiz.category}</span>
+                                                <span className="text-sm text-[var(--color-text-secondary)]">{quiz.category}</span>
                                                 <span className={`text-xs px-2 py-1 rounded-full border ${getDifficultyColor(quiz.difficulty)}`}>
                                                     {quiz.difficulty}
                                                 </span>

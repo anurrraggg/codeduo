@@ -5,11 +5,62 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import LoaderPage from './LoaderPage';
+import { testimonials } from '@/services/TestimonialService';
 
 const LandingPage = () => {
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const cards = [
+        {
+            title: "Progress Tracking",
+            description:
+                "Monitor your improvement with detailed analytics, score history, and personalized insights on your coding journey.",
+            iconColor: "purple",
+            iconPath:
+                "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 00-2-2z",
+        },
+        {
+            title: "Compete with Others",
+            description:
+                "Challenge friends and global community. Climb leaderboards and earn achievements as you master coding concepts.",
+            iconColor: "blue",
+            iconPath:
+                "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
+        },
+        {
+            title: "Comprehensive Topics",
+            description:
+                "From algorithms to system design, cover all essential coding topics with carefully curated questions and explanations.",
+            iconColor: "green",
+            iconPath:
+                "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
+        },
+        {
+            title: "Instant Feedback",
+            description:
+                "Get immediate explanations for every question. Learn from mistakes and understand concepts with detailed solutions.",
+            iconColor: "yellow",
+            iconPath:
+                "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
+        },
+        {
+            title: "Multiple Difficulty Levels",
+            description:
+                "Start with basics and gradually advance. Choose from Easy, Medium, and Hard questions tailored to your skill level.",
+            iconColor: "red",
+            iconPath:
+                "M13 10V3L4 14h7v7l9-11h-7z",
+        },
+        {
+            title: "100% Free",
+            description:
+                "Access all features completely free. No hidden costs, no premium tiers. Just pure learning and competition.",
+            iconColor: "purple",
+            iconPath:
+                "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+        },
+    ];
 
     useEffect(() => {
         const fetchUser = () => {
@@ -56,13 +107,13 @@ const LandingPage = () => {
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
-                            <motion.h1 variants={fadeInUp} className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                            <motion.h1 variants={fadeInUp} className="text-5xl lg:text-6xl font-bold text-[var(--foreground)] mb-6 leading-tight">
                                 Master Coding Through
-                                <span className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent block">
+                                <span className="bg-gradient-to-r from-[var(--color-text-hero2)] to-[var(--color-text-hero3)] bg-clip-text text-transparent block">
                                     Gamified Quizzes
                                 </span>
                             </motion.h1>
-                            <motion.p variants={fadeInUp} className="text-xl text-gray-600 mb-8 leading-relaxed">
+                            <motion.p variants={fadeInUp} className="text-xl text-[var(--foreground)] mb-8 leading-relaxed">
                                 Challenge yourself with interactive MCQ quizzes on algorithms, data structures, and more. Track your progress, compete with peers, and level up your coding skills.
                             </motion.p>
                             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
@@ -104,7 +155,7 @@ const LandingPage = () => {
                                 }}
                             />
 
-                            {/* Background shapes stay animated */}
+                            {/* Background shapes stay anima</div>ted */}
                             <motion.div
                                 className="absolute -top-6 right-16 -z-10 w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-20"
                                 animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
@@ -116,12 +167,12 @@ const LandingPage = () => {
                                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                             />
                             <motion.div
-                                className="absolute -bottom-8 left-10 -z-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-10"
+                                className="absolute -bottom-8 left-10 -z-10 w-32 h-32 bg-gradient-to-r from-[var(--color-text-heroObj)] to-[var(--color-text-heroObj2)] rounded-full opacity-10"
                                 animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.3, 0.1] }}
                                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                             />
                             <motion.div
-                                className="absolute bottom-8 right-20 -z-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-10"
+                                className="absolute bottom-8 right-20 -z-10 w-32 h-32 bg-gradient-to-r from-[var(--color-text-heroObj)] to-[var(--color-text-heroObj2)] rounded-full opacity-10"
                                 animate={{ scale: [1, 1.25, 1], opacity: [0.1, 0.35, 0.1] }}
                                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                             />
@@ -132,55 +183,53 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            <motion.section id="features" className="py-20 bg-white" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
+            <motion.section id="features" className="py-20 bg-[var(--background)]" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div variants={fadeInUp} className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose CodeDuo?</h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">Everything you need to master coding concepts and compete with fellow developers</p>
+                        <h2 className="text-4xl font-bold text-[var(--foreground)] mb-4">Why Choose CodeDuo?</h2>
+                        <p className="text-xl text-[var(--foreground)] max-w-3xl mx-auto">Everything you need to master coding concepts and compete with fellow developers</p>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <motion.div variants={fadeInUp} className="bg-white p-8 rounded-2xl border border-purple-100 hover:shadow-lg transition-all duration-200 group">
-                            <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-200 transition-colors">
-                                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 00-2-2z"></path></svg>
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Progress Tracking</h3>
-                            <p className="text-gray-600">Monitor your improvement with detailed analytics, score history, and personalized insights on your coding journey.</p>
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-white p-8 rounded-2xl border border-purple-100 hover:shadow-lg transition-all duration-200 group">
-                            <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-200 transition-colors">
-                                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Compete with Others</h3>
-                            <p className="text-gray-600">Challenge friends and global community. Climb leaderboards and earn achievements as you master coding concepts.</p>
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-white p-8 rounded-2xl border border-purple-100 hover:shadow-lg transition-all duration-200 group">
-                            <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-200 transition-colors">
-                                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Comprehensive Topics</h3>
-                            <p className="text-gray-600">From algorithms to system design, cover all essential coding topics with carefully curated questions and explanations.</p>
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-white p-8 rounded-2xl border border-purple-100 hover:shadow-lg transition-all duration-200 group">
-                            <div className="w-16 h-16 bg-yellow-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-yellow-200 transition-colors">
-                                <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Instant Feedback</h3>
-                            <p className="text-gray-600">Get immediate explanations for every question. Learn from mistakes and understand concepts with detailed solutions.</p>
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-white p-8 rounded-2xl border border-purple-100 hover:shadow-lg transition-all duration-200 group">
-                            <div className="w-16 h-16 bg-red-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-red-200 transition-colors">
-                                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Multiple Difficulty Levels</h3>
-                            <p className="text-gray-600">Start with basics and gradually advance. Choose from Easy, Medium, and Hard questions tailored to your skill level.</p>
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-white p-8 rounded-2xl border border-purple-100 hover:shadow-lg transition-all duration-200 group">
-                            <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-200 transition-colors">
-                                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-3">100% Free</h3>
-                            <p className="text-gray-600">Access all features completely free. No hidden costs, no premium tiers. Just pure learning and competition.</p>
-                        </motion.div>
+                        {cards.map((card, index) => (
+                            <motion.div
+                                key={index}
+                                variants={fadeInUp}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true }}
+                                className="p-8 rounded-2xl border backdrop-blur-lg shadow-lg transition-all duration-200 group"
+                                style={{
+                                    backgroundColor: "rgba(255, 255, 255, 0.2)", // glass effect
+                                    borderColor: "rgba(255, 255, 255, 0.3)",
+                                    color: "var(--foreground)",
+                                }}
+                            >
+                                <div
+                                    className={`w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-colors`}
+                                    style={{
+                                        backgroundColor: `rgba(var(--${card.iconColor}-500-rgb), 0.2)`,
+                                    }}
+                                >
+                                    <svg
+                                        className={`w-8 h-8 text-[var(--${card.iconColor}-500)]`}
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d={card.iconPath}
+                                        />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-semibold mb-3" style={{ color: "var(--foreground)" }}>
+                                    {card.title}
+                                </h3>
+                                <p style={{ color: "var(--foreground)" }}>{card.description}</p>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </motion.section>
@@ -188,106 +237,151 @@ const LandingPage = () => {
             <motion.section id="how-it-works" className="py-20 gradient-bg" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div variants={fadeInUp} className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">Get started in minutes and begin your coding mastery journey</p>
+                        <h2 className="text-4xl font-bold text-[var(--foreground)] mb-4">How It Works</h2>
+                        <p className="text-xl text-[var(--foreground)] max-w-3xl mx-auto">Get started in minutes and begin your coding mastery journey</p>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <motion.div variants={fadeInUp} className="text-center">
                             <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <span className="text-2xl font-bold text-white">1</span>
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Choose Your Topic</h3>
-                            <p className="text-gray-600">Select from 15+ coding topics including algorithms, data structures, dynamic programming, and more.</p>
+                            <h3 className="text-xl font-semibold text-[var(--foreground)] mb-3">Choose Your Topic</h3>
+                            <p className="text-[var(--foreground)]">Select from 15+ coding topics including algorithms, data structures, dynamic programming, and more.</p>
                         </motion.div>
                         <motion.div variants={fadeInUp} className="text-center">
                             <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <span className="text-2xl font-bold text-white">2</span>
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Take Interactive Quizzes</h3>
-                            <p className="text-gray-600">Answer MCQ questions with instant feedback and detailed explanations to reinforce your learning.</p>
+                            <h3 className="text-xl font-semibold text-[var(--foreground)] mb-3">Take Interactive Quizzes</h3>
+                            <p className="text-[var(--foreground)]">Answer MCQ questions with instant feedback and detailed explanations to reinforce your learning.</p>
                         </motion.div>
                         <motion.div variants={fadeInUp} className="text-center">
                             <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <span className="text-2xl font-bold text-white">3</span>
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-3">Track & Compete</h3>
-                            <p className="text-gray-600">Monitor your progress, climb leaderboards, and compete with developers worldwide to stay motivated.</p>
+                            <h3 className="text-xl font-semibold text-[var(--foreground)] mb-3">Track & Compete</h3>
+                            <p className="text-[var(--foreground)]">Monitor your progress, climb leaderboards, and compete with developers worldwide to stay motivated.</p>
                         </motion.div>
                     </div>
                 </div>
             </motion.section>
 
-            <motion.section className="py-20 bg-white" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
+            <motion.section className="py-20 bg-[var(--background)]" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div variants={fadeInUp} className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4">What Students Say</h2>
-                        <p className="text-xl text-gray-600">Join thousands of students improving their coding skills</p>
+                        <h2 className="text-4xl font-bold text-[var(--foreground)] mb-4">What Students Say</h2>
+                        <p className="text-xl text-[var(--foreground)]">Join thousands of students improving their coding skills</p>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <motion.div variants={fadeInUp} className="bg-purple-50 p-8 rounded-2xl">
-                            <div className="flex items-center mb-4">
-                                <div className="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center">
-                                    <span className="text-purple-700 font-semibold">AS</span>
-                                </div>
-                                <div className="ml-4">
-                                    <h4 className="font-semibold text-gray-900">Alex Smith</h4>
-                                    <p className="text-gray-600 text-sm">Computer Science Student</p>
-                                </div>
-                            </div>
-                            <p className="text-gray-700 italic">&ldquo;CodeDuo helped me ace my algorithms course! The competitive element kept me motivated, and I improved my problem-solving speed significantly.&rdquo;</p>
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-blue-50 p-8 rounded-2xl">
-                            <div className="flex items-center mb-4">
-                                <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center">
-                                    <span className="text-blue-700 font-semibold">MJ</span>
-                                </div>
-                                <div className="ml-4">
-                                    <h4 className="font-semibold text-gray-900">Maria Johnson</h4>
-                                    <p className="text-gray-600 text-sm">Bootcamp Graduate</p>
-                                </div>
-                            </div>
-                            <p className="text-gray-700 italic">&ldquo;The progress tracking feature is amazing! I can see exactly where I need to improve. Got my dream job thanks to the interview prep quizzes.&rdquo;</p>
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-green-50 p-8 rounded-2xl">
-                            <div className="flex items-center mb-4">
-                                <div className="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center">
-                                    <span className="text-green-700 font-semibold">RK</span>
-                                </div>
-                                <div className="ml-4">
-                                    <h4 className="font-semibold text-gray-900">Raj Kumar</h4>
-                                    <p className="text-gray-600 text-sm">Self-taught Developer</p>
-                                </div>
-                            </div>
-                            <p className="text-gray-700 italic">&ldquo;Perfect for self-study! The explanations are clear, and competing with others made learning fun. Highly recommend for coding beginners.&rdquo;</p>
-                        </motion.div>
+                        {testimonials.map((testi, index) => {
+                            // Map the Tailwind color names to CSS variable RGB for background
+                            const bgColor = `rgba(var(--${testi.color}-500-rgb), 0.1)`; // light translucent bg
+                            const textColor = `var(--${testi.color}-500)`; // text color
+
+                            return (
+                                <motion.div
+                                    key={index}
+                                    variants={fadeInUp}
+                                    className="p-8 rounded-2xl"
+                                    style={{
+                                        backgroundColor: bgColor,
+                                        color: "var(--foreground)",
+                                    }}
+                                >
+                                    <div className="flex items-center mb-4">
+                                        <div
+                                            className="w-12 h-12 bg-white rounded-full flex items-center justify-center"
+                                            style={{ color: textColor }}
+                                        >
+                                            <span className="font-semibold">{testi.profile}</span>
+                                        </div>
+                                        <div className="ml-4">
+                                            <h4 className="font-semibold text-[var(--foreground)]">{testi.name}</h4>
+                                            <p className="text-[var(--foreground)] text-sm">{testi.role}</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-[var(--foreground)] italic">&ldquo;{testi.review}&rdquo;</p>
+                                </motion.div>
+                            );
+                        })}
                     </div>
+
                 </div>
             </motion.section>
 
-            <motion.section id="faq" className="py-20 bg-white" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={staggerContainer}>
+            <motion.section id="faq" className="py-20 bg-[var(--background)]" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={staggerContainer}>
                 <div className="max-w-4xl mx-auto px-6">
                     <motion.div variants={fadeInUp} className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-                        <p className="text-xl text-gray-600">Everything you need to know about CodeDuo</p>
+                        <h2 className="text-4xl font-bold text-[var(--foreground)] mb-4">Frequently Asked Questions</h2>
+                        <p className="text-xl text-[var(--foreground)]">Everything you need to know about CodeDuo</p>
                     </motion.div>
                     <div className="space-y-6">
-                        <motion.div variants={fadeInUp} className="bg-purple-50 rounded-xl p-6 border border-purple-100">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">Is CodeDuo really free?</h3>
-                            <p className="text-gray-700">Yes! CodeDuo is completely free to use. Access all quizzes, track your progress, compete on leaderboards, and use all features without any cost.</p>
+                        <motion.div
+                            variants={fadeInUp}
+                            className="rounded-xl p-6 border backdrop-blur-lg transition-all duration-200"
+                            style={{
+                                backgroundColor: "rgba(168, 85, 247, 0.1)", // purple-500 with glass effect
+                                borderColor: "rgba(168, 85, 247, 0.3)",
+                                color: "var(--foreground)",
+                            }}
+                        >
+                            <h3 className="text-lg font-semibold mb-2">Is CodeDuo really free?</h3>
+                            <p>
+                                Yes! CodeDuo is completely free to use. Access all quizzes, track your
+                                progress, compete on leaderboards, and use all features without any cost.
+                            </p>
                         </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">What topics are covered?</h3>
-                            <p className="text-gray-700">We cover 15+ essential coding topics including Data Structures, Algorithms, Dynamic Programming, Backtracking, Graph Algorithms, System Design, and more.</p>
+
+                        <motion.div
+                            variants={fadeInUp}
+                            className="rounded-xl p-6 border backdrop-blur-lg transition-all duration-200"
+                            style={{
+                                backgroundColor: "rgba(181, 183, 185, 0.1)", // gray-200 glass effect
+                                borderColor: "rgba(124, 126, 129, 0.3)",
+                                color: "var(--foreground)",
+                            }}
+                        >
+                            <h3 className="text-lg font-semibold mb-2">What topics are covered?</h3>
+                            <p>
+                                We cover 15+ essential coding topics including Data Structures, Algorithms,
+                                Dynamic Programming, Backtracking, Graph Algorithms, System Design, and more.
+                            </p>
                         </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-purple-50 rounded-xl p-6 border border-purple-100">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">How does the competition work?</h3>
-                            <p className="text-gray-700">Compete with students globally through our leaderboard system. Earn points for correct answers, maintain streaks, and climb rankings based on your quiz performance.</p>
+
+                        <motion.div
+                            variants={fadeInUp}
+                            className="rounded-xl p-6 border backdrop-blur-lg transition-all duration-200"
+                            style={{
+                                backgroundColor: "rgba(168, 85, 247, 0.1)", // purple-500 glass effect
+                                borderColor: "rgba(168, 85, 247, 0.3)",
+                                color: "var(--foreground)",
+                            }}
+                        >
+                            <h3 className="text-lg font-semibold mb-2">How does the competition work?</h3>
+                            <p>
+                                Compete with students globally through our leaderboard system. Earn points for
+                                correct answers, maintain streaks, and climb rankings based on your quiz
+                                performance.
+                            </p>
                         </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">Do I need to create an account?</h3>
-                            <p className="text-gray-700">While you can try demo quizzes without an account, creating one lets you track progress, save scores, and compete on leaderboards.</p>
+
+                        <motion.div
+                            variants={fadeInUp}
+                            className="rounded-xl p-6 border backdrop-blur-lg transition-all duration-200"
+                            style={{
+                                backgroundColor: "rgba(181, 183, 185, 0.1)", // gray-200 glass effect
+                                borderColor: "rgba(124, 126, 129, 0.3)",
+                                color: "var(--foreground)",
+                            }}
+                        >
+                            <h3 className="text-lg font-semibold mb-2">Do I need to create an account?</h3>
+                            <p>
+                                While you can try demo quizzes without an account, creating one lets you
+                                track progress, save scores, and compete on leaderboards.
+                            </p>
                         </motion.div>
                     </div>
+
                 </div>
             </motion.section>
 
