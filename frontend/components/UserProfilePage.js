@@ -17,6 +17,7 @@ import { getUser, logout } from '@/services/UserService';
 import { useRouter } from 'next/navigation';
 import LoaderPage from './LoaderPage';
 import { toast } from 'react-toastify';
+import useTheme from '@/services/hooks/useTheme';
 
 const UserProfilePage = () => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const UserProfilePage = () => {
   const [editMode, setEditMode] = useState(false);
   const [user, setUser] = useState(null);
   const [profileData, setProfileData] = useState(null);
+  const { isDark, toggleTheme } = useTheme();
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -144,10 +146,10 @@ const UserProfilePage = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
+    <div className="min-h-screen bg-[var(--background)]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Profile Card */}
-        <div className="bg-white rounded-2xl shadow-lg mb-8 overflow-hidden">
+        <div className="bg-[var(--background)] rounded-2xl shadow-lg mb-8 overflow-hidden">
           <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-8 py-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-10">
               <div className="flex items-center space-x-6">
@@ -180,7 +182,11 @@ const UserProfilePage = () => {
         </div>
 
         {/* Tab Navigation */}
-        <div className="bg-white rounded-2xl shadow-lg">
+        <div className="rounded-2xl shadow-lg"
+          style={{
+            backgroundColor: "rgba(181, 183, 185, 0.16)",
+            color: "var(--foreground)",
+          }}>
           <div className="border-b border-gray-200">
             <nav className="flex space-x-8 px-6 overflow-x-auto">
               {[
@@ -193,8 +199,8 @@ const UserProfilePage = () => {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center cursor-pointer space-x-2 py-4 border-b-2 transition-colors ${activeTab === tab.id
-                    ? 'border-purple-600 text-purple-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                    ? 'border-purple-500 text-purple-500'
+                    : 'border-transparent text-[var(--color-text)] hover:text-[var(--color-text-secondary)]'
                     }`}
                 >
                   {tab.icon}
@@ -208,28 +214,28 @@ const UserProfilePage = () => {
             {activeTab === 'profile' && (
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Personal Information</h3>
+                  <h3 className="text-lg font-semibold text-[var(--color-text)] mb-4">Personal Information</h3>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                      <label className="block text-sm font-medium text-[var(--color-text)] mb-2">Username</label>
                       <input
                         type="text"
                         value={profileData.username}
                         onChange={(e) => handleProfileUpdate('username', e.target.value)}
                         disabled={!editMode}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50/10 disabled:text-[var(--color-text)]"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                      <label className="block text-sm font-medium text-[var(--color-text)] mb-2">Email</label>
                       <input
                         type="email"
                         value={profileData.email}
                         onChange={(e) => handleProfileUpdate('email', e.target.value)}
                         disabled={!editMode}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
+                        className="bg-white/10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50/10 disabled:text-[var(--color-text)]"
                       />
                     </div>
                   </div>
@@ -269,11 +275,11 @@ const UserProfilePage = () => {
             {activeTab === 'security' && (
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Change Password</h3>
+                  <h3 className="text-lg font-semibold text-[var(--color-text)] mb-4">Change Password</h3>
 
                   <div className="space-y-4 max-w-md">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
+                      <label className="block text-sm font-medium text-[var(--color-text)] mb-2">Current Password</label>
                       <div className="relative">
                         <input
                           type={showCurrentPassword ? "text" : "password"}
@@ -284,7 +290,7 @@ const UserProfilePage = () => {
                         <button
                           type="button"
                           onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
                         >
                           {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </button>
@@ -292,7 +298,7 @@ const UserProfilePage = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+                      <label className="block text-sm font-medium text-[var(--color-text)] mb-2">New Password</label>
                       <div className="relative">
                         <input
                           type={showNewPassword ? "text" : "password"}
@@ -303,7 +309,7 @@ const UserProfilePage = () => {
                         <button
                           type="button"
                           onClick={() => setShowNewPassword(!showNewPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
                         >
                           {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </button>
@@ -311,7 +317,7 @@ const UserProfilePage = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                      <label className="block text-sm font-medium text-[var(--color-text)] mb-2">Confirm New Password</label>
                       <div className="relative">
                         <input
                           type={showConfirmPassword ? "text" : "password"}
@@ -322,7 +328,7 @@ const UserProfilePage = () => {
                         <button
                           type="button"
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
                         >
                           {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </button>
@@ -339,12 +345,12 @@ const UserProfilePage = () => {
                 </div>
 
                 <div className="border-t border-gray-200 pt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Two-Factor Authentication</h3>
-                  <div className="bg-gray-50 rounded-xl p-4">
+                  <h3 className="text-lg font-semibold text-[var(--color-text)] mb-4">Two-Factor Authentication</h3>
+                  <div className="bg-gray-50/10 rounded-xl p-4">
                     <div className="flex flex-col sm:flex-row gap-8 items-center justify-between">
                       <div>
-                        <h4 className="font-medium text-gray-900">Two Factor Authentication</h4>
-                        <p className="text-sm text-gray-600">Use your email to generate verification codes before signing in to the website</p>
+                        <h4 className="font-medium text-[var(--color-text)]">Two Factor Authentication</h4>
+                        <p className="text-sm text-[var(--color-text-secondary)]">Use your email to generate verification codes before signing in to the website</p>
                       </div>
                       <button className="px-4 py-2 bg-green-600 text-white cursor-pointer rounded-lg hover:bg-green-700 transition-colors">
                         Enable
@@ -355,10 +361,10 @@ const UserProfilePage = () => {
 
                 <div className="border-t border-gray-200 pt-6">
                   <h3 className="text-lg font-semibold text-red-600 mb-4">Danger Zone</h3>
-                  <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                  <div className="bg-red-50/50 border border-red-200 rounded-xl p-4">
                     <div className="flex flex-col sm:flex-row gap-8 items-center justify-between">
                       <div>
-                        <h4 className="font-medium text-red-900">Delete Account</h4>
+                        <h4 className="font-medium text-red-800">Delete Account</h4>
                         <p className="text-sm text-red-700">Permanently delete your account and all data</p>
                       </div>
                       <button
@@ -377,7 +383,7 @@ const UserProfilePage = () => {
             {activeTab === 'notifications' && (
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Email Notifications</h3>
+                  <h3 className="text-lg font-semibold text-[var(--color-text)] mb-4">Email Notifications</h3>
 
                   <div className="space-y-4">
                     {[
@@ -391,8 +397,8 @@ const UserProfilePage = () => {
                     ].map((setting) => (
                       <div key={setting.key} className="flex items-center justify-between py-3">
                         <div>
-                          <h4 className="font-medium text-gray-900">{setting.label}</h4>
-                          <p className="text-sm text-gray-600">{setting.desc}</p>
+                          <h4 className="font-medium text-[var(--color-text)]">{setting.label}</h4>
+                          <p className="text-sm text-[var(--color-text-secondary)]">{setting.desc}</p>
                         </div>
                         <label className="relative inline-flex items-center cursor-pointer">
                           <input
@@ -413,18 +419,18 @@ const UserProfilePage = () => {
             {activeTab === 'privacy' && (
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Profile Privacy</h3>
+                  <h3 className="text-lg font-semibold text-[var(--color-text)] mb-4">Profile Privacy</h3>
 
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3">Profile Visibility</label>
+                      <label className="block text-sm font-medium text-[var(--color-text)] mb-3">Profile Visibility</label>
                       <div className="space-y-2">
                         {[
                           { value: 'public', label: 'Public', desc: 'Anyone can view your profile' },
                           { value: 'friends', label: 'Friends Only', desc: 'Only your friends can view your profile' },
                           { value: 'private', label: 'Private', desc: 'Only you can view your profile' }
                         ].map((option) => (
-                          <label key={option.value} className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                          <label key={option.value} className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50/20 cursor-pointer">
                             <input
                               type="radio"
                               name="profileVisibility"
@@ -434,8 +440,8 @@ const UserProfilePage = () => {
                               className="w-4 h-4 text-purple-600"
                             />
                             <div>
-                              <div className="font-medium text-gray-900">{option.label}</div>
-                              <div className="text-sm text-gray-600">{option.desc}</div>
+                              <div className="font-medium text-[var(--color-text)]">{option.label}</div>
+                              <div className="text-sm text-[var(--color-text-secondary)]">{option.desc}</div>
                             </div>
                           </label>
                         ))}
@@ -443,7 +449,7 @@ const UserProfilePage = () => {
                     </div>
 
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-3">What others can see</h4>
+                      <h4 className="font-medium text-[var(--color-text)] mb-3">What others can see</h4>
                       <div className="space-y-3">
                         {[
                           { key: 'showEmail', label: 'Email Address' },
@@ -453,7 +459,7 @@ const UserProfilePage = () => {
                           { key: 'showActivity', label: 'Recent Activity' }
                         ].map((setting) => (
                           <div key={setting.key} className="flex items-center justify-between">
-                            <span className="text-gray-700">{setting.label}</span>
+                            <span className="text-[var(--color-text-secondary)]">{setting.label}</span>
                             <label className="relative inline-flex items-center cursor-pointer">
                               <input
                                 type="checkbox"
@@ -471,15 +477,15 @@ const UserProfilePage = () => {
                 </div>
 
                 <div className="border-t border-gray-200 pt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Data Management</h3>
+                  <h3 className="text-lg font-semibold text-[var(--color-text)] mb-4">Data Management</h3>
                   <div className="grid md:grid-cols-2 gap-4">
-                    <button className="p-4 border border-gray-200 rounded-xl text-left hover:bg-gray-50 transition-colors">
-                      <h4 className="font-medium text-gray-900 mb-1">Download My Data</h4>
-                      <p className="text-sm text-gray-600">Get a copy of all your CodeDuo data</p>
+                    <button className="p-4 border border-gray-200 rounded-xl text-left hover:bg-gray-50/20 transition-colors">
+                      <h4 className="font-medium text-[var(--color-text)] mb-1">Download My Data</h4>
+                      <p className="text-sm text-[var(--color-text-secondary)]">Get a copy of all your CodeDuo data</p>
                     </button>
-                    <button className="p-4 border border-gray-200 rounded-xl text-left hover:bg-gray-50 transition-colors">
-                      <h4 className="font-medium text-gray-900 mb-1">Clear Quiz History</h4>
-                      <p className="text-sm text-gray-600">Remove all your quiz attempt records</p>
+                    <button className="p-4 border border-gray-200 rounded-xl text-left hover:bg-gray-50/20 transition-colors">
+                      <h4 className="font-medium text-[var(--color-text)] mb-1">Clear Quiz History</h4>
+                      <p className="text-sm text-[var(--color-text-secondary)]">Remove all your quiz attempt records</p>
                     </button>
                   </div>
                 </div>

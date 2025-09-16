@@ -9,6 +9,7 @@ import {
   Filler,
   Tooltip,
 } from 'chart.js';
+import useTheme from '@/services/hooks/useTheme';
 
 // Register radar chart components
 ChartJS.register(
@@ -21,6 +22,7 @@ ChartJS.register(
 
 const PerformanceRadarChart = ({ user }) => {
   // Fall back to zeros if user is not loaded yet
+  const { isDark, toggleTheme } = useTheme();
   const chartData = {
     labels: [
       'Accuracy',
@@ -70,7 +72,7 @@ const PerformanceRadarChart = ({ user }) => {
             size: 12,
             weight: '500',
           },
-          color: '#4b5563', // Gray text
+          color: isDark ? '#F3F4F6':'#1F2937', // Gray text
         },
         ticks: {
           backdropColor: 'transparent',

@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Clock, Code, Target, Trophy, Share2, Home, RotateCcw, CheckCircle, XCircle, Zap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { quizQuestions } from '@/services/QuizService';
+import Image from 'next/image';
+import Villain from './ui/Villain';
+import Hero from './ui/Hero';
+import LaserBeam from './ui/LaserBeam';
+import LoaderPage from './LoaderPage';
+import useTheme from '@/services/hooks/useTheme';
 
 const QuizPage = () => {
     const router = useRouter();
@@ -15,6 +21,15 @@ const QuizPage = () => {
     const [maxStreak, setMaxStreak] = useState(0);
     const [multiplier, setMultiplier] = useState(1);
     const [showResults, setShowResults] = useState(false);
+    const [correct, setCorrect] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const { isDark, toggleTheme } = useTheme();
+
+    // States and refs for the laser beam animation
+    const [showLaser, setShowLaser] = useState(false);
+    const [laserStyle, setLaserStyle] = useState({});
+    const heroRef = useRef(null);
+    const villainRef = useRef(null);
 
     // Timer effect
     useEffect(() => {
@@ -25,6 +40,39 @@ const QuizPage = () => {
             handleNextQuestion();
         }
     }, [timeLeft, isQuizComplete, showResults]);
+
+    useEffect(() => {
+        const loadTimer = setTimeout(() => setIsLoading(false), 1500);
+        return () => clearTimeout(loadTimer);
+    }, []);
+
+    // Effect to calculate laser position
+    useEffect(() => {
+        if (showLaser && heroRef.current && villainRef.current) {
+            const heroRect = heroRef.current.getBoundingClientRect();
+            const villainRect = villainRef.current.getBoundingClientRect();
+
+            // Calculate center points for the laser's start and end
+            const startX = villainRect.left + villainRect.width / 2;
+            const startY = villainRect.top + villainRect.height / 2;
+            const endX = heroRect.left + heroRect.width / 2;
+            const endY = heroRect.top + heroRect.height / 2;
+
+            // Calculate distance for the laser's width
+            const distance = Math.hypot(endX - startX, endY - startY);
+            // Calculate angle for the laser's rotation
+            const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+
+            setLaserStyle({
+                position: 'absolute',
+                left: `${startX}px`,
+                top: `${startY}px`,
+                width: `${distance}px`,
+                transform: `rotate(${angle}deg)`,
+                transformOrigin: '0% 50%',
+            });
+        }
+    }, [showLaser]);
 
     const handleAnswerSelect = (answerIndex) => {
         if (selectedAnswer !== null) return;
@@ -46,20 +94,22 @@ const QuizPage = () => {
             setStreak(newStreak);
             setMaxStreak(Math.max(maxStreak, newStreak));
 
-            // Calculate multiplier based on streak
             const newMultiplier = Math.min(Math.floor(newStreak / 3) + 1, 5);
             setMultiplier(newMultiplier);
 
-            // Calculate points (base 100, multiplied by streak multiplier, time bonus)
             const timeBonus = Math.floor(timeLeft / 5);
             const points = (100 + timeBonus) * newMultiplier;
             setScore(score + points);
+            setCorrect(true);
+            setTimeout(() => setCorrect(false), 1000);
         } else {
             setStreak(0);
             setMultiplier(1);
+            // Trigger the laser on a wrong answer
+            setShowLaser(true);
+            setTimeout(() => setShowLaser(false), 1000); // Hide after 1 second
         }
 
-        // Auto advance after 2 seconds
         setTimeout(() => {
             handleNextQuestion();
         }, 2000);
@@ -121,13 +171,17 @@ const QuizPage = () => {
         }
     };
 
+    if (isLoading) {
+        return <LoaderPage />;
+    }
+
     if (showResults) {
         const correctAnswers = userAnswers.filter(answer => answer.isCorrect).length;
         const percentage = Math.round((correctAnswers / quizQuestions.length) * 100);
         const scoreGrade = getScoreGrade();
 
         return (
-            <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
+            <div className="min-h-screen bg-[var(--background)]">
                 <div className="max-w-4xl mx-auto px-6 py-8">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-8">
@@ -193,9 +247,9 @@ const QuizPage = () => {
                                     <span>Try Again</span>
                                 </button>
 
-                                <button 
-                                onClick={() => openPage('/dashboard')}
-                                className="bg-gray-100 cursor-pointer text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-200 flex items-center justify-center space-x-2"
+                                <button
+                                    onClick={() => openPage('/dashboard')}
+                                    className="bg-gray-100 cursor-pointer text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-200 flex items-center justify-center space-x-2"
                                 >
                                     <Home className="w-5 h-5" />
                                     <span>Dashboard</span>
@@ -222,17 +276,15 @@ const QuizPage = () => {
                                 <div key={index} className={`flex items-center justify-between p-3 rounded-lg ${user.isUser ? 'bg-purple-50 border border-purple-200' : 'hover:bg-gray-50'}`}>
                                     <div className="flex items-center space-x-3">
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${user.rank === 1 ? 'bg-yellow-100 text-yellow-700' :
-                                                user.rank === 2 ? 'bg-gray-100 text-gray-700' :
-                                                    user.rank === 3 ? 'bg-orange-100 text-orange-700' :
-                                                        user.isUser ? 'bg-purple-200 text-purple-700' : 'bg-gray-100 text-gray-600'
+                                            user.rank === 2 ? 'bg-gray-100 text-gray-700' :
+                                                user.rank === 3 ? 'bg-orange-100 text-orange-700' :
+                                                    user.isUser ? 'bg-purple-200 text-purple-700' : 'bg-gray-100 text-gray-600'
                                             }`}>
                                             {user.rank}
                                         </div>
-
                                         <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                                             <span className="text-sm font-medium text-purple-600">{user.avatar}</span>
                                         </div>
-
                                         <div>
                                             <div className={`font-semibold ${user.isUser ? 'text-purple-700' : 'text-gray-800'}`}>
                                                 {user.name}
@@ -240,7 +292,6 @@ const QuizPage = () => {
                                             <div className="text-xs text-gray-500">Streak: {user.streak}</div>
                                         </div>
                                     </div>
-
                                     <div className="text-right">
                                         <div className="font-bold text-gray-800">{user.score.toLocaleString()}</div>
                                         <div className="text-xs text-gray-500">points</div>
@@ -256,7 +307,7 @@ const QuizPage = () => {
 
     if (isQuizComplete) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white flex items-center justify-center">
+            <div className="min-h-screen bg-[var(--background)] flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
                         <CheckCircle className="w-10 h-10 text-white" />
@@ -272,44 +323,28 @@ const QuizPage = () => {
     const currentQ = quizQuestions[currentQuestion];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
-            <div className="max-w-4xl mx-auto px-6 py-8">
-                {/* Header */}
-                {/* <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                            <Code className="w-6 h-6 text-white" />
-                        </div>
-                        <div>
-                            <h1 className="text-2xl font-bold text-gray-900">Data Structures & Algorithms</h1>
-                            <p className="text-gray-600">Medium Level Quiz</p>
-                        </div>
-                    </div>
+        <div className="relative flex flex-col md:flex-row justify-center items-end min-h-screen bg-[var(--background)] overflow-hidden z-10">
+            {showLaser && <LaserBeam style={laserStyle} />}
 
-                    <div className="flex items-center space-x-4">
-                        {multiplier > 1 && (
-                            <div className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
-                                <Zap className="w-4 h-4" />
-                                <span>{multiplier}x Multiplier!</span>
-                            </div>
-                        )}
+            <div className="flex-1 hidden w-full lg:flex flex-col justify-center items-center">
+                <div ref={heroRef} className="relative mb-2">
+                    <Hero status={showLaser ? 'lost' : correct ? 'won' : 'none'} />
+                </div>
+                <div className="relative">
+                    <Image src='/sprites/pillar-sprite.png' height={400} width={100} alt='pillar' className="block" />
+                </div>
+            </div>
 
-                        <div className="text-right">
-                            <div className="text-2xl font-bold text-gray-900">{score.toLocaleString()}</div>
-                            <div className="text-gray-500 text-sm">Points</div>
-                        </div>
-                    </div>
-                </div> */}
-
+            <div className="flex-5 max-h-screen max-w-4xl mx-auto px-6 py-8 z-0 flex flex-col justify-center items-center">
                 {/* Progress Bar */}
-                <div className="mb-8">
+                <div className="mb-8 z-10 w-full">
                     <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm text-gray-600">
+                        <span className="text-sm text-[var(--color-text-secondary)]">
                             Question {currentQuestion + 1} of {quizQuestions.length}
                         </span>
-                        <span className="text-sm text-gray-600">{Math.round(progress)}% Complete</span>
+                        <span className="text-sm text-[var(--color-text-secondary)]">{Math.round(progress)}% Complete</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-gray-200/20 rounded-full h-2">
                         <div
                             className="bg-gradient-to-r from-purple-500 to-purple-600 h-2 rounded-full transition-all duration-300"
                             style={{ width: `${progress}%` }}
@@ -318,14 +353,13 @@ const QuizPage = () => {
                 </div>
 
                 {/* Timer and Streak */}
-                <div className="flex justify-between items-center mb-8">
+                <div className="flex justify-between items-center mb-8 z-10 w-full">
                     <div className="flex items-center space-x-4">
                         <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg ${timeLeft <= 10 ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
                             }`}>
                             <Clock className="w-5 h-5" />
                             <span className="font-semibold text-lg">{timeLeft}s</span>
                         </div>
-
                         {streak > 0 && (
                             <div className="bg-green-100 text-green-700 px-4 py-2 rounded-lg flex items-center space-x-2">
                                 <Zap className="w-5 h-5" />
@@ -336,26 +370,31 @@ const QuizPage = () => {
                 </div>
 
                 {/* Question Card */}
-                <div className="bg-white rounded-2xl shadow-xl border border-purple-100 p-8 mb-8">
+                <div className="bg-white/20 rounded-2xl shadow-xl border border-purple-100 p-8 mb-8 z-10 w-full">
                     <div className="mb-8">
-                        <h2 className="text-xl font-semibold text-gray-900 leading-relaxed">
+                        <h2 className="text-xl font-semibold text-[var(--color-text)] leading-relaxed">
                             {currentQ.question}
                         </h2>
                     </div>
 
                     {/* Answer Options */}
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
                         {currentQ.options.map((option, index) => {
-                            let buttonClass = "w-full p-4 text-left cursor-pointer rounded-xl border-2 transition-all duration-200 font-medium ";
+                            let buttonClass =
+                                "w-full min-h-[80px] p-4 text-left rounded-xl border-2 transition-all duration-200 font-medium flex items-center";
 
                             if (selectedAnswer === null) {
-                                buttonClass += "border-gray-200 hover:border-purple-300 hover:bg-purple-50 cursor-pointer";
+                                buttonClass +=
+                                    " border-gray-200 hover:border-purple-300 text-[var(--color-text)] hover:bg-purple-50/20 cursor-pointer";
                             } else if (index === currentQ.correctAnswer) {
-                                buttonClass += "border-green-500 bg-green-50 text-green-800";
-                            } else if (index === selectedAnswer && selectedAnswer !== currentQ.correctAnswer) {
-                                buttonClass += "border-red-500 bg-red-50 text-red-800";
+                                buttonClass += " border-green-500 bg-green-50 text-green-800";
+                            } else if (
+                                index === selectedAnswer &&
+                                selectedAnswer !== currentQ.correctAnswer
+                            ) {
+                                buttonClass += " border-red-500 bg-red-50 text-red-800";
                             } else {
-                                buttonClass += "border-gray-200 bg-gray-50 text-gray-500";
+                                buttonClass += " border-gray-200 bg-gray-50 text-gray-500";
                             }
 
                             return (
@@ -366,19 +405,27 @@ const QuizPage = () => {
                                     className={buttonClass}
                                 >
                                     <div className="flex items-center space-x-3">
-                                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-sm font-bold ${selectedAnswer === null ? 'border-gray-300' :
-                                                index === currentQ.correctAnswer ? 'border-green-500 bg-green-500 text-white' :
-                                                    index === selectedAnswer ? 'border-red-500 bg-red-500 text-white' : 'border-gray-300'
-                                            }`}>
+                                        <div
+                                            className={`w-6 h-6 rounded-full border-2 flex-shrink-0 flex items-center justify-center text-sm font-bold ${selectedAnswer === null
+                                                ? "border-gray-300"
+                                                : index === currentQ.correctAnswer
+                                                    ? "border-green-500 bg-green-500 text-white"
+                                                    : index === selectedAnswer
+                                                        ? "border-red-500 bg-red-500 text-white"
+                                                        : "border-gray-300"
+                                                }`}
+                                        >
                                             {String.fromCharCode(65 + index)}
                                         </div>
                                         <span>{option}</span>
-                                        {selectedAnswer !== null && index === currentQ.correctAnswer && (
-                                            <CheckCircle className="w-5 h-5 text-green-500 ml-auto" />
-                                        )}
-                                        {selectedAnswer === index && selectedAnswer !== currentQ.correctAnswer && (
-                                            <XCircle className="w-5 h-5 text-red-500 ml-auto" />
-                                        )}
+                                        {selectedAnswer !== null &&
+                                            index === currentQ.correctAnswer && (
+                                                <CheckCircle className="w-5 h-5 text-green-500 ml-auto" />
+                                            )}
+                                        {selectedAnswer === index &&
+                                            selectedAnswer !== currentQ.correctAnswer && (
+                                                <XCircle className="w-5 h-5 text-red-500 ml-auto" />
+                                            )}
                                     </div>
                                 </button>
                             );
@@ -388,10 +435,19 @@ const QuizPage = () => {
 
                 {/* Auto-advance indicator */}
                 {selectedAnswer !== null && (
-                    <div className="text-center text-gray-500 text-sm">
+                    <div className="text-center text-gray-500 text-sm w-full">
                         Next question loading automatically...
                     </div>
                 )}
+            </div>
+
+            <div className="flex-1 hidden lg:flex flex-col justify-center items-center z-[-20]">
+                <div ref={villainRef} className="">
+                    <Villain laser={showLaser} />
+                </div>
+                <div className="">
+                    <Image src='/sprites/pillar-sprite.png' height={400} width={100} alt='pillar' className="block" />
+                </div>
             </div>
         </div>
     );
