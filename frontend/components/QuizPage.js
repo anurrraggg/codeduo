@@ -8,6 +8,7 @@ import Hero from './ui/Hero';
 import LaserBeam from './ui/LaserBeam';
 import LoaderPage from './LoaderPage';
 import useTheme from '@/services/hooks/useTheme';
+import Link from 'next/link';
 
 const QuizPage = () => {
     const router = useRouter();
@@ -186,12 +187,18 @@ const QuizPage = () => {
                     {/* Header */}
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                                <Code className="w-6 h-6 text-white" />
-                            </div>
+                            <Link href="/" className="cursor-pointer">
+                                <Image
+                                    className="w-15"
+                                    height={180}
+                                    width={180}
+                                    src="/images/mascot-smug.png"
+                                    alt="logo"
+                                />
+                            </Link>
                             <div>
-                                <h1 className="text-2xl font-bold text-gray-900">Quiz Complete!</h1>
-                                <p className="text-gray-600">Data Structures & Algorithms</p>
+                                <h1 className="text-2xl font-bold text-[var(--color-text-secondary)]">Quiz Complete!</h1>
+                                <p className="text-[var(--color-text)]">Data Structures & Algorithms</p>
                             </div>
                         </div>
                     </div>
@@ -312,8 +319,8 @@ const QuizPage = () => {
                     <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
                         <CheckCircle className="w-10 h-10 text-white" />
                     </div>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-2">Quiz Complete!</h2>
-                    <p className="text-gray-600">Calculating your results...</p>
+                    <h2 className="text-3xl font-bold text-[var(--color-text)] mb-2">Quiz Complete!</h2>
+                    <p className="text-[var(--color-text)]">Calculating your results...</p>
                 </div>
             </div>
         );
@@ -327,10 +334,14 @@ const QuizPage = () => {
             {showLaser && <LaserBeam style={laserStyle} />}
 
             <div className="flex-1 hidden w-full lg:flex flex-col justify-center items-center">
-                <div ref={heroRef} className="relative mb-2">
+                {/* Yellow light behind hero */}
+                <div className="relative left-1/2 top-1/2 -translate-x-1/2 translate-y-1/2 pointer-events-none z-0">
+                    <div className="w-56 h-56 rounded-full bg-purple-300 opacity-45 blur-3xl"></div>
+                </div>
+                <div ref={heroRef} className="relative mb-2 z-10">
                     <Hero status={showLaser ? 'lost' : correct ? 'won' : 'none'} />
                 </div>
-                <div className="relative">
+                <div className="relative z-10">
                     <Image src='/sprites/pillar-sprite.png' height={400} width={100} alt='pillar' className="block" />
                 </div>
             </div>
@@ -442,10 +453,13 @@ const QuizPage = () => {
             </div>
 
             <div className="flex-1 hidden lg:flex flex-col justify-center items-center z-[-20]">
-                <div ref={villainRef} className="">
+                <div className="relative left-1/2 top-1/2 -translate-x-1/2 translate-y-1/2 pointer-events-none z-0">
+                    <div className="w-56 h-56 rounded-full bg-rose-300 opacity-45 blur-3xl"></div>
+                </div>
+                <div ref={villainRef} className="z-10">
                     <Villain laser={showLaser} />
                 </div>
-                <div className="">
+                <div className="z-10">
                     <Image src='/sprites/pillar-sprite.png' height={400} width={100} alt='pillar' className="block" />
                 </div>
             </div>
