@@ -142,7 +142,7 @@ const QuizPage = () => {
     };
 
     const handleNextQuestion = () => {
-        // playEffect('/sounds/next.mp3');           // --- AUDIO next question
+        // playEffect('/sounds/next.mp3');           // --- AUDIO next question
         if (currentQuestion < quizQuestions.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
             setSelectedAnswer(null);
@@ -191,29 +191,27 @@ const QuizPage = () => {
         }
     };
 
-    // Add this in your QuizPage component
-    useEffect(() => {
-        const handleUserInteraction = () => {
-            enableSound();
-            window.removeEventListener('click', handleUserInteraction);
-            window.removeEventListener('keydown', handleUserInteraction);
-        };
-
-        window.addEventListener('click', handleUserInteraction);
-        window.addEventListener('keydown', handleUserInteraction);
-
-        return () => {
-            window.removeEventListener('click', handleUserInteraction);
-            window.removeEventListener('keydown', handleUserInteraction);
-            // Cleanup BGM
-            if (bgmRef.current) {
-                bgmRef.current.pause();
-                bgmRef.current.currentTime = 0;
-            }
-        };
-    }, []);
-
     if (isLoading) return <LoaderPage />;
+
+    if (!soundReady) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-[var(--background)]">
+                <div className="text-center p-8 bg-white/10 rounded-2xl shadow-xl border border-purple-100/20">
+                    <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-text)] mb-4">
+                        Data Structures & Algorithms Quiz
+                    </h1>
+                    <p className="text-[var(--color-text-secondary)] mb-8 max-w-lg mx-auto">
+                        Test your knowledge of essential DSA concepts. Answer quickly and accurately to earn points and climb the leaderboard!
+                    </p>
+                    <button
+                        onClick={enableSound}
+                        className="px-8 py-4 bg-purple-600 text-white rounded-xl text-lg font-semibold cursor-pointer hover:bg-purple-700 transition">
+                        Start Quiz
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     if (showResults) {
         const correctAnswers = userAnswers.filter(answer => answer.isCorrect).length;
