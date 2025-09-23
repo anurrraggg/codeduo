@@ -3,9 +3,9 @@ import { getUser } from '@/services/UserService';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import LoaderPage from './LoaderPage';
+import { testimonials } from '@/services/TestimonialService';
 
 const LandingPage = () => {
     const router = useRouter();
@@ -20,7 +20,7 @@ const LandingPage = () => {
                     setUser(data);
                 }
             } catch (err) {
-                toast.error('Error fetching user: ' + err.message);
+                console.error('Error fetching user: ' + err.message);
             } finally {
                 setLoading(false);
             }
@@ -105,7 +105,7 @@ const LandingPage = () => {
                                 }}
                             />
 
-                            {/* Background shapes stay animated */}
+                            {/* Background shapes stay anima</div>ted */}
                             <motion.div
                                 className="absolute -top-6 right-16 -z-10 w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-20"
                                 animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
@@ -225,42 +225,22 @@ const LandingPage = () => {
                         <p className="text-xl text-gray-600">Join thousands of students improving their coding skills</p>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <motion.div variants={fadeInUp} className="bg-purple-50 p-8 rounded-2xl">
-                            <div className="flex items-center mb-4">
-                                <div className="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center">
-                                    <span className="text-purple-700 font-semibold">AS</span>
-                                </div>
-                                <div className="ml-4">
-                                    <h4 className="font-semibold text-gray-900">Alex Smith</h4>
-                                    <p className="text-gray-600 text-sm">Computer Science Student</p>
-                                </div>
-                            </div>
-                            <p className="text-gray-700 italic">&ldquo;CodeDuo helped me ace my algorithms course! The competitive element kept me motivated, and I improved my problem-solving speed significantly.&rdquo;</p>
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-blue-50 p-8 rounded-2xl">
-                            <div className="flex items-center mb-4">
-                                <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center">
-                                    <span className="text-blue-700 font-semibold">MJ</span>
-                                </div>
-                                <div className="ml-4">
-                                    <h4 className="font-semibold text-gray-900">Maria Johnson</h4>
-                                    <p className="text-gray-600 text-sm">Bootcamp Graduate</p>
-                                </div>
-                            </div>
-                            <p className="text-gray-700 italic">&ldquo;The progress tracking feature is amazing! I can see exactly where I need to improve. Got my dream job thanks to the interview prep quizzes.&rdquo;</p>
-                        </motion.div>
-                        <motion.div variants={fadeInUp} className="bg-green-50 p-8 rounded-2xl">
-                            <div className="flex items-center mb-4">
-                                <div className="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center">
-                                    <span className="text-green-700 font-semibold">RK</span>
-                                </div>
-                                <div className="ml-4">
-                                    <h4 className="font-semibold text-gray-900">Raj Kumar</h4>
-                                    <p className="text-gray-600 text-sm">Self-taught Developer</p>
-                                </div>
-                            </div>
-                            <p className="text-gray-700 italic">&ldquo;Perfect for self-study! The explanations are clear, and competing with others made learning fun. Highly recommend for coding beginners.&rdquo;</p>
-                        </motion.div>
+                        {
+                            testimonials.map((testimonials, index) => (
+                                <motion.div key={index} variants={fadeInUp} className={`bg-${testimonials.color}-50 p-8 rounded-2xl`}>
+                                    <div className="flex items-center mb-4">
+                                        <div className={`w-12 h-12 bg-white rounded-full flex items-center justify-center`}>
+                                            <span className={`text-${testimonials.color}-700 font-semibold`}>{testimonials.profile}</span>
+                                        </div>
+                                        <div className="ml-4">
+                                            <h4 className="font-semibold text-gray-900">{testimonials.name}</h4>
+                                            <p className="text-gray-600 text-sm">{testimonials.role}</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-gray-700 italic">&ldquo;{testimonials.review}&rdquo;</p>
+                                </motion.div>
+                            ))
+                        }
                     </div>
                 </div>
             </motion.section>

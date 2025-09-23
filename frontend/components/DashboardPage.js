@@ -87,7 +87,7 @@ const DashboardPage = () => {
           router.push("/");
         }
       } catch (err) {
-        toast.error("Error during setup: " + err.message);
+        console.error("Error during setup: " + err.message);
       } finally {
         setLoading(false);
       }
@@ -240,8 +240,8 @@ const DashboardPage = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {quizCategories.map(category => (
-                <div key={category.id} className="bg-white rounded-xl border border-purple-100 hover:shadow-lg transition-all duration-200 group">
+              {quizCategories.map((category, index) => (
+                <div key={index} onClick={() => openQuiz(category.id)} className="bg-white rounded-xl border border-purple-100 hover:shadow-lg transition-all duration-200 group">
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${category.color}`}>

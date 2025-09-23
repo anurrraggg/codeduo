@@ -135,10 +135,10 @@ const UserProfilePage = () => {
   const handleLogout = () => {
     try {
       logout();
-      toast.success('Account deletion initiated. You will receive a confirmation email.');
+      toast.success('You have logged out successfully!');
       router.push('/');
     } catch (err) {
-      toast.error('Failed to delete account. Please try again.');
+      toast.error('Failed to logout. Please try again.');
     }
   };
 
@@ -239,7 +239,7 @@ const UserProfilePage = () => {
                   <div>
                     <button
                       onClick={handleLogout}
-                      className="px-6 py-2 bg-gradient-to-r cursor-pointer from-purple-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all"
+                      className="px-6 py-2 cursor-pointer bg-rose-500 text-white rounded-lg hover:shadow-lg transition-all"
                     >
                       Logout
                     </button>

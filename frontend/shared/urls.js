@@ -1,5 +1,5 @@
 export const PORT = process.env.PORT || 5000;
-export const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URI || 'https://codeduo.onrender.com';
+export const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URI || 'http://localhost:5000';
 
 export const QUIZ_URL = BASE_URL + "/api/quiz";
 export const LEADERBOARD_URL = BASE_URL + "/api/leaderboard"
