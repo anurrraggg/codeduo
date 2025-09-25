@@ -24,7 +24,6 @@ const DashboardPage = () => {
     const fetchUserAndCluster = () => {
       try {
         const data = getUser();
-        console.log(data);
         if (data) {
           // Add dummy parameters directly to the user
           const updatedUser = {
