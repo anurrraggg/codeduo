@@ -37,6 +37,9 @@ coverage/
 .envrc
 public/static/
 
+.env
+.env*
+
 # Keep env.example tracked; do not ignore it
 # End of .gitignore
 
