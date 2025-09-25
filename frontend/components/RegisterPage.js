@@ -94,9 +94,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--background)] p-4">
       <div className="w-full max-w-md">
-        <div className="bg-white/80 backdrop-blur-xl border border-purple-100 rounded-2xl shadow-2xl p-8 md:p-12 animate-float">
+        <div className="bg-white/10 backdrop-blur-xl border border-purple-100 rounded-2xl shadow-2xl p-8 md:p-12 animate-float">
           <div className="flex flex-col items-center mb-8">
             <div className="w-25 h-25 bg-gradient-to-r from-purple-200 to-purple-400 rounded-xl flex items-center justify-center mb-4">
               <Image className="w-18" src='/images/mascot.png' height={200} width={200} alt='mascot' />
@@ -104,12 +104,12 @@ const RegisterPage = () => {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
               Join CodeDuo
             </h1>
-            <p className="text-gray-500 mt-2">Create an account to start your journey.</p>
+            <p className="text-[var(--color-text)] mt-2">Create an account to start your journey.</p>
           </div>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="username" className="text-sm font-medium text-gray-700">Full Name</label>
+              <label htmlFor="username" className="text-sm font-medium text-[var(--color-text)]">Full Name</label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                   <User className="h-5 w-5 text-gray-400" />
@@ -120,14 +120,14 @@ const RegisterPage = () => {
                   id="username"
                   value={formData.username}
                   onChange={handleChange}
-                  className="block w-full rounded-lg border-gray-200 pl-10 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all"
+                  className="block w-full rounded-lg border-b border-gray-200 pl-10 py-3 text-[var(--color-text)] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all"
                   placeholder="Your Name"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="email" className="text-sm font-medium text-gray-700">Email Address</label>
+              <label htmlFor="email" className="text-sm font-medium text-[var(--color-text)]">Email Address</label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                   <Mail className="h-5 w-5 text-gray-400" />
@@ -138,14 +138,14 @@ const RegisterPage = () => {
                   id="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="block w-full rounded-lg border-gray-200 pl-10 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all"
+                  className="block w-full rounded-lg border-b border-gray-200 pl-10 py-3 text-[var(--color-text)] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all"
                   placeholder="you@example.com"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="text-sm font-medium text-gray-700">Password</label>
+              <label htmlFor="password" className="text-sm font-medium text-[var(--color-text)]">Password</label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                   <Lock className="h-5 w-5 text-gray-400" />
@@ -156,7 +156,7 @@ const RegisterPage = () => {
                   id="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="block w-full rounded-lg border-gray-200 pl-10 pr-10 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all"
+                  className="block w-full rounded-lg border-b border-gray-200 pl-10 pr-10 py-3 text-[var(--color-text)] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all"
                   placeholder="••••••••"
                 />
                 <div
@@ -170,7 +170,7 @@ const RegisterPage = () => {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">Confirm Password</label>
+              <label htmlFor="confirmPassword" className="text-sm font-medium text-[var(--color-text)]">Confirm Password</label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                   <Lock className="h-5 w-5 text-gray-400" />
@@ -181,7 +181,7 @@ const RegisterPage = () => {
                   id="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="block w-full rounded-lg border-gray-200 pl-10 pr-10 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all"
+                  className="block w-full rounded-lg border-b border-gray-200 pl-10 pr-10 py-3 text-[var(--color-text)] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all"
                   placeholder="••••••••"
                 />
                 <div
@@ -211,15 +211,15 @@ const RegisterPage = () => {
           </div>
 
           <div className="space-y-4">
-            <button className="w-full flex items-center justify-center py-3 cursor-pointer px-4 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+            <button className="w-full flex items-center justify-center py-3 cursor-pointer px-4 border border-gray-300 rounded-lg text-[var(--color-text)] hover:text-gray-700 font-medium hover:bg-gray-50 transition-colors">
               <GoogleIcon className="w-5 h-5 mr-3" />
               Sign up with Google
             </button>
           </div>
 
-          <p className="mt-8 text-center text-sm text-gray-600">
+          <p className="mt-8 text-center text-sm text-[var(--color-text)]">
             Already have an account?{' '}
-            <Link href="/login" className="font-medium text-purple-600 hover:text-purple-500">
+            <Link href="/login" className="font-medium text-purple-500 hover:text-purple-300">
               Sign In
             </Link>
           </p>
