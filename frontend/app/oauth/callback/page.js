@@ -1,14 +1,14 @@
-'use client';
-import { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { USER_ME_URL } from '@/shared/urls';
-import { saveUser } from '@/services/UserService';
+import React, { Suspense } from 'react';
+import CallbackClient from './CallbackClient';
 
-export default function OAuthCallback() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
+export default function Page() {
+	// Server component: render a Suspense boundary with the client component
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<CallbackClient />
+		</Suspense>
+	);
+}
     const run = async () => {
       const token = searchParams.get('token');
       const error = searchParams.get('error');

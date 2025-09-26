@@ -26,6 +26,9 @@ const GoogleIcon = ({ className = "w-5 h-5", ...props }) => {
     );
 };
 
+// Add an env-aware API base (use NEXT_PUBLIC_API_URL for Next.js; fall back to NEXT_PUBLIC_BACKEND_URI then localhost)
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BACKEND_URI || 'http://localhost:5000';
+
 const LoginPage = () => {
     const router = useRouter();
     const [isVisiblePassword, setIsVisiblePassword] = useState(false);
@@ -161,7 +164,7 @@ const LoginPage = () => {
                             className="w-full flex items-center cursor-pointer justify-center py-3 px-4 border border-gray-300 rounded-lg text-[var(--color-text)] hover:text-gray-800 font-medium hover:bg-gray-50 transition-colors"
                             onClick={async () => {
                                 try {
-                                    const res = await fetch(AUTH_GOOGLE_URL);
+                                    const res = await fetch(`${API_BASE}/api/auth/google`);
                                     const data = await res.json();
                                     if (res.ok && data?.url) {
                                         window.location.href = data.url;
