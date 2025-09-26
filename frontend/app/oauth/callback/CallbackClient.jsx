@@ -7,24 +7,37 @@ export default function CallbackClient() {
 	const router = useRouter();
 
 	useEffect(() => {
-		const code = params.get('code');
+		const token = params.get('token');
 		const error = params.get('error');
 
 		if (error) {
-			// Redirect to login with error info
 			router.replace(`/login?error=${encodeURIComponent(error)}`);
 			return;
 		}
 
-		if (code) {
-			// Successfully received code. You may call your backend here to exchange the code.
-			// Example: POST to `${process.env.NEXT_PUBLIC_API_URL || import.meta.env.VITE_API_URL}/api/auth/exchange`
-			// For now just redirect to dashboard (or a route that finishes the flow).
-			router.replace('/dashboard');
+		if (token) {
+			const run = async () => {
+				try {
+					const resp = await fetch('/api/me', {
+						headers: { Authorization: `Bearer ${token}` },
+						cache: 'no-store',
+					});
+					const data = await resp.json();
+
+					if (resp.ok && data?.user) {
+						console.log('User saved:', data.user);
+						router.replace('/dashboard');
+					} else {
+						router.replace('/login?error=invalid_token');
+					}
+				} catch (_e) {
+					router.replace('/login?error=network_error');
+				}
+			};
+			run();
 			return;
 		}
 
-		// Missing params: go back to login with an error
 		router.replace('/login?error=missing_params');
 	}, [params, router]);
 
