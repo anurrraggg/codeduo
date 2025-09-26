@@ -62,15 +62,15 @@ connectDB();
 app.get('/', (req, res) => res.send('API is running'));
 app.get('/api/test', (req, res) => res.send('check'));
 
-app.use('/api/attempts', attemptsRoutes);
+// app.use('/api/attempts', attemptsRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/badges',badgesRoutes);
-app.use('/api/leaderboard', leaderboardRoutes);
-app.use('/api/lessons',lessonsRoutes);
-app.use('/api/options',optionsRoutes);
-app.use('/api/questions',questionsRoutes);
-app.use('/api/quiz',quizRoutes);
-app.use('/api/user-badges',userBadgesRoutes);
+// app.use('/api/badges',badgesRoutes);
+// app.use('/api/leaderboard', leaderboardRoutes);
+// app.use('/api/lessons',lessonsRoutes);
+// app.use('/api/options',optionsRoutes);
+// app.use('/api/questions',questionsRoutes);
+// app.use('/api/quiz',quizRoutes);
+// app.use('/api/user-badges',userBadgesRoutes);
 
 
 
