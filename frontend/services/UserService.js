@@ -28,8 +28,9 @@ export async function login(userForm) {
             return null;
         }
 
-        const { user } = data;
+        const { user, token } = data;
 
+        if (token) saveToken(token);
         saveUser(user);
         return user;
     } catch (err) {
@@ -85,7 +86,8 @@ export async function signup(userForm) {
             return null;
         }
 
-        const { user } = data || {};
+        const { user, token } = data || {};
+        if (token) saveToken(token);
         saveUser(user);
         return user;
     } catch (err) {
@@ -99,6 +101,7 @@ export function logout() {
 
     try {
         localStorage.removeItem('user');
+        localStorage.removeItem('token');
         return true;
     } catch (err) {
         console.error('Error removing user from localStorage:', err);
@@ -126,4 +129,31 @@ export function getUser() {
         console.error('Error reading user from localStorage:', err);
         return null;
     }
+}
+
+export function saveToken(token) {
+    if (!token || typeof window === 'undefined') return;
+    try {
+        localStorage.setItem('token', token);
+    } catch (err) {
+        console.error('Error saving token to localStorage:', err);
+    }
+}
+
+export function getToken() {
+    if (typeof window === 'undefined') return null;
+    try {
+        return localStorage.getItem('token');
+    } catch (err) {
+        console.error('Error reading token from localStorage:', err);
+        return null;
+    }
+}
+
+export function getAuthHeaders(extra = {}) {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    return {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...extra,
+    };
 }

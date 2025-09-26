@@ -369,7 +369,9 @@ exports.googleCallback = async (req, res) => {
         const token = generateToken(tokenPayload);
         console.log('✅ JWT created successfully');
 
-        const webRedirect = process.env.WEB_REDIRECT_SUCCESS || 'http://localhost:3000/dashboard';
+        const webRedirect = process.env.WEB_REDIRECT_SUCCESS
+            || (process.env.FRONTEND_BASE_URL ? `${process.env.FRONTEND_BASE_URL}/oauth/callback` : null)
+            || 'http://localhost:3000/oauth/callback';
         const redirectUrl = `${webRedirect}?token=${encodeURIComponent(token)}`;
         
         console.log('🚀 Redirecting to:', webRedirect);
@@ -382,7 +384,9 @@ exports.googleCallback = async (req, res) => {
             console.error('  Data:', err.response.data);
         }
         
-        const webRedirect = process.env.WEB_REDIRECT_ERROR || 'http://localhost:3000/login';
+        const webRedirect = process.env.WEB_REDIRECT_ERROR
+            || (process.env.FRONTEND_BASE_URL ? `${process.env.FRONTEND_BASE_URL}/login` : null)
+            || 'http://localhost:3000/login';
         const redirectUrl = `${webRedirect}?error=google_oauth_failed&details=${encodeURIComponent(err.message)}`;
         return res.redirect(302, redirectUrl);
     }

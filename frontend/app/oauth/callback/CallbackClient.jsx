@@ -1,6 +1,8 @@
 'use client';
 import React, { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { USER_ME_URL } from '@/shared/urls';
+import { saveToken, saveUser } from '@/services/UserService';
 
 export default function CallbackClient() {
 	const params = useSearchParams();
@@ -15,16 +17,18 @@ export default function CallbackClient() {
 			return;
 		}
 
-		if (token) {
+        if (token) {
 			const run = async () => {
 				try {
-					const resp = await fetch('/api/me', {
+                    const resp = await fetch(USER_ME_URL, {
 						headers: { Authorization: `Bearer ${token}` },
 						cache: 'no-store',
 					});
 					const data = await resp.json();
 
-					if (resp.ok && data?.user) {
+                    if (resp.ok && data?.user) {
+                        saveToken(token);
+                        saveUser(data.user);
 						console.log('User saved:', data.user);
 						router.replace('/dashboard');
 					} else {

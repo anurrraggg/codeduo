@@ -10,17 +10,36 @@ dotenv.config({ path: path.resolve(__dirname, 'env') });
 const app = express();
 
 // Middleware
-app.use(cors(
-    {
-        origin: [
-            'http://localhost:5173',
-            'http://localhost:3000',
-            'https://codeduo-psi.vercel.app',
-            'https://codeduojs.vercel.app'
-        ],
-        credentials: true
-    }
-));
+const defaultAllowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://codeduo-psi.vercel.app',
+    'https://codeduojs.vercel.app'
+];
+
+const envOrigins = [];
+if (process.env.FRONTEND_BASE_URL) envOrigins.push(process.env.FRONTEND_BASE_URL);
+if (process.env.FRONTEND_BASE_URL_2) envOrigins.push(process.env.FRONTEND_BASE_URL_2);
+if (process.env.FRONTEND_ORIGINS) {
+    envOrigins.push(
+        ...process.env.FRONTEND_ORIGINS
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean)
+    );
+}
+
+const allowedOrigins = [...new Set([...defaultAllowedOrigins, ...envOrigins])];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow non-browser requests (e.g., curl, server-to-server) where origin may be undefined
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        return callback(new Error('Not allowed by CORS')); 
+    },
+    credentials: true
+}));
 app.use(express.json());
 
 // DB
