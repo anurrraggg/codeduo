@@ -225,7 +225,21 @@ const RegisterPage = () => {
           </div>
 
           <div className="space-y-4">
-            <button className="w-full flex items-center justify-center py-3 cursor-pointer px-4 border border-gray-300 rounded-lg text-[var(--color-text)] hover:text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+            <button
+              className="w-full flex items-center justify-center py-3 cursor-pointer px-4 border border-gray-300 rounded-lg text-[var(--color-text)] hover:text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+              onClick={async () => {
+                try {
+                  const res = await fetch(`${API_BASE}/api/auth/google`);
+                  const data = await res.json();
+                  if (res.ok && data?.url) {
+                    router.push(data.url);
+                  } else {
+                    toast.error('Failed to start Google sign-up');
+                  }
+                } catch (e) {
+                  toast.error('Error starting Google sign-up');
+                }
+              }}>
               <GoogleIcon className="w-5 h-5 mr-3" />
               Sign up with Google
             </button>
