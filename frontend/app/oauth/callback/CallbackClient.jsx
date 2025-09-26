@@ -1,0 +1,45 @@
+'use client';
+import React, { useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+
+export default function CallbackClient() {
+	const params = useSearchParams();
+	const router = useRouter();
+
+	useEffect(() => {
+		const token = params.get('token');
+		const error = params.get('error');
+
+		if (error) {
+			router.replace(`/login?error=${encodeURIComponent(error)}`);
+			return;
+		}
+
+		if (token) {
+			const run = async () => {
+				try {
+					const resp = await fetch('/api/me', {
+						headers: { Authorization: `Bearer ${token}` },
+						cache: 'no-store',
+					});
+					const data = await resp.json();
+
+					if (resp.ok && data?.user) {
+						console.log('User saved:', data.user);
+						router.replace('/dashboard');
+					} else {
+						router.replace('/login?error=invalid_token');
+					}
+				} catch (_e) {
+					router.replace('/login?error=network_error');
+				}
+			};
+			run();
+			return;
+		}
+
+		router.replace('/login?error=missing_params');
+	}, [params, router]);
+
+	return <div>Processing OAuth callback...</div>;
+}

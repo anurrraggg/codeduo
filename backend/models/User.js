@@ -8,8 +8,8 @@ const userSchema = new mongoose.Schema(
         email: {
             type: String, required: true, unique: true, lowercase: true, trim: true
         },
-        passwordHash: {
-            type: String, required: true
+        passwordHash: { 
+            type: String, required: false 
         },
         displayName: {
             type: String, default: 'User'
@@ -17,9 +17,12 @@ const userSchema = new mongoose.Schema(
         points: {
             type: Number, default: 0
         },
-        role:{
-            type:String,
-            enum:["Top Performer","Balanced Performer","Developing Learner","Consistent Specialist"],
+        avatarUrl: { type: String, default: '' },
+        provider: { type: String, enum: ['local', 'google'], default: 'local' },
+        googleId: { type: String, unique: true, sparse: true },
+        role: {
+            type: String,
+            enum: ["Top Performer", "Balanced Performer", "Developing Learner", "Consistent Specialist"],
         },
         profile: { type: Buffer }
     },

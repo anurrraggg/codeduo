@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
 const connectDB = require('./config/db');
 
 const attemptsRoutes = require('./routes/attemptsRoutes');
@@ -15,6 +16,8 @@ const userBadgesRoutes = require('./routes/userBadgesRoutes');
 
 
 dotenv.config();
+// Load fallback env file if present (backend/env)
+dotenv.config({ path: path.resolve(__dirname, 'env') });
 const app = express();
 
 
@@ -24,7 +27,9 @@ app.use(cors(
     {
         origin: [
             'http://localhost:5173',
-            'https://codeduo-psi.vercel.app'
+            'http://localhost:3000',
+            'https://codeduo-psi.vercel.app',
+            'https://codeduojs.vercel.app'
         ],
         credentials: true
     }
