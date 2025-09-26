@@ -167,7 +167,7 @@ const LoginPage = () => {
                                     const res = await fetch(`${API_BASE}/api/auth/google`);
                                     const data = await res.json();
                                     if (res.ok && data?.url) {
-                                        window.location.href = data.url;
+                                        router.push(data.url);
                                     } else {
                                         toast.error('Failed to start Google sign-in');
                                     }
