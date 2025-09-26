@@ -110,12 +110,18 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: validation.message });
         }
 
-        const sanitizedInput = emailOrUsername.trim().toLowerCase();
+        const trimmedInput = emailOrUsername.trim();
+        const lowercasedInput = trimmedInput.toLowerCase();
 
-        // Find user
-        const user = await User.findOne({
-            $or: [{ email: sanitizedInput }, { username: sanitizedInput }]
-        });
+        // Helper to safely build a case-insensitive exact-match regex for username
+        const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        // Find user by email (lowercased exact) OR username (case-insensitive exact)
+        const query = validateEmail(lowercasedInput)
+            ? { email: lowercasedInput }
+            : { username: { $regex: `^${escapeRegex(trimmedInput)}$`, $options: 'i' } };
+
+        const user = await User.findOne(query);
         
         // Use timing-safe comparison to prevent timing attacks
         const isValidUser = user !== null;
