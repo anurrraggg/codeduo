@@ -42,7 +42,7 @@ export async function signup(userForm) {
     const { username, email, password } = userForm || {};
 
     if (!email || !password || !username) {
-        toast.error('Error in receiving the user values');
+        toast.error('Please provide username, email, and password');
         return;
     }
 
@@ -59,24 +59,33 @@ export async function signup(userForm) {
             })
         });
 
-        if(response.status === 400) {
-            toast.info("Please fill all the details before submitting.");
+        // Parse body once
+        const parseResponseJson = async () => {
+            try {
+                return await response.json();
+            } catch {
+                return {};
+            }
+        };
+        const data = await parseResponseJson();
+
+        if (response.status === 409) {
+            toast.error(data.message || 'User already exists. Please sign in');
             return null;
         }
-        
-        if(response.status === 409) {
-            const errData = await response.json();
-            toast.error(errData.message || 'User already exist, Please signin');
+
+        if (response.status === 400) {
+            // Backend provides specific validation message
+            toast.error(data.message || 'Invalid input. Check email and password requirements');
             return null;
         }
 
         if (!response.ok) {
-            const errData = await response.json();
-            toast.error('Failed to register: ' + (errData.message || 'Unknown error'));
+            toast.error('Failed to register: ' + (data.message || 'Unknown error'));
             return null;
         }
 
-        const { user } = await response.json();
+        const { user } = data || {};
         saveUser(user);
         return user;
     } catch (err) {
