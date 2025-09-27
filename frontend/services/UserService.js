@@ -1,6 +1,8 @@
 'use client';
 import { USER_LOGIN_URL, USER_REGISTER_URL } from "@/shared/urls";
 import { toast } from "react-toastify";
+import { AUTH_GOOGLE_URL } from '@/shared/urls';
+
 
 export async function login(userForm) {
     const { identifier, password } = userForm || {};
@@ -8,7 +10,7 @@ export async function login(userForm) {
         toast.error('Please provide email/username and password');
         return;
     }
-    
+
     try {
         const response = await fetch(USER_LOGIN_URL, {
             method: 'POST',
@@ -93,6 +95,22 @@ export async function signup(userForm) {
     } catch (err) {
         toast.error('An error occured: ' + err.message);
         return null;
+    }
+}
+
+export async function googleAuth() {
+    try {
+        const res = await fetch(AUTH_GOOGLE_URL);
+        const data = await res.json();
+        if (res.ok && data?.url) {
+            return { success: true, url: data.url };
+        } else {
+            toast.error('Failed to start Google sign-in');
+            return { success: false, message: res.message };
+        }
+    } catch (e) {
+        toast.error('Error starting Google sign-in: ' + e);
+        return { success: false, message: 'Error: ' + e };
     }
 }
 
