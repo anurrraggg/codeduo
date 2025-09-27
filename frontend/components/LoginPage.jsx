@@ -4,8 +4,7 @@ import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { login } from '@/services/UserService';
-import { AUTH_GOOGLE_URL } from '@/shared/urls';
+import { googleAuth, login } from '@/services/UserService';
 import Image from 'next/image';
 
 const GoogleIcon = ({ className = "w-5 h-5", ...props }) => {
@@ -26,13 +25,11 @@ const GoogleIcon = ({ className = "w-5 h-5", ...props }) => {
     );
 };
 
-// Add an env-aware API base (use NEXT_PUBLIC_API_URL for Next.js; fall back to NEXT_PUBLIC_BACKEND_URI then localhost)
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BACKEND_URI || 'http://localhost:5000';
-
 const LoginPage = () => {
     const router = useRouter();
     const [isVisiblePassword, setIsVisiblePassword] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [loading2, setLoading2] = useState(false);
     const [formData, setFormData] = useState({
         identifier: '',
         password: '',
@@ -48,15 +45,15 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (loading) return;
-        
+
         if (!formData.identifier || !formData.password) {
             toast.error('Please fill all the details before submitting');
             return;
         }
-        
+
         try {
             setLoading(true);
-            
+
             const result = await login({
                 identifier: formData.identifier,
                 password: formData.password,
@@ -75,6 +72,25 @@ const LoginPage = () => {
             setLoading(false);
         }
     };
+
+    const handleAuth = async () => {
+        if (loading2) return;
+
+        setLoading2(true);
+
+        try {
+            const response = await googleAuth();
+            if (response.success) {
+                router.push(response.url);
+            } else {
+                console.log(response.message);
+            }
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading2(false);
+        }
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[var(--background)] p-4">
@@ -161,23 +177,12 @@ const LoginPage = () => {
 
                     <div className="space-y-4">
                         <button
-                            className="w-full flex items-center cursor-pointer justify-center py-3 px-4 border border-gray-300 rounded-lg text-[var(--color-text)] hover:text-gray-800 font-medium hover:bg-gray-50 transition-colors"
-                            onClick={async () => {
-                                try {
-                                    const res = await fetch(`${API_BASE}/api/auth/google`);
-                                    const data = await res.json();
-                                    if (res.ok && data?.url) {
-                                        router.push(data.url);
-                                    } else {
-                                        toast.error('Failed to start Google sign-in');
-                                    }
-                                } catch (e) {
-                                    toast.error('Error starting Google sign-in');
-                                }
-                            }}
+                            className={`w-full flex items-center justify-center py-3 px-4 border border-gray-300 rounded-lg font-medium transition-colors ${!loading2 ? 'text-[var(--color-text)] hover:text-gray-800 hover:bg-gray-50 cursor-pointer' : 'text-gray-400 bg-gray-100 cursor-not-allowed'}`}
+                            onClick={handleAuth}
+                            disabled={loading2}
                         >
                             <GoogleIcon className="w-5 h-5 mr-3" />
-                            Continue with Google
+                            {!loading2 ? 'Continue with Google' : 'Loading...'}
                         </button>
                     </div>
 
