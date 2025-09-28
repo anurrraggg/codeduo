@@ -3,14 +3,14 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const axios = require('axios');
 
-const generateToken = (payload) => {
+const generateToken = (payload, expiresIn = process.env.JWT_EXPIRES || '2h') => {
     const secret = process.env.JWT_SECRET;
     if (!secret) {
         throw new Error('JWT_SECRET environment variable is required');
     }
     // Add algorithm specification to prevent algorithm confusion attacks
     return jwt.sign(payload, secret, {
-        expiresIn: process.env.JWT_EXPIRES || '2h',
+        expiresIn,
         algorithm: 'HS256'
     });
 };
@@ -83,7 +83,7 @@ exports.register = async (req, res) => {
             id: user._id,
             username: user.username,
             type: 'access'
-        });
+        }, '90d');
 
         res.status(201).json({
             token,
@@ -136,8 +136,8 @@ exports.login = async (req, res) => {
         const token = generateToken({
             id: user._id,
             username: user.username,
-            type: 'access'
-        });
+            type: 'refresh'
+        }, '90d');
 
         res.json({
             token,
