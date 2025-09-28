@@ -83,7 +83,7 @@ exports.register = async (req, res) => {
             id: user._id,
             username: user.username,
             type: 'access'
-        }, '30d');
+        }, '90d');
 
         res.status(201).json({
             token,
@@ -137,7 +137,7 @@ exports.login = async (req, res) => {
             id: user._id,
             username: user.username,
             type: 'refresh'
-        }, '30d');
+        }, '90d');
 
         res.json({
             token,
