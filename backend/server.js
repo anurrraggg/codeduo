@@ -64,7 +64,7 @@ app.get('/api/test', (req, res) => res.send('check'));
 
 // app.use('/api/attempts', attemptsRoutes);
 app.use('/api/auth', authRoutes);
-// app.use('/api/badges',badgesRoutes);
+app.use('/api/badges',badgesRoutes);
 // app.use('/api/leaderboard', leaderboardRoutes);
 // app.use('/api/lessons',lessonsRoutes);
 // app.use('/api/options',optionsRoutes);
