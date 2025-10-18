@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
         points: {
             type: Number, default: 0
         },
+        isAdmin: {
+            type: Boolean,
+            default: false,
+        },
         avatarUrl: { type: String, default: '' },
         provider: { type: String, enum: ['local', 'google'], default: 'local' },
         googleId: { type: String, unique: true, sparse: true },
