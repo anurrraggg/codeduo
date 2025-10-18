@@ -74,10 +74,7 @@ export const questionController = {
             if(!questionId) {
                 return res.status(402).json({ success: false, message: "Please give the questionId of question to find." });
             }
-            const question = await questionService.deleteQuestion(questionId);
-            if(!question) {
-                return res.status(400).json({ success: false, message: "Unable to delete the question." });
-            }
+            await questionService.deleteQuestion(questionId);
             return res.status(200).json({ success: true, message: "Question deleted successfully." });
         } catch (err) {
             return res.status(500).json({ success: false, message: "Internal server error. ", error: err });

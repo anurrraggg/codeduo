@@ -21,6 +21,6 @@ export const questionsRepository = {
         return await Question.find();
     },
     delete: async (id) => {
-        return await Question.findByIdAndDelete(id);
+        await Question.findByIdAndDelete(id);
     },
 };

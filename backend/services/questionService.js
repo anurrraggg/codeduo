@@ -20,6 +20,6 @@ export const questionService = {
         return await questionsRepository.findAll();
     },
     deleteQuestion: async (id) => {
-        return await questionsRepository.delete(id);
+        await questionsRepository.delete(id);
     },
 };
