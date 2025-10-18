@@ -36,7 +36,7 @@ const validatePassword = (password) => {
 
 exports.register = async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password, isAdmin } = req.body;
 
         // Input validation
         const validation = validateInput(req.body, ['username', 'email', 'password']);
@@ -76,12 +76,14 @@ exports.register = async (req, res) => {
             username: sanitizedUsername,
             email: sanitizedEmail,
             passwordHash,
+            ...(isAdmin !== undefined && { isAdmin }),
             displayName: sanitizedUsername
         });
 
         const token = generateToken({
             id: user._id,
             username: user.username,
+            role: 'user',
             type: 'access'
         }, '90d');
 
@@ -136,6 +138,7 @@ exports.login = async (req, res) => {
         const token = generateToken({
             id: user._id,
             username: user.username,
+            role: user.isAdmin?'admin':'user',
             type: 'refresh'
         }, '90d');
 
