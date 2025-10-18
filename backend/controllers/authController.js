@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const axios = require('axios');
+const { authService } = require('../services/authService');
 
 const generateToken = (payload, expiresIn = process.env.JWT_EXPIRES || '2h') => {
     const secret = process.env.JWT_SECRET;
@@ -37,65 +38,11 @@ const validatePassword = (password) => {
 exports.register = async (req, res) => {
     try {
         const { username, email, password, isAdmin } = req.body;
-
-        // Input validation
-        const validation = validateInput(req.body, ['username', 'email', 'password']);
-        if (!validation.valid) {
-            return res.status(400).json({ message: validation.message });
+        const response = await authService.register({ username, email, password, isAdmin });
+        if(!response.success) {
+            res.status(response.status).json({ message: response.message });
         }
-
-        // Sanitize inputs
-        const sanitizedUsername = username.trim();
-        const sanitizedEmail = email.trim().toLowerCase();
-
-        // Validate email format
-        if (!validateEmail(sanitizedEmail)) {
-            return res.status(400).json({ message: 'Invalid email format' });
-        }
-
-        // Validate password strength
-        if (!validatePassword(password)) {
-            return res.status(400).json({
-                message: 'Password must be at least 8 characters with uppercase, lowercase, number, and special character'
-            });
-        }
-
-        // Check for existing user
-        const exists = await User.findOne({
-            $or: [{ email: sanitizedEmail }, { username: sanitizedUsername }]
-        });
-        if (exists) {
-            return res.status(409).json({ message: 'Username or email already in use' });
-        }
-
-        // Hash password with higher cost factor
-        const saltRounds = parseInt(process.env.BCRYPT_ROUNDS) || 12;
-        const passwordHash = await bcrypt.hash(password, saltRounds);
-
-        const user = await User.create({
-            username: sanitizedUsername,
-            email: sanitizedEmail,
-            passwordHash,
-            ...(isAdmin !== undefined && { isAdmin }),
-            displayName: sanitizedUsername
-        });
-
-        const token = generateToken({
-            id: user._id,
-            username: user.username,
-            role: user.isAdmin?'admin':'user',
-            type: 'access'
-        }, '90d');
-
-        res.status(201).json({
-            token,
-            user: {
-                id: user._id,
-                username: user.username,
-                email: user.email,
-                displayName: user.displayName
-            }
-        });
+        res.status(201).json({ token: response.token, user: response.user });
     } catch (err) {
         console.error('Registration error:', err);
         res.status(500).json({ message: 'Server error' });
@@ -105,52 +52,11 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { emailOrUsername, password } = req.body;
-
-        // Input validation
-        const validation = validateInput(req.body, ['emailOrUsername', 'password']);
-        if (!validation.valid) {
-            return res.status(400).json({ message: validation.message });
+        const response = await authService.login({ emailOrUsername, password });
+        if(!response.success) {
+            res.status(response.status).json({ message: response.message })
         }
-
-        const trimmedInput = emailOrUsername.trim();
-        const lowercasedInput = trimmedInput.toLowerCase();
-
-        // Helper to safely build a case-insensitive exact-match regex for username
-        const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-        // Find user by email (lowercased exact) OR username (case-insensitive exact)
-        const query = validateEmail(lowercasedInput)
-            ? { email: lowercasedInput }
-            : { username: { $regex: `^${escapeRegex(trimmedInput)}$`, $options: 'i' } };
-
-        const user = await User.findOne(query);
-
-        // Use timing-safe comparison to prevent timing attacks
-        const isValidUser = user !== null;
-        const isValidPassword = isValidUser ?
-            await bcrypt.compare(password, user.passwordHash) :
-            await bcrypt.compare(password, '$2b$12$dummy.hash.to.prevent.timing.attacks');
-
-        if (!isValidUser || !isValidPassword) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-
-        const token = generateToken({
-            id: user._id,
-            username: user.username,
-            role: user.isAdmin?'admin':'user',
-            type: 'refresh'
-        }, '90d');
-
-        res.json({
-            token,
-            user: {
-                id: user._id,
-                username: user.username,
-                email: user.email,
-                displayName: user.displayName
-            }
-        });
+        res.status(200).json({ token: response.token, user: response.user });
     } catch (err) {
         console.error('Login error:', err);
         res.status(500).json({ message: 'Server error: '+err });
