@@ -83,7 +83,7 @@ exports.register = async (req, res) => {
         const token = generateToken({
             id: user._id,
             username: user.username,
-            role: 'user',
+            role: user.isAdmin?'admin':'user',
             type: 'access'
         }, '90d');
 
