@@ -13,6 +13,9 @@ export const userService = {
     findUserByQuery: async (query) => {
         return await userRepository.findByQuery(query);
     },
+    findUserByGoogleId: async (googleId) => {
+        return await userRepository.findByGoogleId(googleId);
+    },
     updateUser: async (id, updateData) => {
         return await userRepository.update(id, updateData);
     },
