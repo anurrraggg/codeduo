@@ -23,4 +23,6 @@ const questionsSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
-export const Question = mongoose.model('Questions',questionsSchema);
+const Question = mongoose.model('Questions',questionsSchema);
+
+module.exports = Question;

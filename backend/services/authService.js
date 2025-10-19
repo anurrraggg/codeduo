@@ -1,10 +1,10 @@
-import { jwtService } from "./jwtService";
-import bcrypt from "bcryptjs";
-import axios from "axios";
-import { userService } from "./userService";
-import { validationService } from "./validationService";
+const { jwtService } = require("./jwtService");
+const bcrypt = require("bcryptjs");
+const axios = require("axios");
+const { userService } = require("./userService");
+const { validationService } = require("./validationService");
 
-export const authService = {
+const authService = {
     register: async (body) => {
         const validation = validationService.validateInput(body, ['username', 'email', 'password']);
         if (!validation.valid) {
@@ -250,3 +250,5 @@ export const authService = {
         return { success: true, redirect: `${webRedirect}?token=${encodeURIComponent(token)}`};
     },
 };
+
+module.exports = authService;
