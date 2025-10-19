@@ -1,4 +1,4 @@
-export const validationService = {
+const validationService = {
     validateInput: (data, requiredFields) => {
         const missing = requiredFields.filter(field => !data[field] || data[field].trim() === '');
         if (missing.length > 0) {
@@ -16,3 +16,5 @@ export const validationService = {
         return passwordRegex.test(password);
     }
 };
+
+module.exports = validationService;

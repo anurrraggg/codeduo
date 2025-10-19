@@ -1,6 +1,6 @@
-import User from "../models/User";
+const User = require("../models/User");
 
-export const userRepository = {
+const userRepository = {
     create: async (user) => {
         const newUser = new User(user);
         return await newUser.save();
@@ -27,3 +27,5 @@ export const userRepository = {
         await User.findByIdAndDelete(id);
     }
 };
+
+module.exports = userRepository;

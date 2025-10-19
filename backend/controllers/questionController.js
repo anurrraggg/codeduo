@@ -1,6 +1,6 @@
-import { questionService } from "../services/questionService"
+const { questionService } = require("../services/questionService");
 
-export const questionController = {
+const questionController = {
     createQuestion: async (req, res) => {
         try {
             const question = await questionService.createQuestion(req.body);
@@ -81,3 +81,5 @@ export const questionController = {
         }
     }
 };
+
+module.exports = questionController;

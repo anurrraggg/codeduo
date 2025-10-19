@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-export const jwtService = {
+const jwtService = {
     generateToken: (payload, expiresIn = process.env.JWT_EXPIRES || '2h') => {
         const secret = process.env.JWT_SECRET;
         if (!secret) {
@@ -12,4 +12,6 @@ export const jwtService = {
             algorithm: 'HS256'
         });
     }
-}
+};
+
+module.exports = jwtService;

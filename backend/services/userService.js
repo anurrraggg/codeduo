@@ -1,6 +1,6 @@
-import { userRepository } from "../repository/userRepository";
+const { userRepository } = require("../repository/userRepository");
 
-export const userService = {
+const userService = {
     createUser: async (user) => {
         return await userRepository.create(user);
     },
@@ -26,3 +26,5 @@ export const userService = {
         return await userRepository.delete();
     }
 };
+
+module.exports = userService;

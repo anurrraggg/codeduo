@@ -1,6 +1,6 @@
-import { questionsRepository } from "../repository/questionsRepository"
+const { questionsRepository } = require("../repository/questionsRepository")
 
-export const questionService = {
+const questionService = {
     createQuestion: async (questionData) => {
         return await questionsRepository.create(questionData);
     },
@@ -23,3 +23,5 @@ export const questionService = {
         await questionsRepository.delete(id);
     },
 };
+
+module.exports = questionService;

@@ -2,7 +2,7 @@ const express = require('express');
 const auth = require('../middleware/auth');
 const authAdmin = require('../middleware/adminAuth');
 const adminAuth = require('../middleware/adminAuth');
-const { questionController } = require('../controllers/questionController');
+const questionController = require('../controllers/questionController');
 const router = express.Router();
 
 router.post('/', auth, authAdmin, questionController.createQuestion);
