@@ -1,8 +1,8 @@
 const User = require("../models/User");
 
 const userRepository = {
-    create: async (user) => {
-        const newUser = new User(user);
+    create: async (userData) => {
+        const newUser = new User(userData);
         return await newUser.save();
     },
     findById: async (id) => {
@@ -12,13 +12,13 @@ const userRepository = {
         return await User.findOne({ $or: [{ email }, { username }] });
     },
     findByQuery: async (query) => {
-        return await User.findOne({ query });
+        return await User.findOne(query);
     },
     findByGoogleId: async (googleId) => {
         return await User.findOne({ googleId });
     },
     update: async (id, updateData) => {
-        return await User.findByIdAndUpdate({ id }, { $set: updateData }, { new: true, runValidators: true, select: '-passwordHash' });
+        return await User.findByIdAndUpdate(id, { $set: updateData }, { new: true, runValidators: true, select: '-passwordHash' });
     },
     findAll: async () => {
         return await User.find();

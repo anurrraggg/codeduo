@@ -44,7 +44,8 @@ const questionController = {
     },
     updateQuestion: async (req, res) => {
         try {
-            const { questionId, ...questionData } = req.params;
+            const { questionId } = req.params;
+            const questionData = req.body;
             if(!questionId || !questionData) {
                 return res.status(402).json({ success: false, message: "Please give the questionId and quesitonData of question to find." });
             }

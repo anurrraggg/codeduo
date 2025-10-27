@@ -19,12 +19,12 @@ exports.register = async (req, res) => {
         const { username, email, password, isAdmin } = req.body;
         const response = await authService.register({ username, email, password, isAdmin });
         if(!response.success) {
-            res.status(response.status).json({ message: response.message });
+            return res.status(response.status).json({ message: response.message });
         }
-        res.status(201).json({ token: response.token, user: response.user });
+        return res.status(201).json({ token: response.token, user: response.user });
     } catch (err) {
         console.error('Registration error:', err);
-        res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: 'Server error' });
     }
 };
 
@@ -33,12 +33,12 @@ exports.login = async (req, res) => {
         const { emailOrUsername, password } = req.body;
         const response = await authService.login({ emailOrUsername, password });
         if(!response.success) {
-            res.status(response.status).json({ message: response.message })
+            return res.status(response.status).json({ message: response.message })
         }
-        res.status(200).json({ token: response.token, user: response.user });
+        return res.status(200).json({ token: response.token, user: response.user });
     } catch (err) {
         console.error('Login error:', err);
-        res.status(500).json({ message: 'Server error: '+err });
+        return res.status(500).json({ message: 'Server error: '+err });
     }
 };
 
@@ -147,7 +147,7 @@ exports.googleCallbackDebug = async (req, res) => {
         console.log('📝 Query params:', JSON.stringify(req.query, null, 2));
         console.log('📝 Headers:', JSON.stringify(req.headers, null, 2));
 
-        const { code, error, state } = req.query;
+        const { code, error } = req.query;
 
         if (error) {
             console.log('❌ Google sent error:', error);
@@ -208,7 +208,7 @@ exports.googleCallbackDebug = async (req, res) => {
         console.log('📄 Response headers:', tokenRes.headers);
         console.log('📄 Response data keys:', Object.keys(tokenRes.data));
 
-        const { id_token, access_token } = tokenRes.data || {};
+        const { id_token } = tokenRes.data || {};
         if (!id_token) {
             console.log('❌ Missing ID token in response');
             console.log('📄 Full response:', tokenRes.data);

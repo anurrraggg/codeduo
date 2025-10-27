@@ -6,6 +6,7 @@ const { validationService } = require("./validationService");
 
 const authService = {
     register: async (body) => {
+        const { username, email, password, isAdmin } = body;
         const validation = validationService.validateInput(body, ['username', 'email', 'password']);
         if (!validation.valid) {
             return { success: false, status: 400, message: validation.message };
@@ -16,12 +17,12 @@ const authService = {
         const sanitizedEmail = email.trim().toLowerCase();
 
         // Validate email format
-        if (!validateEmail(sanitizedEmail)) {
+        if (!validationService.validateEmail(sanitizedEmail)) {
             return { success: false, status: 400, message: 'Invalid email format' };
         }
 
         // Validate password strength
-        if (!validatePassword(password)) {
+        if (!validationService.validatePassword(password)) {
             return { success: false, status: 400, message: 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' };
         }
 
@@ -32,10 +33,10 @@ const authService = {
         }
 
         // Hash password with higher cost factor
-        const saltRounds = parseInt(process.env.BCRYPT_ROUNDS) || 12;
+        const saltRounds = Number.parseInt(process.env.BCRYPT_ROUNDS) || 12;
         const passwordHash = await bcrypt.hash(password, saltRounds);
 
-        const user = await userService.create({
+        const user = await userService.createUser({
             username: sanitizedUsername,
             email: sanitizedEmail,
             passwordHash,
@@ -62,17 +63,18 @@ const authService = {
         };
     },
     login: async (body) => {
+        const { emailOrUsername, password } = body;
         // Input validation
         const validation = validationService.validateInput(body, ['emailOrUsername', 'password']);
         if (!validation.valid) {
-            return { success: true, status: 400, message: validation.message };
+            return { success: false, status: 400, message: validation.message };
         }
 
         const trimmedInput = emailOrUsername.trim();
         const lowercasedInput = trimmedInput.toLowerCase();
 
         // Helper to safely build a case-insensitive exact-match regex for username
-        const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const escapeRegex = (value) => value.replaceAll(/[.*+?^${}()|[\]\\]/g, (match) => `\\${match}`);
 
         // Find user by email (lowercased exact) OR username (case-insensitive exact)
         const query = validationService.validateEmail(lowercasedInput)
@@ -88,7 +90,7 @@ const authService = {
             await bcrypt.compare(password, '$2b$12$dummy.hash.to.prevent.timing.attacks');
 
         if (!isValidUser || !isValidPassword) {
-            return { success: true, status: 401, message: 'Invalid credentials' };
+            return { success: false, status: 401, message: 'Invalid credentials' };
         }
 
         const token = jwtService.generateToken({
@@ -125,7 +127,7 @@ const authService = {
     },
     updateProfile: async (user, displayName, avatarUrl) => {
         // Check if user is authenticated and not a Google OAuth user
-        if (!user || !user.id || user.provider === 'google') {
+        if (!user?.id || user?.provider === 'google') {
             return { success: false, status: 403, message: 'Profile updates not allowed for this user type' };
         }
 
@@ -148,20 +150,17 @@ const authService = {
             return { success: false, status: 404, message: 'User not found' };
         }
 
-        res.json({ success: true, user: updated });
+        return { success: true, user: updated };
     },
     googleAuthUrl: async (query) => {
         const clientId = process.env.GOOGLE_CLIENT_ID;
         const redirectUri = process.env.GOOGLE_REDIRECT_URI;
 
         if (!clientId || !redirectUri) {
-            throw new Error({
-                message: 'Google OAuth not configured',
-                missing: {
-                    clientId: !clientId,
-                    redirectUri: !redirectUri
-                }
-            });
+            const missing = [];
+            if (clientId === undefined) missing.push('clientId');
+            if (redirectUri === undefined) missing.push('redirectUri');
+            throw new Error(`Google OAuth not configured. Missing: ${missing.join(', ')}`);
         }
 
         console.log('🔗 Generating auth URL with:');
@@ -230,7 +229,7 @@ const authService = {
         if (!user) {
             // Create new user
             const baseUsername = email.split('@')[0];
-            user = new userService.createUser({
+            user = await userService.createUser({
                 username: baseUsername,
                 email,
                 displayName: name || baseUsername,
