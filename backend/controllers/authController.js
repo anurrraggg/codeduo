@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
-const { authService } = require('../services/authService');
+const authService = require('../services/authService');
 
 const generateToken = (payload, expiresIn = process.env.JWT_EXPIRES || '2h') => {
     const secret = process.env.JWT_SECRET;
@@ -75,7 +75,7 @@ exports.updateProfile = async (req, res) => {
 // Google OAuth
 exports.googleAuthUrl = (req, res) => {
     try {
-        const response = authService.googleAuthUrl(clientId, redirectUri, req.query);
+        const response = authService.googleAuthUrl(req.query);
         
         return res.status(200).json({ url: response.url });
     } catch (err) {
@@ -90,7 +90,7 @@ exports.googleCallback = async (req, res) => {
     try {
         const { code, error } = req.query;
 
-        const response = await authService.googleCallback(res.query, code, error);
+        const response = await authService.googleCallback(req.query, code, error);
 
         if(!response.success && response.redirect) {
             return res.status(response.status).redirect(response.redirect);

@@ -1,8 +1,8 @@
-const { jwtService } = require("./jwtService");
+const jwtService = require("./jwtService");
 const bcrypt = require("bcryptjs");
 const axios = require("axios");
-const { userService } = require("./userService");
-const { validationService } = require("./validationService");
+const userService = require("./userService");
+const validationService = require("./validationService");
 
 const authService = {
     register: async (body) => {
