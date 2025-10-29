@@ -1,6 +1,7 @@
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 const axios = require('axios');
-const authService = require('../services/authService');
 
 const generateToken = (payload, expiresIn = process.env.JWT_EXPIRES || '2h') => {
     const secret = process.env.JWT_SECRET;
@@ -14,69 +15,326 @@ const generateToken = (payload, expiresIn = process.env.JWT_EXPIRES || '2h') => 
     });
 };
 
-exports.register = async (req, res) => {
-    const { username, email, password, isAdmin } = req.body;
-    const response = await authService.register({ username, email, password, isAdmin });
-    if(!response.success) {
-        return res.status(response.status).json({ message: response.message });
+const validateInput = (data, requiredFields) => {
+    const missing = requiredFields.filter(field => !data[field] || data[field].trim() === '');
+    if (missing.length > 0) {
+        return { valid: false, message: `Missing required fields: ${missing.join(', ')}` };
     }
-    return res.status(201).json({ token: response.token, user: response.user });
+    return { valid: true };
+};
+
+const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+};
+
+const validatePassword = (password) => {
+    // Minimum 8 characters, at least one uppercase, lowercase, number, and special character
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+};
+
+exports.register = async (req, res) => {
+    try {
+        const { username, email, password, isAdmin } = req.body;
+
+        // Input validation
+        const validation = validateInput(req.body, ['username', 'email', 'password']);
+        if (!validation.valid) {
+            return res.status(400).json({ message: validation.message });
+        }
+
+        // Sanitize inputs
+        const sanitizedUsername = username.trim();
+        const sanitizedEmail = email.trim().toLowerCase();
+
+        // Validate email format
+        if (!validateEmail(sanitizedEmail)) {
+            return res.status(400).json({ message: 'Invalid email format' });
+        }
+
+        // Validate password strength
+        if (!validatePassword(password)) {
+            return res.status(400).json({
+                message: 'Password must be at least 8 characters with uppercase, lowercase, number, and special character'
+            });
+        }
+
+        // Check for existing user
+        const exists = await User.findOne({
+            $or: [{ email: sanitizedEmail }, { username: sanitizedUsername }]
+        });
+        if (exists) {
+            return res.status(409).json({ message: 'Username or email already in use' });
+        }
+
+        // Hash password with higher cost factor
+        const saltRounds = parseInt(process.env.BCRYPT_ROUNDS) || 12;
+        const passwordHash = await bcrypt.hash(password, saltRounds);
+
+        const user = await User.create({
+            username: sanitizedUsername,
+            email: sanitizedEmail,
+            passwordHash,
+            ...(isAdmin !== undefined && { isAdmin }),
+            displayName: sanitizedUsername
+        });
+
+        const token = generateToken({
+            id: user._id,
+            username: user.username,
+            role: user.isAdmin?'admin':'user',
+            type: 'access'
+        }, '90d');
+
+        res.status(201).json({
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                displayName: user.displayName
+            }
+        });
+    } catch (err) {
+        console.error('Registration error:', err);
+        res.status(500).json({ message: 'Server error' });
+    }
 };
 
 exports.login = async (req, res) => {
-    const { emailOrUsername, password } = req.body;
-    const response = await authService.login({ emailOrUsername, password });
-    if(!response.success) {
-        return res.status(response.status).json({ message: response.message })
+    try {
+        const { emailOrUsername, password } = req.body;
+
+        // Input validation
+        const validation = validateInput(req.body, ['emailOrUsername', 'password']);
+        if (!validation.valid) {
+            return res.status(400).json({ message: validation.message });
+        }
+
+        const trimmedInput = emailOrUsername.trim();
+        const lowercasedInput = trimmedInput.toLowerCase();
+
+        // Helper to safely build a case-insensitive exact-match regex for username
+        const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        // Find user by email (lowercased exact) OR username (case-insensitive exact)
+        const query = validateEmail(lowercasedInput)
+            ? { email: lowercasedInput }
+            : { username: { $regex: `^${escapeRegex(trimmedInput)}$`, $options: 'i' } };
+
+        const user = await User.findOne(query);
+
+        // Use timing-safe comparison to prevent timing attacks
+        const isValidUser = user !== null;
+        const isValidPassword = isValidUser ?
+            await bcrypt.compare(password, user.passwordHash) :
+            await bcrypt.compare(password, '$2b$12$dummy.hash.to.prevent.timing.attacks');
+
+        if (!isValidUser || !isValidPassword) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
+        const token = generateToken({
+            id: user._id,
+            username: user.username,
+            role: user.isAdmin?'admin':'user',
+            type: 'refresh'
+        }, '90d');
+
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                displayName: user.displayName
+            }
+        });
+    } catch (err) {
+        console.error('Login error:', err);
+        res.status(500).json({ message: 'Server error: '+err });
     }
-    return res.status(200).json({ token: response.token, user: response.user });
 };
 
 exports.me = async (req, res) => {
-    const response = await authService.me(req.user);
-    
-    if(!response.success) {
-        return res.status(response.status).json({ message: response.message});
-    }
+    try {
+        if (!req.user || req.user.type !== 'access') {
+            return res.status(401).json({ message: 'Invalid token type' });
+        }
 
-    return res.status(200).json({ user: response.user });
+        if (req.user.id) {
+            const user = await User.findById(req.user.id).select('-passwordHash');
+            if (!user) return res.status(404).json({ message: 'User not found' });
+            return res.json({ user });
+        }
+
+        // Fallback: unlikely needed if Google users are saved in DB
+        return res.status(401).json({ message: 'Invalid token or user not found' });
+    } catch (err) {
+        console.error('Me endpoint error:', err);
+        return res.status(500).json({ message: 'Server error' });
+    }
 };
 
 exports.updateProfile = async (req, res) => {
-    const { user, displayName, avatarUrl } = req.body;
+    try {
+        // Check if user is authenticated and not a Google OAuth user
+        if (!req.user || !req.user.id || req.user.provider === 'google') {
+            return res.status(403).json({ message: 'Profile updates not allowed for this user type' });
+        }
 
-    const response = await authService.updateProfile(user, displayName, avatarUrl);
-    if(!response.success) {
-        return res.status(response.status).json({ message: response.message});
+        const { displayName, avatarUrl } = req.body;
+
+        // Sanitize inputs
+        const updateData = {};
+        if (displayName !== undefined) {
+            updateData.displayName = displayName.trim();
+        }
+        if (avatarUrl !== undefined) {
+            // Basic URL validation
+            if (avatarUrl && !avatarUrl.match(/^https?:\/\/.+/)) {
+                return res.status(400).json({ message: 'Invalid avatar URL format' });
+            }
+            updateData.avatarUrl = avatarUrl;
+        }
+
+        const updated = await User.findByIdAndUpdate(
+            req.user.id,
+            { $set: updateData },
+            { new: true, runValidators: true, select: '-passwordHash' }
+        );
+
+        if (!updated) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json({ user: updated });
+    } catch (err) {
+        console.error('Profile update error:', err);
+        res.status(500).json({ message: 'Server error' });
     }
-    res.status(200).json({ user: response.user });
 };
 
 // Google OAuth
-exports.googleAuthUrl = async (req, res) => {
+exports.googleAuthUrl = (req, res) => {
     try {
-        const response = await authService.googleAuthUrl(req.query);
-        
-        return res.status(200).json({ url: response.url });
+        const clientId = process.env.GOOGLE_CLIENT_ID;
+        const redirectUri = process.env.GOOGLE_REDIRECT_URI;
+
+        if (!clientId || !redirectUri) {
+            return res.status(500).json({
+                message: 'Google OAuth not configured',
+                missing: {
+                    clientId: !clientId,
+                    redirectUri: !redirectUri
+                }
+            });
+        }
+
+        console.log('🔗 Generating auth URL with:');
+        console.log('  Client ID:', clientId);
+        console.log('  Redirect URI:', redirectUri);
+
+        const scope = encodeURIComponent('openid email profile');
+        const state = req.query.state ? encodeURIComponent(req.query.state) : '';
+
+        // Use exact redirect URI that matches Google Console
+        const url =
+            `https://accounts.google.com/o/oauth2/v2/auth?response_type=code` +
+            `&client_id=${encodeURIComponent(clientId)}` +
+            `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+            `&scope=${scope}` +
+            `&access_type=offline` +
+            `&prompt=consent` +
+            (state ? `&state=${state}` : '');
+
+        console.log('🚀 Generated auth URL:', url);
+        res.json({ url });
     } catch (err) {
         console.error('Auth URL generation error:', err);
-        return res.status(500).json({ message: 'Failed to create Google auth URL', error: err });
+        res.status(500).json({ message: 'Failed to create Google auth URL', error: err.message });
     }
 };
 
+
 // Replace your googleCallback function with this corrected version
 exports.googleCallback = async (req, res) => {
-    const { code, error } = req.query;
+    try {
+        console.log('📝 Callback received with query:', req.query);
 
-    const response = await authService.googleCallback(req.query, code, error);
+        const { code, error } = req.query;
 
-    if(!response.success && response.redirect) {
-        return res.status(response.status).redirect(response.redirect);
-    } else if(!response.success) {
-        return res.status(response.status).json({ message: response.message });
+        if (error) {
+            console.log('❌ Google OAuth error:', error);
+            const webRedirect = process.env.WEB_REDIRECT_ERROR || 'http://localhost:3000/login';
+            return res.redirect(`${webRedirect}?error=google_error_${error}`);
+        }
+
+        if (!code) return res.status(400).json({ message: 'Missing authorization code' });
+
+        const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI } = process.env;
+        if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET || !GOOGLE_REDIRECT_URI) {
+            throw new Error('Google OAuth configuration missing');
+        }
+
+        console.log('🔄 Exchanging code for tokens...');
+
+        // FIXED: Send data in request body, not as URL params
+        const tokenRes = await axios.post('https://oauth2.googleapis.com/token',
+            // Send as form data in the body
+            new URLSearchParams({
+                code,
+                client_id: GOOGLE_CLIENT_ID,
+                client_secret: GOOGLE_CLIENT_SECRET,
+                redirect_uri: GOOGLE_REDIRECT_URI,
+                grant_type: 'authorization_code'
+            }),
+            { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+        );
+
+        console.log('✅ Token exchange successful');
+        console.log('📄 Token response keys:', Object.keys(tokenRes.data));
+
+        const { id_token } = tokenRes.data;
+        if (!id_token) throw new Error('Failed to exchange code: no ID token');
+
+        // Decode Google ID token
+        const googlePayload = JSON.parse(Buffer.from(id_token.split('.')[1], 'base64').toString());
+        const { sub: googleId, email, name, picture } = googlePayload;
+        if (!googleId || !email) throw new Error('Missing required Google profile info');
+
+        // Check if user already exists
+        let user = await User.findOne({ googleId });
+        if (!user) {
+            // Create new user
+            const baseUsername = email.split('@')[0];
+            user = new User({
+                username: baseUsername,
+                email,
+                displayName: name || baseUsername,
+                avatarUrl: picture || '',
+                provider: 'google',
+                googleId
+            });
+            await user.save();
+            console.log('✅ New Google user saved:', user._id);
+        }
+
+        // Create JWT with user ID
+        const token = generateToken({ id: user._id.toString(), type: 'access' });
+
+        const webRedirect =
+            process.env.WEB_REDIRECT_SUCCESS ||
+            (process.env.FRONTEND_BASE_URL ? `${process.env.FRONTEND_BASE_URL}/oauth/callback` : 'http://localhost:3000/oauth/callback');
+        return res.redirect(`${webRedirect}?token=${encodeURIComponent(token)}`);
+    } catch (err) {
+        console.error('💥 Google OAuth error:', err.message);
+        const webRedirect =
+            process.env.WEB_REDIRECT_ERROR ||
+            (process.env.FRONTEND_BASE_URL ? `${process.env.FRONTEND_BASE_URL}/login` : 'http://localhost:3000/login');
+        return res.redirect(`${webRedirect}?error=google_oauth_failed&details=${encodeURIComponent(err.message)}`);
     }
-
-    return res.status(302).redirect(response.redirect);
 };
 
 exports.debugOAuthConfig = (req, res) => {
@@ -118,7 +376,7 @@ exports.googleCallbackDebug = async (req, res) => {
         console.log('📝 Query params:', JSON.stringify(req.query, null, 2));
         console.log('📝 Headers:', JSON.stringify(req.headers, null, 2));
 
-        const { code, error } = req.query;
+        const { code, error, state } = req.query;
 
         if (error) {
             console.log('❌ Google sent error:', error);
@@ -179,7 +437,7 @@ exports.googleCallbackDebug = async (req, res) => {
         console.log('📄 Response headers:', tokenRes.headers);
         console.log('📄 Response data keys:', Object.keys(tokenRes.data));
 
-        const { id_token } = tokenRes.data || {};
+        const { id_token, access_token } = tokenRes.data || {};
         if (!id_token) {
             console.log('❌ Missing ID token in response');
             console.log('📄 Full response:', tokenRes.data);

@@ -1,4 +1,4 @@
-const { Question } = require("../models/Question");
+import { Question } from "../models/Question";
 
 export const questionRepository = {
     create: async (questionData) => {
@@ -21,8 +21,6 @@ export const questionRepository = {
         return await Question.find();
     },
     delete: async (id) => {
-        await Question.findByIdAndDelete(id);
+        return await Question.findByIdAndDelete(id);
     },
 };
-
-module.exports = questionsRepository;
