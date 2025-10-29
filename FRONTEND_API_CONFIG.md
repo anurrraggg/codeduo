@@ -87,4 +87,3 @@ Expected output: `"check"`
 - [ ] Redeploy frontend on Vercel
 - [ ] Test backend is accessible: `https://codeduo.onrender.com`
 - [ ] Test frontend can reach backend (check browser network tab)
-
