@@ -54,11 +54,15 @@ exports.updateProfile = async (req, res) => {
 
 // Google OAuth
 exports.googleAuthUrl = async (req, res) => {
-    const response = await authService.googleAuthUrl(req.query);
-    
-    return res.status(200).json({ url: response.url });
+    try {
+        const response = await authService.googleAuthUrl(req.query);
+        
+        return res.status(200).json({ url: response.url });
+    } catch (err) {
+        console.error('Auth URL generation error:', err);
+        return res.status(500).json({ message: 'Failed to create Google auth URL', error: err });
+    }
 };
-
 
 // Replace your googleCallback function with this corrected version
 exports.googleCallback = async (req, res) => {
