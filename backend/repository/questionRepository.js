@@ -1,0 +1,26 @@
+import { Question } from "../models/Question";
+
+export const questionRepository = {
+    create: async (questionData) => {
+        const quesiton = new Question(questionData);
+        return await quesiton.save();
+    },
+    findById: async (id) => {
+        return await Question.findById(id);
+    },
+    findByQuizId: async (quizId) =>{
+        return await Question.find({ quizId });
+    },
+    findByQuestionId: async (questionId) => {
+        return await Question.findOne({ questionId });
+    },
+    update: async (questionId, questionData) => {
+        return await Question.findOneAndUpdate({ questionId }, { $set: questionData }, { new: true });
+    },
+    findAll: async () => {
+        return await Question.find();
+    },
+    delete: async (id) => {
+        return await Question.findByIdAndDelete(id);
+    },
+};

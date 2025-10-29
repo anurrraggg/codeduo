@@ -10,7 +10,7 @@ const badgesRoutes = require('./routes/badgesRoutes');
 const leaderboardRoutes =require('./routes/leaderboardRoutes');
 const lessonsRoutes = require('./routes/lessonsRoutes');
 const optionsRoutes = require('./routes/optionsRoutes');
-const questionsRoutes = require('./routes/questionsRoutes');
+const questionRoutes = require('./routes/questionRoutes');
 const quizRoutes = require('./routes/quizRoutes');
 const userBadgesRoutes = require('./routes/userBadgesRoutes');
 
@@ -64,11 +64,11 @@ app.get('/api/test', (req, res) => res.send('check'));
 
 // app.use('/api/attempts', attemptsRoutes);
 app.use('/api/auth', authRoutes);
-// app.use('/api/badges',badgesRoutes);
+app.use('/api/badges',badgesRoutes);
 // app.use('/api/leaderboard', leaderboardRoutes);
 // app.use('/api/lessons',lessonsRoutes);
 // app.use('/api/options',optionsRoutes);
-// app.use('/api/questions',questionsRoutes);
+app.use('/api/questions',questionRoutes);
 // app.use('/api/quiz',quizRoutes);
 // app.use('/api/user-badges',userBadgesRoutes);
 

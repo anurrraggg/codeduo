@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { USER_ME_URL } from '@/shared/urls';
 import { saveToken, saveUser } from '@/services/UserService';
+import { toast } from 'react-toastify';
 
 export default function CallbackClient() {
 	const params = useSearchParams();
@@ -13,7 +14,9 @@ export default function CallbackClient() {
 		const error = params.get('error');
 
 		if (error) {
-			router.replace(`/login?error=${encodeURIComponent(error)}`);
+			console.log(encodeURIComponent(error));
+			toast.error("An error occured while signing-in. ");
+			router.push(`/login`);
 			return;
 		}
 
@@ -29,7 +32,6 @@ export default function CallbackClient() {
                     if (resp.ok && data?.user) {
                         saveToken(token);
                         saveUser(data.user);
-						console.log('User saved:', data.user);
 						router.replace('/dashboard');
 					} else {
 						router.replace('/login?error=invalid_token');

@@ -4,7 +4,7 @@ import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { signup } from '@/services/UserService';
+import { googleAuth, signup } from '@/services/UserService';
 import Image from 'next/image';
 
 const GoogleIcon = ({ className = "w-5 h-5", ...props }) => (
@@ -39,6 +39,7 @@ const RegisterPage = () => {
   const router = useRouter();
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [isVisibleConfirmPassword, setIsVisibleConfirmPassword] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -106,6 +107,25 @@ const RegisterPage = () => {
       setLoading(false);
     }
   };
+
+  const handleAuth = async () => {
+    if (loading2) return;
+
+    setLoading2(true);
+
+    try {
+      const response = await googleAuth();
+      if (response.success) {
+        router.push(response.url);
+      } else {
+        console.log(response.message);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading2(false);
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[var(--background)] p-4">
@@ -225,9 +245,13 @@ const RegisterPage = () => {
           </div>
 
           <div className="space-y-4">
-            <button className="w-full flex items-center justify-center py-3 cursor-pointer px-4 border border-gray-300 rounded-lg text-[var(--color-text)] hover:text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+            <button
+              className={`w-full flex items-center justify-center py-3 px-4 border border-gray-300 rounded-lg font-medium transition-colors ${!loading2 ? 'text-[var(--color-text)] hover:text-gray-800 hover:bg-gray-50 cursor-pointer' : 'text-gray-400 bg-gray-100 cursor-not-allowed'}`}
+              onClick={handleAuth}
+              disabled={loading2}
+            >
               <GoogleIcon className="w-5 h-5 mr-3" />
-              Sign up with Google
+              {!loading2 ? 'Sign Up with Google' : 'Loading...'}
             </button>
           </div>
 
