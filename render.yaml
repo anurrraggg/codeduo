@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: codeduo-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # You'll need to set these in your Render dashboard:
+      # - MONGO_URI
+      # - JWT_SECRET
+      # - GOOGLE_CLIENT_ID
+      # - GOOGLE_CLIENT_SECRET
+      # - GOOGLE_REDIRECT_URI
+      # - FRONTEND_BASE_URL
+      # - WEB_REDIRECT_SUCCESS
+      # - WEB_REDIRECT_ERROR
+
