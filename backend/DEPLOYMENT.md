@@ -41,3 +41,7 @@ The backend is configured to accept requests from:
 - Verify MongoDB connection string is correct
 - Ensure all environment variables are set
 - Check that CORS origins match your frontend URL
+<<<<<<< HEAD
+- If using Blueprint: Ensure the `render.yaml` file is in the repo root
+=======
+>>>>>>> da7a0a7c1647ec4779f411a7722c8ad7b8d001a9

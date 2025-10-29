@@ -42,3 +42,4 @@
 - All API calls go through the configured backend
 - Environment variables are properly set
 - CORS is configured for both development and production
+
