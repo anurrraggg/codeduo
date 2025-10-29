@@ -4,6 +4,8 @@ const axios = require("axios");
 const userService = require("./userService");
 const validationService = require("./validationService");
 
+const crypto = require('crypto');
+
 const authService = {
     register: async (body) => {
         const { username, email, password, isAdmin } = body;
@@ -61,6 +63,60 @@ const authService = {
                 displayName: user.displayName
             }
         };
+    },
+    forgotPassword: async ({ email }) => {
+        if (!email || typeof email !== 'string') {
+            return { success: false, status: 400, message: 'Email is required' };
+        }
+
+        const normalizedEmail = email.trim().toLowerCase();
+        const user = await userService.findUserByQuery({ email: normalizedEmail });
+
+        // Always return success to avoid account enumeration
+        if (!user) {
+            return { success: true, token: undefined };
+        }
+
+        const rawToken = crypto.randomBytes(32).toString('hex');
+        const hashedToken = crypto.createHash('sha256').update(rawToken).digest('hex');
+        const expiresAt = new Date(Date.now() + 1000 * 60 * 30); // 30 minutes
+
+        await userService.updateUser(user._id, {
+            resetPasswordToken: hashedToken,
+            resetPasswordExpires: expiresAt,
+        });
+
+        // In production, send email with link containing rawToken
+        return { success: true, token: rawToken };
+    },
+    resetPassword: async ({ token, password }) => {
+        if (!token || !password) {
+            return { success: false, status: 400, message: 'Token and password are required' };
+        }
+
+        if (typeof password !== 'string' || password.length < 8) {
+            return { success: false, status: 400, message: 'Password must be at least 8 characters' };
+        }
+
+        const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+        const now = new Date();
+        const user = await userService.findUserByQuery({
+            resetPasswordToken: hashedToken,
+            resetPasswordExpires: { $gt: now },
+        });
+
+        if (!user) {
+            return { success: false, status: 400, message: 'Invalid or expired token' };
+        }
+
+        const passwordHash = await bcrypt.hash(password, 12);
+        await userService.updateUser(user._id, {
+            passwordHash,
+            resetPasswordToken: undefined,
+            resetPasswordExpires: undefined,
+        });
+
+        return { success: true };
     },
     login: async (body) => {
         const { emailOrUsername, password } = body;

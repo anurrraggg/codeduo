@@ -11,3 +11,5 @@ export const USER_LOGIN_URL = BASE_URL + "/api/auth/login";
 export const USER_REGISTER_URL = BASE_URL + "/api/auth/register";
 export const USER_ME_URL = BASE_URL + "/api/auth/me";
 export const AUTH_GOOGLE_URL = BASE_URL + "/api/auth/google";
+export const USER_FORGOT_PASSWORD_URL = BASE_URL + "/api/auth/forgot-password";
+export const USER_RESET_PASSWORD_URL = BASE_URL + "/api/auth/reset-password";

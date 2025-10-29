@@ -1,7 +1,6 @@
 'use client';
-import { USER_LOGIN_URL, USER_REGISTER_URL } from "@/shared/urls";
+import { USER_LOGIN_URL, USER_REGISTER_URL, USER_FORGOT_PASSWORD_URL, USER_RESET_PASSWORD_URL, AUTH_GOOGLE_URL } from "@/shared/urls";
 import { toast } from "react-toastify";
-import { AUTH_GOOGLE_URL } from '@/shared/urls';
 
 
 export async function login(userForm) {
@@ -174,4 +173,52 @@ export function getAuthHeaders(extra = {}) {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...extra,
     };
+}
+
+export async function requestPasswordReset(email) {
+    if (!email) {
+        toast.error('Please enter your email');
+        return { success: false };
+    }
+
+    try {
+        const res = await fetch(USER_FORGOT_PASSWORD_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            toast.error(data.message || 'Failed to request reset');
+            return { success: false };
+        }
+        return { success: true, token: data.token };
+    } catch (e) {
+        toast.error('Network error');
+        return { success: false };
+    }
+}
+
+export async function resetPassword({ token, password }) {
+    if (!token || !password) {
+        toast.error('Missing token or password');
+        return { success: false };
+    }
+    try {
+        const res = await fetch(USER_RESET_PASSWORD_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token, password })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            toast.error(data.message || 'Failed to reset password');
+            return { success: false };
+        }
+        toast.success('Password reset successful');
+        return { success: true };
+    } catch (e) {
+        toast.error('Network error');
+        return { success: false };
+    }
 }

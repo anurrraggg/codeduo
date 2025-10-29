@@ -301,3 +301,22 @@ exports.testJWT = (req, res) => {
         res.status(500).json({ success: false, error: err.message });
     }
 };
+
+// Forgot/Reset Password
+exports.forgotPassword = async (req, res) => {
+    const { email } = req.body;
+    const response = await authService.forgotPassword({ email });
+    if (!response.success) {
+        return res.status(response.status).json({ message: response.message });
+    }
+    return res.status(200).json({ message: 'If that email exists, we sent a reset link.', token: response.token });
+};
+
+exports.resetPassword = async (req, res) => {
+    const { token, password } = req.body;
+    const response = await authService.resetPassword({ token, password });
+    if (!response.success) {
+        return res.status(response.status).json({ message: response.message });
+    }
+    return res.status(200).json({ message: 'Password updated successfully' });
+};

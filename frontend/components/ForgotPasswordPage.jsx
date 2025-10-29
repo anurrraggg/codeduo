@@ -4,6 +4,7 @@ import { Mail, ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
+import { requestPasswordReset } from '@/services/UserService';
 
 const ForgotPasswordPage = () => {
     const router = useRouter();
@@ -22,14 +23,11 @@ const ForgotPasswordPage = () => {
         setLoading(true);
 
         try {
-            // --- This is where you would add your API call to send the reset link ---
-            // For example: await sendResetLink(email);
-
-            // On successful API call, show a success message and redirect
-            toast.success('Password reset link sent successfully!');
-            router.push('/confirm'); // A better UX is to redirect to a confirmation page
-        } catch (error) {
-            toast.error('Failed to send reset link. Please try again.');
+            const result = await requestPasswordReset(email);
+            if (result.success) {
+                toast.success('If that email exists, we sent a reset link.');
+                router.push('/confirm');
+            }
         } finally {
             setLoading(false);
         }

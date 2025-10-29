@@ -29,6 +29,9 @@ const userSchema = new mongoose.Schema(
             enum: ["Top Performer", "Balanced Performer", "Developing Learner", "Consistent Specialist"],
         },
         profile: { type: Buffer }
+        ,
+        resetPasswordToken: { type: String },
+        resetPasswordExpires: { type: Date }
     },
     {
         timestamps: true,

@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const asyncHandler = require('../middleware/asyncHandler');
 const validateRequest = require('../middleware/validateRequest');
-const { register, login, me, updateProfile, googleAuthUrl, googleCallback, debugOAuthConfig, debugOAuth, googleCallbackDebug, testJWT } = require('../controllers/authController');
+const { register, login, me, updateProfile, googleAuthUrl, googleCallback, debugOAuthConfig, debugOAuth, googleCallbackDebug, testJWT, forgotPassword, resetPassword } = require('../controllers/authController');
 
 router.post('/register', validateRequest(['username', 'email', 'password'], { email: true, password: true }), asyncHandler(register));
 router.post('/login', validateRequest(['emailOrUsername', 'password']), asyncHandler(login));
@@ -19,5 +19,9 @@ router.get('/debug/config', asyncHandler(debugOAuthConfig));
 router.get('/debug', asyncHandler(debugOAuth));
 router.get('/google/callback/debug', asyncHandler(googleCallbackDebug));
 router.get('/test-jwt', asyncHandler(testJWT));
+
+// Password reset
+router.post('/forgot-password', validateRequest(['email'], { email: true }), asyncHandler(forgotPassword));
+router.post('/reset-password', validateRequest(['token', 'password'], { password: true }), asyncHandler(resetPassword));
 
 module.exports = router;
