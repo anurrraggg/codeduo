@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
-const { authService } = require('../services/authService');
+const authService = require('../services/authService');
 
 const generateToken = (payload, expiresIn = process.env.JWT_EXPIRES || '2h') => {
     const secret = process.env.JWT_SECRET;
@@ -73,9 +73,9 @@ exports.updateProfile = async (req, res) => {
 };
 
 // Google OAuth
-exports.googleAuthUrl = (req, res) => {
+exports.googleAuthUrl = async (req, res) => {
     try {
-        const response = authService.googleAuthUrl(clientId, redirectUri, req.query);
+        const response = authService.googleAuthUrl(req.query);
         
         return res.status(200).json({ url: response.url });
     } catch (err) {
@@ -83,7 +83,6 @@ exports.googleAuthUrl = (req, res) => {
         return res.status(500).json({ message: 'Failed to create Google auth URL', error: err });
     }
 };
-
 
 // Replace your googleCallback function with this corrected version
 exports.googleCallback = async (req, res) => {
