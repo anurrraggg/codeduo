@@ -99,7 +99,7 @@ const QuizPage = () => {
     const playEffect = (file) => {
         if (!soundReady) return;
         const s = new Audio(file);
-        s.volume = 0.8;
+        s.volume = 1.2;
         s.play();
     };
 
@@ -346,7 +346,40 @@ const QuizPage = () => {
                                 <Trophy className="w-5 h-5 text-yellow-500 mr-2" />
                                 Global Leaderboard
                             </h3>
-                            {/* ... Leaderboard map ... */}
+                            <div className="space-y-3">
+                                {[
+                                    { rank: 1, name: 'Sarah Chen', score: 18420, streak: 15, avatar: 'SC' },
+                                    { rank: 2, name: 'Mike Rodriguez', score: 17850, streak: 12, avatar: 'MR' },
+                                    { rank: 3, name: 'Emma Thompson', score: 17200, streak: 10, avatar: 'ET' },
+                                    { rank: 24, name: 'You', score: score, streak: maxStreak, avatar: 'YU', isUser: true },
+                                    { rank: 25, name: 'Alex Johnson', score: score - 150, streak: maxStreak - 1, avatar: 'AJ' }
+                                ].map((user, index) => (
+                                    <div key={index} className={`flex items-center justify-between p-3 rounded-lg ${user.isUser ? 'bg-purple-50 border border-purple-200' : 'hover:bg-gray-50'}`}>
+                                        <div className="flex items-center space-x-3">
+                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${user.rank === 1 ? 'bg-yellow-100 text-yellow-700' :
+                                                user.rank === 2 ? 'bg-gray-100 text-gray-700' :
+                                                    user.rank === 3 ? 'bg-orange-100 text-orange-700' :
+                                                        user.isUser ? 'bg-purple-200 text-purple-700' : 'bg-gray-100 text-gray-600'
+                                                }`}>
+                                                {user.rank}
+                                            </div>
+                                            <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                                <span className="text-sm font-medium text-purple-600">{user.avatar}</span>
+                                            </div>
+                                            <div>
+                                                <div className={`font-semibold ${user.isUser ? 'text-purple-700' : 'text-gray-800'}`}>
+                                                    {user.name}
+                                                </div>
+                                                <div className="text-xs text-gray-500">Streak: {user.streak}</div>
+                                            </div>
+                                        </div>
+                                        <div className="text-right">
+                                            <div className="font-bold text-gray-800">{user.score.toLocaleString()}</div>
+                                            <div className="text-xs text-gray-500">points</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -438,18 +471,18 @@ const QuizPage = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {currentQ.options.map((option, index) => {
                                 let buttonClass = "w-full min-h-[80px] p-4 text-left rounded-xl border-2 transition-all duration-200 font-medium flex items-center";
-                                
+
                                 if (!answerSubmitted) {
                                     buttonClass += (selectedAnswer === index)
-                                        ? " border-purple-500 bg-purple-100/50 text-[var(--color-text)]" 
-                                        : " border-gray-200 hover:border-purple-300 text-[var(--color-text)] hover:bg-purple-50/20 cursor-pointer"; 
+                                        ? " border-purple-500 bg-purple-100/50 text-[var(--color-text)]"
+                                        : " border-gray-200 hover:border-purple-300 text-[var(--color-text)] hover:bg-purple-50/20 cursor-pointer";
                                 } else {
                                     if (index === currentQ.correctAnswer) {
-                                        buttonClass += " border-green-500 bg-green-50 text-green-800"; 
+                                        buttonClass += " border-green-500 bg-green-50 text-green-800";
                                     } else if (index === selectedAnswer && selectedAnswer !== currentQ.correctAnswer) {
-                                        buttonClass += " border-red-500 bg-red-50 text-red-800"; 
+                                        buttonClass += " border-red-500 bg-red-50 text-red-800";
                                     } else {
-                                        buttonClass += " border-gray-200 bg-gray-50 text-gray-500 opacity-60"; 
+                                        buttonClass += " border-gray-200 bg-gray-50 text-gray-500 opacity-60";
                                     }
                                 }
 
@@ -462,15 +495,14 @@ const QuizPage = () => {
                                     >
                                         <div className="flex items-center space-x-3">
                                             <div
-                                                className={`w-6 h-6 rounded-full border-2 flex-shrink-0 flex items-center justify-center text-sm font-bold ${
-                                                    !answerSubmitted 
+                                                className={`w-6 h-6 rounded-full border-2 flex-shrink-0 flex items-center justify-center text-sm font-bold ${!answerSubmitted
                                                         ? (selectedAnswer === index ? 'border-purple-500' : 'border-gray-300')
                                                         : index === currentQ.correctAnswer
                                                             ? "border-green-500 bg-green-500 text-white"
-                                                            : index === selectedAnswer 
+                                                            : index === selectedAnswer
                                                                 ? "border-red-500 bg-red-500 text-white"
                                                                 : "border-gray-300"
-                                                }`}
+                                                    }`}
                                             >
                                                 {String.fromCharCode(65 + index)}
                                             </div>
@@ -528,14 +560,12 @@ const QuizPage = () => {
                 </div>
 
                 {answerSubmitted && (
-                    <div className={`z-10 w-full p-4 rounded-lg ${
-                        isCurrentAnswerCorrect 
-                        ? 'bg-green-100/20 border border-green-500' 
-                        : 'bg-red-100/20 border border-red-500'
-                    }`}>
-                        <h3 className={`font-bold ${
-                            isCurrentAnswerCorrect ? 'text-green-300' : 'text-red-300'
+                    <div className={`z-10 w-full p-4 rounded-lg ${isCurrentAnswerCorrect
+                            ? 'bg-green-100/20 border border-green-500'
+                            : 'bg-red-100/20 border border-red-500'
                         }`}>
+                        <h3 className={`font-bold ${isCurrentAnswerCorrect ? 'text-green-300' : 'text-red-300'
+                            }`}>
                             {isCurrentAnswerCorrect ? 'Correct!' : 'Incorrect'}
                         </h3>
                         <p className="text-white/90 mt-2">{currentQ.explanation}</p>
