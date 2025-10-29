@@ -1,25 +1,25 @@
-import { questionsRepository } from "../repository/questionsRepository"
+import { questionRepository } from "../repository/questionRepository"
 
 export const questionService = {
     createQuestion: async (questionData) => {
-        return await questionsRepository.create(questionData);
+        return await questionRepository.create(questionData);
     },
     findQuestionById: async (id) => {
-        return await questionsRepository.findById(id);
+        return await questionRepository.findById(id);
     },
     findQuestionsByQuizId: async (quizId) => {
-        return await questionsRepository.findByQuizId(quizId);
+        return await questionRepository.findByQuizId(quizId);
     },
     findQuestionByQuestionId: async (questionId) => {
-        return await questionsRepository.findByQuestionId(questionId);
+        return await questionRepository.findByQuestionId(questionId);
     },
     updateQuestion: async (questionId, questionData) => {
-        return await questionsRepository.update(questionId, questionData);
+        return await questionRepository.update(questionId, questionData);
     },
     findAllQuestions: async () => {
-        return await questionsRepository.findAll();
+        return await questionRepository.findAll();
     },
     deleteQuestion: async (id) => {
-        return await questionsRepository.delete(id);
+        return await questionRepository.delete(id);
     },
 };

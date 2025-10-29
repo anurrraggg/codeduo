@@ -1,6 +1,6 @@
 import { Question } from "../models/Question";
 
-export const questionsRepository = {
+export const questionRepository = {
     create: async (questionData) => {
         const quesiton = new Question(questionData);
         return await quesiton.save();
