@@ -1,8 +1,11 @@
-const { userRepository } = require("../repository/userRepository");
+const userRepository = require("../repository/userRepository");
 
 const userService = {
-    createUser: async (user) => {
-        return await userRepository.create(user);
+    create: async (userData) => {
+        return await userRepository.create(userData);
+    },
+    createUser: async (userData) => {
+        return await userRepository.create(userData);
     },
     findUserById: async (id) => {
         return await userRepository.findById(id);
@@ -23,7 +26,7 @@ const userService = {
         return await userRepository.find();
     },
     deleteUser: async (id) => {
-        return await userRepository.delete();
+        return await userRepository.delete(id);
     }
 };
 
