@@ -28,7 +28,7 @@ const QuizPage = () => {
     const [maxStreak, setMaxStreak] = useState(0);
     const [multiplier, setMultiplier] = useState(1);
     const [showResults, setShowResults] = useState(false);
-    const [correct, setCorrect] = useState(false); // For Hero animation
+    const [correct, setCorrect] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const { isDark } = useTheme();
 
