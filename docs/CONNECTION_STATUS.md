@@ -43,4 +43,3 @@
 - Environment variables are properly set
 - CORS is configured for both development and production
 
-

@@ -20,4 +20,3 @@ services:
       # - FRONTEND_BASE_URL
       # - WEB_REDIRECT_SUCCESS
       # - WEB_REDIRECT_ERROR
-

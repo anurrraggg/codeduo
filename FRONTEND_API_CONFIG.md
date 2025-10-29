@@ -88,4 +88,3 @@ Expected output: `"check"`
 - [ ] Test backend is accessible: `https://codeduo.onrender.com`
 - [ ] Test frontend can reach backend (check browser network tab)
 
-

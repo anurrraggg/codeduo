@@ -188,4 +188,3 @@ For reference, these files were created to help with deployment:
 ✅ **Auto-deploy setup ready** - just needs to be enabled in Render dashboard
 
 **You're almost there! Just enable auto-deploy and you'll never need to manually deploy again!** 🚀
-

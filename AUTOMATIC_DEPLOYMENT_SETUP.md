@@ -199,4 +199,3 @@ If you're still experiencing issues:
 2. Review the deployment logs in Render dashboard
 3. Verify your `render.yaml` file is in the repository root
 4. Ensure all environment variables are set correctly
-
