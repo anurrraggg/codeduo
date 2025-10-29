@@ -15,97 +15,64 @@ const generateToken = (payload, expiresIn = process.env.JWT_EXPIRES || '2h') => 
 };
 
 exports.register = async (req, res) => {
-    try {
-        const { username, email, password, isAdmin } = req.body;
-        const response = await authService.register({ username, email, password, isAdmin });
-        if(!response.success) {
-            return res.status(response.status).json({ message: response.message });
-        }
-        return res.status(201).json({ token: response.token, user: response.user });
-    } catch (err) {
-        console.error('Registration error:', err);
-        return res.status(500).json({ message: 'Server error' });
+    const { username, email, password, isAdmin } = req.body;
+    const response = await authService.register({ username, email, password, isAdmin });
+    if(!response.success) {
+        return res.status(response.status).json({ message: response.message });
     }
+    return res.status(201).json({ token: response.token, user: response.user });
 };
 
 exports.login = async (req, res) => {
-    try {
-        const { emailOrUsername, password } = req.body;
-        const response = await authService.login({ emailOrUsername, password });
-        if(!response.success) {
-            return res.status(response.status).json({ message: response.message })
-        }
-        return res.status(200).json({ token: response.token, user: response.user });
-    } catch (err) {
-        console.error('Login error:', err);
-        return res.status(500).json({ message: 'Server error: '+err });
+    const { emailOrUsername, password } = req.body;
+    const response = await authService.login({ emailOrUsername, password });
+    if(!response.success) {
+        return res.status(response.status).json({ message: response.message })
     }
+    return res.status(200).json({ token: response.token, user: response.user });
 };
 
 exports.me = async (req, res) => {
-    try {
-        const response = await authService.me(req.user);
-        
-        if(!response.success) {
-            return res.status(response.status).json({ message: response.message});
-        }
-
-        return res.status(200).json({ user: response.user });
-    } catch (err) {
-        console.error('Me endpoint error:', err);
-        return res.status(500).json({ message: 'Server error' });
+    const response = await authService.me(req.user);
+    
+    if(!response.success) {
+        return res.status(response.status).json({ message: response.message});
     }
+
+    return res.status(200).json({ user: response.user });
 };
 
 exports.updateProfile = async (req, res) => {
-    try {
-        const { user, displayName, avatarUrl } = req.body;
+    const { user, displayName, avatarUrl } = req.body;
 
-        const response = await authService.updateProfile(user, displayName, avatarUrl);
-        if(!response.success) {
-            return res.status(response.status).json({ message: response.message});
-        }
-        res.status(200).json({ user: response.user });
-    } catch (err) {
-        console.error('Profile update error:', err);
-        return res.status(500).json({ message: 'Server error' });
+    const response = await authService.updateProfile(user, displayName, avatarUrl);
+    if(!response.success) {
+        return res.status(response.status).json({ message: response.message});
     }
+    res.status(200).json({ user: response.user });
 };
 
 // Google OAuth
-exports.googleAuthUrl = (req, res) => {
-    try {
-        const response = authService.googleAuthUrl(req.query);
-        
-        return res.status(200).json({ url: response.url });
-    } catch (err) {
-        console.error('Auth URL generation error:', err);
-        return res.status(500).json({ message: 'Failed to create Google auth URL', error: err });
-    }
+exports.googleAuthUrl = async (req, res) => {
+    const response = await authService.googleAuthUrl(req.query);
+    
+    return res.status(200).json({ url: response.url });
 };
 
 
 // Replace your googleCallback function with this corrected version
 exports.googleCallback = async (req, res) => {
-    try {
-        const { code, error } = req.query;
+    const { code, error } = req.query;
 
-        const response = await authService.googleCallback(req.query, code, error);
+    const response = await authService.googleCallback(req.query, code, error);
 
-        if(!response.success && response.redirect) {
-            return res.status(response.status).redirect(response.redirect);
-        } else if(!response.success) {
-            return res.status(response.status).json({ message: response.message });
-        }
-
-        return res.status(302).redirect(response.redirect);
-    } catch (err) {
-        console.error('💥 Google OAuth error:', err.message);
-        const webRedirect =
-            process.env.WEB_REDIRECT_ERROR ||
-            (process.env.FRONTEND_BASE_URL ? `${process.env.FRONTEND_BASE_URL}/login` : 'http://localhost:3000/login');
-        return res.redirect(`${webRedirect}?error=google_oauth_failed&details=${encodeURIComponent(err.message)}`);
+    if(!response.success && response.redirect) {
+        return res.status(response.status).redirect(response.redirect);
+    } else if(!response.success) {
+        return res.status(response.status).json({ message: response.message });
     }
+
+    return res.status(302).redirect(response.redirect);
 };
 
 exports.debugOAuthConfig = (req, res) => {

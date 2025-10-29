@@ -26,7 +26,7 @@ const userService = {
         return await userRepository.find();
     },
     deleteUser: async (id) => {
-        return await userRepository.delete();
+        return await userRepository.delete(id);
     }
 };
 
