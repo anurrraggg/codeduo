@@ -99,7 +99,7 @@ const QuizPage = () => {
     const playEffect = (file) => {
         if (!soundReady) return;
         const s = new Audio(file);
-        s.volume = 1.2;
+        s.volume = 1;
         s.play();
     };
 
