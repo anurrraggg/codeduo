@@ -55,7 +55,7 @@ exports.updateProfile = async (req, res) => {
 // Google OAuth
 exports.googleAuthUrl = async (req, res) => {
     try {
-        const response = authService.googleAuthUrl(req.query);
+        const response = await authService.googleAuthUrl(req.query);
         
         return res.status(200).json({ url: response.url });
     } catch (err) {
