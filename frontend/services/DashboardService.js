@@ -18,11 +18,11 @@ export const recentResults = [
 ];
 
 export const leaderboard = [
-    { rank: 1, name: 'Alex Chen', score: 2845, avatar: 'AC' },
-    { rank: 2, name: 'Sarah Kim', score: 2720, avatar: 'SK' },
-    { rank: 3, name: 'Mike Johnson', score: 2680, avatar: 'MJ' },
-    { rank: 4, name: 'You', score: 2340, avatar: 'YU', isUser: true },
-    { rank: 5, name: 'Emma Davis', score: 2280, avatar: 'ED' }
+    { rank: 1, name: 'Ishan', score: 2845, avatar: 'I' },
+    { rank: 2, name: 'Ayush Raj', score: 2720, avatar: 'AR' },
+    { rank: 3, name: 'Bhoomika', score: 2680, avatar: 'B' },
+    { rank: 4, name: 'YOU', score: 2340, avatar: 'B', isUser: true },
+    { rank: 5, name: 'Anurag', score: 2280, avatar: 'ED' }
 ];
 
 export async function getLeaderboard() {
