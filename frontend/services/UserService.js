@@ -99,17 +99,12 @@ export async function signup(userForm) {
 
 export async function googleAuth() {
     try {
-        const res = await fetch(AUTH_GOOGLE_URL);
-        const data = await res.json();
-        if (res.ok && data?.url) {
-            return { success: true, url: data.url };
-        } else {
-            toast.error('Failed to start Google sign-in');
-            return { success: false, message: res.message };
-        }
-    } catch (e) {
-        toast.error('Error starting Google sign-in: ' + e);
-        return { success: false, message: 'Error: ' + e };
+        // The backend will respond with a redirect URL.
+        // We need to navigate the browser to this URL.
+        window.location.href = AUTH_GOOGLE_URL;
+    } catch (err) {
+        toast.error('Could not initiate Google login: ' + err.message);
+        return null;
     }
 }
 
@@ -149,11 +144,12 @@ export function getUser() {
 }
 
 export function saveToken(token) {
-    if (!token || typeof window === 'undefined') return;
-    try {
-        localStorage.setItem('token', token);
-    } catch (err) {
-        console.error('Error saving token to localStorage:', err);
+    if (typeof window !== 'undefined') {
+        try {
+            localStorage.setItem('token', token);
+        } catch (err) {
+            console.error('Error saving token to localStorage:', err);
+        }
     }
 }
 

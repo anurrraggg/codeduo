@@ -67,16 +67,28 @@ exports.googleAuthUrl = async (req, res) => {
 // Replace your googleCallback function with this corrected version
 exports.googleCallback = async (req, res) => {
     const { code, error } = req.query;
+    try {
+        const response = await authService.googleCallback(req.query, code, error);
 
-    const response = await authService.googleCallback(req.query, code, error);
+        if(!response.success && response.redirect) {
+            return res.status(response.status).redirect(response.redirect);
+        } else if(!response.success) {
+            return res.status(response.status).json({ message: response.message });
+        }
 
-    if(!response.success && response.redirect) {
-        return res.status(response.status).redirect(response.redirect);
-    } else if(!response.success) {
-        return res.status(response.status).json({ message: response.message });
+        if (response.success) {
+            res.redirect(response.redirect);
+        } else {
+            // It's better to redirect with an error query parameter
+            // than to send a JSON response to a browser redirect.
+            res.redirect(response.redirect);
+        }
+    } catch (err) {
+        console.error("Critical error in googleCallback controller:", err);
+        // Redirect to a generic error page or the homepage with an error message
+        const webRedirect = process.env.WEB_URL || 'http://localhost:3000';
+        res.redirect(`${webRedirect}/login?error=google_oauth_failed`);
     }
-
-    return res.status(302).redirect(response.redirect);
 };
 
 exports.debugOAuthConfig = (req, res) => {
