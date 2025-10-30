@@ -1,4 +1,6 @@
 import { Code, Cpu, Database, GitBranch, Globe } from "lucide-react";
+import { LEADERBOARD_URL } from "../constants/urls";
+import { apiFetch } from "../api/client";
 
 export const quizCategories = [
     { id: 1, name: 'Dynamic Programming', icon: <Database className="w-6 h-6" />, difficulty: 'Hard', quizzes: 24, color: 'bg-purple-100 text-purple-700' },
@@ -22,6 +24,14 @@ export const leaderboard = [
     { rank: 4, name: 'You', score: 2340, avatar: 'YU', isUser: true },
     { rank: 5, name: 'Emma Davis', score: 2280, avatar: 'ED' }
 ];
+
+export async function getLeaderboard() {
+  try {
+    return await apiFetch(LEADERBOARD_URL, { method: 'GET' });
+  } catch (e) {
+    return { top: [], me: null };
+  }
+}
 
 export const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
