@@ -1,7 +1,7 @@
 export const testimonials = [
     {
         color: 'purple',
-        profile: 'AS',
+        profile: 'B',
         name: 'Bhoomika',
         role: 'Computer Science Student',
         review: 'CodeDuo helped me ace my algorithms course! The competitive element kept me motivated, and I improved my problem-solving speed significantly.',
