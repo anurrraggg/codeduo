@@ -97,7 +97,7 @@ const UserProfilePage = () => {
   }
 
   if (!user || !profileData) {
-    return;
+    return null;
   }
 
   const handleProfileUpdate = (field, value) => {
