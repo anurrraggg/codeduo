@@ -68,7 +68,7 @@ const UserProfilePage = () => {
             username: data.username || 'User',
             email: data.email || '',
             bio: 'Full-stack developer passionate about algorithms and data structures. Always learning, always coding!',
-            location: 'San Francisco, CA',
+            location: 'India',
             dateOfBirth: '1995-06-15',
             website: 'https://alexjohnson.dev',
             github: 'alexjohnson',
