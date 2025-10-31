@@ -16,7 +16,7 @@ export default function ResetPassword() {
         e.preventDefault();
         if (loading) return;
         if (!token) return;
-        if (!password || password.length < 8) return;
+        if (!password) return;
         if (password !== confirm) return;
         setLoading(true);
         try {

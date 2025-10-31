@@ -23,11 +23,6 @@ const authService = {
             return { success: false, status: 400, message: 'Invalid email format' };
         }
 
-        // Validate password strength
-        if (!validationService.validatePassword(password)) {
-            return { success: false, status: 400, message: 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' };
-        }
-
         // Check for existing user
         const exists = await userService.findUserByEmailOrUsername(sanitizedEmail, sanitizedUsername);
         if (exists) {
@@ -92,10 +87,6 @@ const authService = {
     resetPassword: async ({ token, password }) => {
         if (!token || !password) {
             return { success: false, status: 400, message: 'Token and password are required' };
-        }
-
-        if (typeof password !== 'string' || password.length < 8) {
-            return { success: false, status: 400, message: 'Password must be at least 8 characters' };
         }
 
         const hashedToken = crypto.createHash('sha256').update(token).digest('hex');

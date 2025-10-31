@@ -11,9 +11,7 @@ const validationService = {
         return emailRegex.test(email);
     },
     validatePassword: (password) => {
-        // Minimum 8 characters, at least one uppercase, lowercase, number, and special character
-        const passwordRegex = /^[A-Za-z0-9@$!%*?&]*$/;
-        return passwordRegex.test(password);
+        return typeof password === 'string';
     }
 };
 
