@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import LoaderPage from './LoaderPage';
 import { Sun, Moon } from 'lucide-react';
 import useTheme from '@/services/hooks/useTheme';
+import InstallPrompt from './InstallPrompt';
 
 export default function Header() {
     const router = useRouter();
@@ -83,6 +84,7 @@ export default function Header() {
                             >
                                 {isDark ? <Moon size={25} /> : <Sun size={25} />}
                             </button>
+                            <InstallPrompt />
                             <Link href="/#features" style={{ transition: 'color 0.2s' }} className="hover:text-[var(--purple-600)]">
                                 Features
                             </Link>
@@ -172,6 +174,7 @@ export default function Header() {
             {/* Mobile Menu */}
             {isMenuOpen && (
                 <div className="lg:hidden px-6 pt-2 pb-4 flex flex-col items-center space-y-3">
+                    <InstallPrompt />
                     <Link href="/#features" onClick={() => handleLinkClick('/#features')} style={{ transition: 'color 0.2s' }} className="block hover:text-[var(--purple-600)]">
                         Features
                     </Link>
