@@ -13,7 +13,7 @@ import {
   Edit3,
   Trash2
 } from 'lucide-react';
-import { getUser, logout } from '@/services/UserService';
+import { getUser, logout, updateProfile, uploadAvatar } from '@/services/UserService';
 import { useRouter } from 'next/navigation';
 import LoaderPage from './LoaderPage';
 import { toast } from 'react-toastify';
@@ -66,6 +66,7 @@ const UserProfilePage = () => {
           setUser(data);
           setProfileData({
             username: data.username || 'User',
+            name: data.displayName || data.username || 'User',
             email: data.email || '',
             bio: 'Full-stack developer passionate about algorithms and data structures. Always learning, always coding!',
             location: 'India',
@@ -75,7 +76,7 @@ const UserProfilePage = () => {
             linkedin: 'alex-johnson-dev',
             twitter: 'alexcodes',
             isPublic: true,
-            profileImage: null
+            profileImage: data.avatarUrl || null
           });
         } else {
           toast.error('User not found or invalid credentials.');
@@ -111,10 +112,26 @@ const UserProfilePage = () => {
     setPrivacySettings(prev => ({ ...prev, [setting]: value }));
   };
 
-  const handleSaveProfile = () => {
-    // API call to save profile
-    toast.success('Profile updated successfully!');
-    setEditMode(false);
+  const handleSaveProfile = async () => {
+    const updated = await updateProfile({ displayName: profileData.name });
+    if (updated) {
+      setUser(updated);
+      toast.success('Profile updated successfully!');
+      setEditMode(false);
+    }
+  };
+
+  const fileInputRef = React.useRef(null);
+  const onPickAvatar = () => fileInputRef.current?.click();
+  const onAvatarSelected = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const updated = await uploadAvatar(file);
+    if (updated) {
+      setUser(updated);
+      setProfileData((prev) => ({ ...prev, profileImage: updated.avatarUrl }));
+      toast.success('Profile photo updated');
+    }
   };
 
   const handlePasswordChange = () => {
@@ -154,15 +171,20 @@ const UserProfilePage = () => {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-10">
               <div className="flex items-center space-x-6">
                 <div className="relative">
-                  <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-purple-600 font-bold text-2xl shadow-lg">
-                    {profileData.username[0]}
-                  </div>
-                  <button className="absolute bottom-0 cursor-pointer right-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white hover:bg-purple-700 transition-colors">
+                  {profileData.profileImage ? (
+                    <img src={profileData.profileImage} alt="avatar" className="w-24 h-24 rounded-full object-cover shadow-lg bg-white" />
+                  ) : (
+                    <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-purple-600 font-bold text-2xl shadow-lg">
+                      {profileData.username[0]}
+                    </div>
+                  )}
+                  <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={onAvatarSelected} />
+                  <button onClick={onPickAvatar} className="absolute bottom-0 cursor-pointer right-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white hover:bg-purple-700 transition-colors">
                     <Camera className="w-4 h-4" />
                   </button>
                 </div>
                 <div className="text-white">
-                  <h1 className="text-3xl font-bold mb-1">{profileData.username}</h1>
+                  <h1 className="text-3xl font-bold mb-1">{profileData.name}</h1>
                   <p className="text-purple-100 mb-2">@{profileData.username}</p>
                   <div className="flex items-center space-x-1 text-sm">
                     <MapPin className="w-4 h-4" />
@@ -217,6 +239,16 @@ const UserProfilePage = () => {
                   <h3 className="text-lg font-semibold text-[var(--color-text)] mb-4">Personal Information</h3>
 
                   <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-[var(--color-text)] mb-2">Name</label>
+                      <input
+                        type="text"
+                        value={profileData.name}
+                        onChange={(e) => handleProfileUpdate('name', e.target.value)}
+                        disabled={!editMode}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-50/10 disabled:text-[var(--color-text)]"
+                      />
+                    </div>
                     <div>
                       <label className="block text-sm font-medium text-[var(--color-text)] mb-2">Username</label>
                       <input

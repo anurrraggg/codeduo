@@ -68,6 +68,9 @@ app.use(sanitizeInput);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Static serving for uploaded files (e.g., avatars)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // DB
 connectDB();
 

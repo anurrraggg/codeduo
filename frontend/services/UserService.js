@@ -1,5 +1,5 @@
 'use client';
-import { USER_LOGIN_URL, USER_REGISTER_URL, USER_FORGOT_PASSWORD_URL, USER_RESET_PASSWORD_URL, AUTH_GOOGLE_URL } from "@/shared/urls";
+import { USER_LOGIN_URL, USER_REGISTER_URL, USER_FORGOT_PASSWORD_URL, USER_RESET_PASSWORD_URL, AUTH_GOOGLE_URL, USER_ME_URL } from "@/shared/urls";
 import { toast } from "react-toastify";
 
 
@@ -216,5 +216,48 @@ export async function resetPassword({ token, password }) {
     } catch (e) {
         toast.error('Network error');
         return { success: false };
+    }
+}
+
+export async function updateProfile({ displayName }) {
+    try {
+        const res = await fetch(USER_ME_URL, {
+            method: 'PUT',
+            headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+            body: JSON.stringify({ displayName })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            toast.error(data.message || 'Failed to update profile');
+            return null;
+        }
+        if (data.user) saveUser(data.user);
+        return data.user;
+    } catch (e) {
+        toast.error('Network error updating profile');
+        return null;
+    }
+}
+
+export async function uploadAvatar(file) {
+    if (!file) return null;
+    try {
+        const form = new FormData();
+        form.append('avatar', file);
+        const res = await fetch(`${USER_ME_URL}/avatar`, {
+            method: 'PUT',
+            headers: getAuthHeaders(),
+            body: form
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            toast.error(data.message || 'Failed to upload avatar');
+            return null;
+        }
+        if (data.user) saveUser(data.user);
+        return data.user;
+    } catch (e) {
+        toast.error('Network error uploading avatar');
+        return null;
     }
 }

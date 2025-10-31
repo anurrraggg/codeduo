@@ -43,11 +43,23 @@ exports.me = async (req, res) => {
 };
 
 exports.updateProfile = async (req, res) => {
-    const { user, displayName, avatarUrl } = req.body;
+    const { displayName } = req.body;
 
-    const response = await authService.updateProfile(user, displayName, avatarUrl);
+    const response = await authService.updateProfile(req.user, displayName, undefined);
     if(!response.success) {
         return res.status(response.status).json({ message: response.message});
+    }
+    res.status(200).json({ user: response.user });
+};
+
+exports.uploadAvatar = async (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded' });
+    }
+    const avatarUrl = `/uploads/avatars/${req.file.filename}`;
+    const response = await authService.updateProfile(req.user, undefined, avatarUrl);
+    if (!response.success) {
+        return res.status(response.status).json({ message: response.message });
     }
     res.status(200).json({ user: response.user });
 };
