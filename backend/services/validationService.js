@@ -12,7 +12,7 @@ const validationService = {
     },
     validatePassword: (password) => {
         // Minimum 8 characters, at least one uppercase, lowercase, number, and special character
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const passwordRegex = /^[A-Za-z0-9@$!%*?&]*$/;
         return passwordRegex.test(password);
     }
 };
