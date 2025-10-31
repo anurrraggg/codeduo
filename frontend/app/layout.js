@@ -3,6 +3,7 @@ import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,7 +60,7 @@ export const metadata = {
     shortcut: '/favicon-16x16.png',
     apple: '/apple-touch-icon.png',
   },
-  manifest: '/site.webmanifest',
+  manifest: '/manifest.webmanifest',
 
   robots: {
     index: true,
@@ -76,6 +77,7 @@ export default function RootLayout({ children }) {
         {children}
 
         <ToastContainer position="bottom-right" autoClose={3000} />
+        <ServiceWorkerRegister />
       </body>
     </html>
   );
