@@ -99,9 +99,14 @@ export async function signup(userForm) {
 
 export async function googleAuth() {
     try {
-        // The backend will respond with a redirect URL.
-        // We need to navigate the browser to this URL.
-        window.location.href = AUTH_GOOGLE_URL;
+        const res = await fetch(AUTH_GOOGLE_URL, { method: 'GET' });
+        const data = await res.json().catch(() => ({}));
+        // If backend returns a JSON with { url }, redirect to it; otherwise fallback to direct nav
+        if (data && data.url) {
+            window.location.href = data.url;
+        } else {
+            window.location.href = AUTH_GOOGLE_URL;
+        }
     } catch (err) {
         toast.error('Could not initiate Google login: ' + err.message);
         return null;
