@@ -15,7 +15,7 @@ export const testimonials = [
     },
     {
         color: 'green',
-        profile: 'MJ',
+        profile: 'I',
         name: 'Ishan',
         role: 'Bootcamp Graduate',
         review: 'The progress tracking feature is amazing! I can see exactly where I need to improve. Got my dream job thanks to the interview prep quizzes.',
