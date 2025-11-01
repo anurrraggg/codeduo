@@ -101,6 +101,10 @@ const DashboardPage = () => {
     return <LoaderPage />;
   }
 
+  if (!user) {
+    return null;
+  }
+
   const getClusterBadgeColor = (clusterName) => {
     switch (clusterName) {
       case 'Top Performer': return 'bg-purple-100 text-purple-700';
@@ -136,9 +140,8 @@ const DashboardPage = () => {
 
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Welcome Section */}
-          {console.log(user)}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-[var(--color-text)] mb-2">Welcome back, {user.username}!</h2>
+          <h2 className="text-3xl font-bold text-[var(--color-text)] mb-2">Welcome back, {user?.username || 'User'}!</h2>
           <p className="text-[var(--color-text-secondary)]">Ready to challenge your coding knowledge today?</p>
         </div>
 
@@ -164,11 +167,7 @@ const DashboardPage = () => {
             )}
           </div>
           <div className="relative h-80">
-            {user ? (
-              <PerformanceRadarChart user={user} />
-            ) : (
-              <p className="text-[var(--color-text-secondary)] text-center mt-12">Loading profile...</p>
-            )}
+            <PerformanceRadarChart user={user} />
           </div>
         </div>
 

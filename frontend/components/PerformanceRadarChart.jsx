@@ -21,8 +21,10 @@ ChartJS.register(
 );
 
 const PerformanceRadarChart = ({ user }) => {
+  // Always call hooks at the top level, before any conditionals
+  const { isDark } = useTheme();
+  
   // Fall back to zeros if user is not loaded yet
-  const { isDark, toggleTheme } = useTheme();
   const chartData = {
     labels: [
       'Accuracy',
