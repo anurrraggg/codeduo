@@ -1,4 +1,4 @@
-const { questionsRepository } = require("../repository/questionsRepository")
+const { questionRepository } = require("../repository/questionRepository")
 
 export const questionService = {
     createQuestion: async (questionData) => {
@@ -20,6 +20,6 @@ export const questionService = {
         return await questionRepository.findAll();
     },
     deleteQuestion: async (id) => {
-        await questionsRepository.delete(id);
+        await questionRepository.delete(id);
     },
 };

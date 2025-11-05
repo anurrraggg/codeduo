@@ -1,24 +1,23 @@
-import { Question } from "../models/Question";
-import {Quiz} from "../models/Quiz";
+const { Quiz } = require("../models/Quiz");
 
-export const quizRepository={
-    create: async(quizData)=>{
-        const quiz=new Quiz(quizData);
+export const quizRepository = {
+    create: async (quizData) => {
+        const quiz = new Quiz(quizData);
         return await quiz.save();
     },
-    findById: async(id)=>{
+    findById: async (id) => {
         return await Quiz.findById(id);
     },
-    findByLessonId: async(lessonId)=>{
-        return await Quiz.find({lessonId});
+    findByLessonId: async (lesson_id) => {
+        return await Quiz.find({ lesson_id });
     },
-    findAll: async()=>{
+    findAll: async () => {
         return await Quiz.find();
     },
-    update: async(quizId,quizData)=>{
-        return await Quiz.findOneAndUpdate({quizId},{$set:quizData},{new:true});
+    update: async (quiz_id, quizData) => {
+        return await Quiz.findOneAndUpdate({ quiz_id }, { $set: quizData }, { new: true });
     },
-    delete: async(id)=>{
-        return await Question.findByIdAndDelete(id);
+    delete: async (id) => {
+        return await Quiz.findByIdAndDelete(id);
     }
 };

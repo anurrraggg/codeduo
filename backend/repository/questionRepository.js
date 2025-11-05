@@ -1,4 +1,4 @@
-import { Question } from "../models/Question";
+const { Question } = require("../models/Question");
 
 export const questionRepository = {
     create: async (questionData) => {
@@ -8,14 +8,14 @@ export const questionRepository = {
     findById: async (id) => {
         return await Question.findById(id);
     },
-    findByQuizId: async (quizId) =>{
-        return await Question.find({ quizId });
+    findByQuizId: async (quiz_id) => {
+        return await Question.find({ quiz_id });
     },
-    findByQuestionId: async (questionId) => {
-        return await Question.findOne({ questionId });
+    findByQuestionId: async (question_id) => {
+        return await Question.findOne({ question_id });
     },
-    update: async (questionId, questionData) => {
-        return await Question.findOneAndUpdate({ questionId }, { $set: questionData }, { new: true });
+    update: async (question_id, questionData) => {
+        return await Question.findOneAndUpdate({ question_id }, { $set: questionData }, { new: true });
     },
     findAll: async () => {
         return await Question.find();
