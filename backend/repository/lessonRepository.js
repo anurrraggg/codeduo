@@ -1,4 +1,4 @@
-import { Lesson } from "../models/Lesson";
+const { Lesson } = require("../models/Lesson");
 
 export const lessonRepository = {
     create: async (lessonData) => {
@@ -8,13 +8,14 @@ export const lessonRepository = {
     findById: async (id) => {
         return await Lesson.findById(id);
     },
-    update: async (lessonId, lessonData) => {
-        return await lesson.findOneAndUpdate({ lessonId }, { $set: lessonData }, { new: true });
-    },
     findAll: async () => {
         return await Lesson.find();
     },
-    delete: async(id)=>{
+    update: async (lesson_id, lessonData) => {
+        return await Lesson.findOneAndUpdate({ lesson_id }, { $set: lessonData }, { new: true });
+    },
+
+    delete: async (id) => {
         return await Lesson.findByIdAndDelete(id);
     }
 

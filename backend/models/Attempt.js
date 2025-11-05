@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid')
 
 const attempsSchema = new mongoose.Schema({
 
-    attempts_id: {
+    attempt_id: {
         type: String, unique: true, default: uuidv4
     },
     user_id: {
@@ -13,7 +13,7 @@ const attempsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,ref:'Quizzes', required: true
     },
     score: {
-        type: Number,
+        type: [Number],
         required:true
     },
     time_taken: {
