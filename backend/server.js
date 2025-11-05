@@ -79,7 +79,14 @@ app.get('/', (req, res) => res.send('API is running'));
 app.get('/api/test', (req, res) => res.send('check'));
 
 app.use('/api/auth', authRoutes);
-app.use('/api/questions',questionRoutes);
+app.use('/api/questions', questionRoutes);
+app.use('/api/quiz', quizRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
+app.use('/api/badges', badgesRoutes);
+app.use('/api/attempts', attemptsRoutes);
+app.use('/api/lessons', lessonsRoutes);
+app.use('/api/options', optionsRoutes);
+app.use('/api/user-badges', userBadgesRoutes);
 
 // Global error handler (must be last)
 app.use(errorHandler);
