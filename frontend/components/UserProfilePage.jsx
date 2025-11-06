@@ -123,6 +123,11 @@ const UserProfilePage = () => {
 
   // Ensure all hooks are initialized before any early returns
   const fileInputRef = React.useRef(null);
+  const avatarInitial = (profileData?.name || profileData?.username || 'U')
+    .toString()
+    .trim()
+    .charAt(0)
+    .toUpperCase();
   const onPickAvatar = () => fileInputRef.current?.click();
   const onAvatarSelected = async (e) => {
     const file = e.target.files?.[0];
@@ -176,7 +181,7 @@ const UserProfilePage = () => {
                     <img src={profileData.profileImage} alt="avatar" className="w-24 h-24 rounded-full object-cover shadow-lg bg-white" />
                   ) : (
                     <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-purple-600 font-bold text-2xl shadow-lg">
-                      {profileData.username[0]}
+                      {avatarInitial}
                     </div>
                   )}
                   <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={onAvatarSelected} />
