@@ -121,6 +121,7 @@ const UserProfilePage = () => {
     }
   };
 
+  // Ensure all hooks are initialized before any early returns
   const fileInputRef = React.useRef(null);
   const onPickAvatar = () => fileInputRef.current?.click();
   const onAvatarSelected = async (e) => {
