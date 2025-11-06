@@ -263,3 +263,26 @@ export const quizzes = [
         tags: ['Hashing', 'Collision Resolution', 'Hash Functions']
     }
 ];
+
+// Returns a per-module set of questions. For now, we partition the global
+// bank deterministically so each module gets a different subset and order.
+export function getQuestionsForQuiz(quizId) {
+    const asNumber = Number(quizId) || 0;
+    const partition = ((asNumber % 3) + 3) % 3; // 0,1,2
+
+    // Take a stable subset: items whose index % 3 === partition
+    const subset = quizQuestions.filter((_, idx) => idx % 3 === partition);
+
+    // Shuffle deterministically based on quizId for variety but stable order
+    const shuffled = [...subset];
+    let seed = asNumber * 9301 + 49297; // simple LCG seed
+    const rand = () => {
+        seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+        return (seed % 1000) / 1000;
+    };
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(rand() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}

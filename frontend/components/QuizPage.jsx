@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
     Clock, Target, Trophy, Share2, Home, RotateCcw,
     CheckCircle, XCircle, Zap, Check
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-// We will use the import, assuming your service file has the 10 MCQ/10 TILE questions
-import { quizQuestions } from '@/services/QuizService';
+import { getQuestionsForQuiz } from '@/services/QuizService';
 import Image from 'next/image';
 import Villain from './ui/Villain';
 import Hero from './ui/Hero';
@@ -14,7 +13,7 @@ import LoaderPage from './LoaderPage';
 import useTheme from '@/services/hooks/useTheme';
 import Link from 'next/link';
 
-const QuizPage = () => {
+const QuizPage = ({ quizId }) => {
     const router = useRouter();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null); // For MCQ
@@ -31,6 +30,7 @@ const QuizPage = () => {
     const [correct, setCorrect] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const { isDark } = useTheme();
+    const questions = useMemo(() => getQuestionsForQuiz(quizId), [quizId]);
 
     // States and refs for the laser beam animation
     const [showLaser, setShowLaser] = useState(false);
@@ -123,7 +123,7 @@ const QuizPage = () => {
     const handleCheckAnswer = () => {
         if (answerSubmitted) return;
 
-        const currentQ = quizQuestions[currentQuestion];
+        const currentQ = questions[currentQuestion];
         let isCorrect = false;
         let userAnswerData = {};
 
@@ -176,7 +176,7 @@ const QuizPage = () => {
     };
 
     const handleNextQuestion = () => {
-        if (currentQuestion < quizQuestions.length - 1) {
+        if (currentQuestion < questions.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
             setSelectedAnswer(null);
             setSelectedTiles([]);
@@ -208,7 +208,7 @@ const QuizPage = () => {
 
     const getScoreGrade = () => {
         const correctAnswers = userAnswers.filter(a => a.isCorrect).length;
-        const percentage = (correctAnswers / quizQuestions.length) * 100;
+        const percentage = (correctAnswers / questions.length) * 100;
         if (percentage >= 90) return { grade: 'A+', color: 'text-green-600', bg: 'bg-green-50' };
         if (percentage >= 80) return { grade: 'A', color: 'text-green-600', bg: 'bg-green-50' };
         if (percentage >= 70) return { grade: 'B', color: 'text-blue-600', bg: 'bg-blue-50' };
@@ -220,7 +220,7 @@ const QuizPage = () => {
 
     const shareScore = () => {
         const correctAnswers = userAnswers.filter(a => a.isCorrect).length;
-        const percentage = Math.round((correctAnswers / quizQuestions.length) * 100);
+        const percentage = Math.round((correctAnswers / questions.length) * 100);
         const text = `🎯 Just scored ${percentage}% on CodeDuo's DSA quiz! Max streak: ${maxStreak} 🔥`;
         if (navigator.share) {
             navigator.share({ title: 'CodeDuo Quiz Results', text, url: window.location.href });
@@ -254,7 +254,7 @@ const QuizPage = () => {
 
     if (showResults) {
         const correctAnswers = userAnswers.filter(answer => answer.isCorrect).length;
-        const percentage = Math.round((correctAnswers / quizQuestions.length) * 100);
+        const percentage = Math.round((correctAnswers / questions.length) * 100);
         const scoreGrade = getScoreGrade();
 
         return (
@@ -287,7 +287,7 @@ const QuizPage = () => {
                             </div>
                             <h2 className="text-4xl font-bold text-white mb-2">{percentage}%</h2>
                             <p className="text-purple-100 text-lg">
-                                {correctAnswers} out of {quizQuestions.length} questions correct
+                                {correctAnswers} out of {questions.length} questions correct
                             </p>
                         </div>
 
@@ -401,8 +401,8 @@ const QuizPage = () => {
         );
     }
 
-    const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
-    const currentQ = quizQuestions[currentQuestion];
+    const progress = ((currentQuestion + 1) / questions.length) * 100;
+    const currentQ = questions[currentQuestion];
     const isCurrentAnswerCorrect = userAnswers.find(a => a.questionId === currentQ.id)?.isCorrect;
 
     return (
@@ -427,7 +427,7 @@ const QuizPage = () => {
                 <div className="mb-8 z-10 w-full">
                     <div className="flex justify-between items-center mb-2">
                         <span className="text-sm text-[var(--color-text-secondary)]">
-                            Question {currentQuestion + 1} of {quizQuestions.length}
+                            Question {currentQuestion + 1} of {questions.length}
                         </span>
                         <span className="text-sm text-[var(--color-text-secondary)]">{Math.round(progress)}% Complete</span>
                     </div>
