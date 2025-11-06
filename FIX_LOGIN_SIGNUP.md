@@ -153,7 +153,7 @@ If you've configured Google OAuth:
 **Expected:** Should redirect to Google, then back to your app
 
 ---
-
+         
 ## Troubleshooting
 
 ### Issue: "Network Error" or "Failed to fetch"
@@ -161,7 +161,7 @@ If you've configured Google OAuth:
 **Solution:**
 - Check that `NEXT_PUBLIC_API_URL` is set correctly
 - Verify backend is running at https://codeduo.onrender.com
-- Check CORS settings in backend
+- Check CORS settings in backend 
 
 ### Issue: "Invalid email or password"
 **Cause:** User doesn't exist or wrong password
