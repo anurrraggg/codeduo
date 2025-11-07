@@ -73,12 +73,26 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // DB - Connect asynchronously (server will start even if DB takes time)
+// This ensures the server starts even if DB connection fails initially
 connectDB().catch(err => {
-    console.error('Database connection error:', err.message);
-    // Server will still start, but DB operations will fail
+    console.error('⚠️  Database connection error:', err.message);
+    console.log('ℹ️  Server will continue running. Database operations may fail until connection is established.');
+    // Don't exit - let the server start and retry connection later
 });
 
 // Routes
+// Health check endpoint (for Render and monitoring)
+app.get('/health', (req, res) => {
+    const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+    res.status(200).json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        database: dbStatus,
+        environment: process.env.NODE_ENV || 'development'
+    });
+});
+
 app.get('/', (req, res) => res.send('API is running'));
 app.get('/api/test', (req, res) => res.send('check'));
 
@@ -106,9 +120,17 @@ app.use('*', (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 // Start server
-const server = app.listen(PORT, () => {
-    console.log(`✅ Server running on http://localhost:${PORT}`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ Server running on port ${PORT}`);
     console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🌐 Health check available at /health`);
+    
+    // Log database connection status
+    if (mongoose.connection.readyState === 1) {
+        console.log(`✅ Database: Connected`);
+    } else {
+        console.log(`⚠️  Database: Connecting...`);
+    }
 });
 
 // Handle server errors
@@ -118,10 +140,11 @@ server.on('error', (error) => {
     } else {
         console.error('❌ Server error:', error);
     }
-    process.exit(1);
+    // Don't exit immediately - let Render handle it
+    // process.exit(1);
 });
 
-// Graceful shutdown
+// Graceful shutdown handlers
 process.on('SIGTERM', () => {
     console.log('SIGTERM signal received: closing HTTP server');
     server.close(() => {
@@ -131,4 +154,26 @@ process.on('SIGTERM', () => {
             process.exit(0);
         });
     });
+});
+
+process.on('SIGINT', () => {
+    console.log('SIGINT signal received: closing HTTP server');
+    server.close(() => {
+        console.log('HTTP server closed');
+        mongoose.connection.close(false, () => {
+            console.log('MongoDB connection closed');
+            process.exit(0);
+        });
+    });
+});
+
+// Handle uncaught exceptions gracefully
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error);
+    // Don't exit - let the error handler middleware deal with it
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    // Don't exit - log and continue
 });
