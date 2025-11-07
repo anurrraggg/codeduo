@@ -1,8 +1,8 @@
 const { Option } = require("../models/Option");
 
-export const optionRepository = {
+const optionRepository = {
     create: async (optionData) => {
-        const option = new Quiz(optionData);
+        const option = new Option(optionData);
         return await option.save();
     },
     findById: async (id) => {
@@ -21,3 +21,5 @@ export const optionRepository = {
         return await Option.findByIdAndDelete(id);
     }
 };
+
+module.exports = { optionRepository };

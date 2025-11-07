@@ -1,6 +1,6 @@
 const { Lesson } = require("../models/Lesson");
 
-export const lessonRepository = {
+const lessonRepository = {
     create: async (lessonData) => {
         const lesson = new Lesson(lessonData);
         return await lesson.save();
@@ -18,5 +18,6 @@ export const lessonRepository = {
     delete: async (id) => {
         return await Lesson.findByIdAndDelete(id);
     }
-
 };
+
+module.exports = { lessonRepository };

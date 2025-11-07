@@ -1,6 +1,6 @@
 const { UserBadge } = require("../models/UserBadge");
 
-export const userBadgeRepository = {
+const userBadgeRepository = {
     create: async(userBadgeData)=>{
         const userBadge=new UserBadge(userBadgeData);
         return await userBadge.save();
@@ -20,5 +20,6 @@ export const userBadgeRepository = {
     delete: async(id)=>{
         return await UserBadge.findByIdAndDelete(id);
     }
-    
-}
+};
+
+module.exports = { userBadgeRepository };

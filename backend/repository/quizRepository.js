@@ -1,6 +1,6 @@
 const { Quiz } = require("../models/Quiz");
 
-export const quizRepository = {
+const quizRepository = {
     create: async (quizData) => {
         const quiz = new Quiz(quizData);
         return await quiz.save();
@@ -21,3 +21,5 @@ export const quizRepository = {
         return await Quiz.findByIdAndDelete(id);
     }
 };
+
+module.exports = { quizRepository };

@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('node:path');
+const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 const rateLimit = require('./middleware/rateLimit');
@@ -10,7 +11,7 @@ const { securityHeaders, sanitizeInput } = require('./middleware/security');
 const attemptsRoutes = require('./routes/attemptsRoutes');
 const authRoutes = require('./routes/authRoutes');
 const badgesRoutes = require('./routes/badgesRoutes');
-const leaderboardRoutes =require('./routes/leaderboardRoutes');
+const leaderboardRoutes = require('./routes/leaderboardRoutes');
 const lessonsRoutes = require('./routes/lessonsRoutes');
 const optionsRoutes = require('./routes/optionsRoutes');
 const questionRoutes = require('./routes/questionRoutes');
@@ -71,8 +72,11 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Static serving for uploaded files (e.g., avatars)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// DB
-connectDB();
+// DB - Connect asynchronously (server will start even if DB takes time)
+connectDB().catch(err => {
+    console.error('Database connection error:', err.message);
+    // Server will still start, but DB operations will fail
+});
 
 // Routes
 app.get('/', (req, res) => res.send('API is running'));
@@ -100,4 +104,31 @@ app.use('*', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
+// Start server
+const server = app.listen(PORT, () => {
+    console.log(`✅ Server running on http://localhost:${PORT}`);
+    console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
+});
+
+// Handle server errors
+server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+        console.error(`❌ Port ${PORT} is already in use. Please use a different port.`);
+    } else {
+        console.error('❌ Server error:', error);
+    }
+    process.exit(1);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received: closing HTTP server');
+    server.close(() => {
+        console.log('HTTP server closed');
+        mongoose.connection.close(false, () => {
+            console.log('MongoDB connection closed');
+            process.exit(0);
+        });
+    });
+});

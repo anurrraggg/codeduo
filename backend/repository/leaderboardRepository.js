@@ -1,6 +1,6 @@
 const { Leaderboard } = require("../models/Leaderboard");
 
-export const optionRepository = {
+const leaderboardRepository = {
     create: async (leaderboardData) => {
         const leaderboard = new Leaderboard(leaderboardData);
         return await leaderboard.save();
@@ -21,3 +21,5 @@ export const optionRepository = {
         return await Leaderboard.findByIdAndDelete(id);
     }
 };
+
+module.exports = { leaderboardRepository };

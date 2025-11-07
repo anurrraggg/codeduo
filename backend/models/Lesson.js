@@ -28,4 +28,5 @@ const lessonsSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
-export const Lesson = mongoose.model('Lesson', lessonsSchema);
+const Lesson = mongoose.model('Lesson', lessonsSchema);
+module.exports = { Lesson };

@@ -1,6 +1,6 @@
 const { Badge } = require("../models/Badge");
 
-export const badgeRepository = {
+const badgeRepository = {
     create: async(badgeData)=>{
         const badge=new Badge(badgeData);
         return await badge.save();
@@ -20,5 +20,6 @@ export const badgeRepository = {
     delete: async(id)=>{
         return await Badge.findByIdAndDelete(id);
     }
-    
-}
+};
+
+module.exports = { badgeRepository };

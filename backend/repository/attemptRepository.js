@@ -1,6 +1,6 @@
 const {Attempt} =require("../models/Attempt");
 
-export const attemptRepository={
+const attemptRepository={
     create:async(attemptData)=>{
         const attempt=new Attempt(attemptData);
         return await attempt.save();
@@ -23,5 +23,6 @@ export const attemptRepository={
     delete: async (id) => {
         return await Attempt.findByIdAndDelete(id);
     }
+};
 
-}
+module.exports = { attemptRepository };
