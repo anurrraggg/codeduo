@@ -1,6 +1,6 @@
 'use client';
 
-import { getUser } from '@/services/UserService';
+import { getUser, logout } from '@/services/UserService';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -40,6 +40,16 @@ export default function Header() {
     const handleLinkClick = (href) => {
         setIsMenuOpen(false);
         router.push(href);
+    };
+
+    const handleLogout = () => {
+        try {
+            logout();
+        } finally {
+            setUser(null);
+            setIsMenuOpen(false);
+            router.push('/');
+        }
     };
 
     return (
@@ -101,20 +111,35 @@ export default function Header() {
 
                         <div>
                             {user ? (
-                                <button
-                                    style={{
-                                        background: 'linear-gradient(to right, var(--purple-500), var(--purple-600))',
-                                        color: 'var(--white, #fff)',
-                                        padding: '0.5rem 1.5rem',
-                                        cursor: 'pointer',
-                                        borderRadius: '0.5rem',
-                                        boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
-                                        transition: 'background 0.2s',
-                                    }}
-                                    onClick={() => openPage('/dashboard')}
-                                >
-                                    Dashboard
-                                </button>
+                                <div className="flex items-center space-x-3">
+                                    <button
+                                        style={{
+                                            background: 'linear-gradient(to right, var(--purple-500), var(--purple-600))',
+                                            color: 'var(--white, #fff)',
+                                            padding: '0.5rem 1.5rem',
+                                            cursor: 'pointer',
+                                            borderRadius: '0.5rem',
+                                            boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+                                            transition: 'background 0.2s',
+                                        }}
+                                        onClick={() => openPage('/dashboard')}
+                                    >
+                                        Dashboard
+                                    </button>
+                                    <button
+                                        style={{
+                                            background: 'var(--white, #fff)',
+                                            color: 'var(--purple-600)',
+                                            padding: '0.5rem 1.2rem',
+                                            cursor: 'pointer',
+                                            borderRadius: '0.5rem',
+                                            boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+                                        }}
+                                        onClick={handleLogout}
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
                             ) : (
                                 <div className="flex items-center space-x-4">
                                     <button
@@ -200,21 +225,38 @@ export default function Header() {
                     </button>
 
                     {user ? (
-                        <button
-                            style={{
-                                width: '100%',
-                                textAlign: 'center',
-                                background: 'linear-gradient(to right, var(--purple-500), var(--purple-600))',
-                                color: 'var(--white, #fff)',
-                                padding: '0.5rem 1rem',
-                                borderRadius: '0.5rem',
-                                cursor: 'pointer',
-                                boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
-                            }}
-                            onClick={() => openPage('/dashboard')}
-                        >
-                            Dashboard
-                        </button>
+                        <div className="w-full flex flex-col items-center gap-3">
+                            <button
+                                style={{
+                                    width: '100%',
+                                    textAlign: 'center',
+                                    background: 'linear-gradient(to right, var(--purple-500), var(--purple-600))',
+                                    color: 'var(--white, #fff)',
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '0.5rem',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+                                }}
+                                onClick={() => openPage('/dashboard')}
+                            >
+                                Dashboard
+                            </button>
+                            <button
+                                style={{
+                                    width: '100%',
+                                    textAlign: 'center',
+                                    background: 'var(--white, #fff)',
+                                    color: 'var(--purple-600)',
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '0.5rem',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
+                                }}
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
+                        </div>
                     ) : (
                         <div className="w-full flex flex-col items-center gap-5">
                             <button
