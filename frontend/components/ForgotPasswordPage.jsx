@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Mail, ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { toast } from 'react-toastify';
 import { requestPasswordReset } from '@/services/UserService';
+import { toast } from 'sonner';
 
 const ForgotPasswordPage = () => {
     const router = useRouter();

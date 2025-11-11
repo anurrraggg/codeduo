@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 import { googleAuth, login } from '@/services/UserService';
 import Image from 'next/image';
-import { getLoginLocationMessage } from '@/services/hooks/location';
+import { getLoginLocationMessage } from '@/hooks/location';
+import { toast } from 'sonner';
 
 const GoogleIcon = ({ className = "w-5 h-5", ...props }) => {
     return (

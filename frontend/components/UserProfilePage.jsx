@@ -16,8 +16,8 @@ import {
 import { getUser, logout, updateProfile, uploadAvatar } from '@/services/UserService';
 import { useRouter } from 'next/navigation';
 import LoaderPage from './LoaderPage';
-import { toast } from 'react-toastify';
-import useTheme from '@/services/hooks/useTheme';
+import useTheme from '@/hooks/useTheme';
+import { toast } from 'sonner';
 
 const UserProfilePage = () => {
   const router = useRouter();
