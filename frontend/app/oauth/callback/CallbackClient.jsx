@@ -3,8 +3,7 @@ import React, { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { USER_ME_URL } from '@/shared/urls';
 import { saveToken, saveUser } from '@/services/UserService';
-import { getLoginLocationMessage } from '@/hooks/location';
-import { toast } from 'sonner';
+import { toast } from 'react-toastify';
 
 export default function CallbackClient() {
 	const params = useSearchParams();
@@ -33,11 +32,7 @@ export default function CallbackClient() {
                     if (resp.ok && data?.user) {
                         saveToken(token);
                         saveUser(data.user);
-						try {
-							const displayName = data.user?.displayName || data.user?.username || data.user?.email || '';
-							const message = await getLoginLocationMessage(displayName);
-							toast.success(message);
-						} catch {}
+						toast.success("Welcome back! You’re now signed in.");
 						router.replace('/dashboard');
 					} else {
 						router.replace('/login?error=invalid_token');

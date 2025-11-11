@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { googleAuth, login } from '@/services/UserService';
 import Image from 'next/image';
-import { getLoginLocationMessage } from '@/hooks/location';
-import { toast } from 'sonner';
+import { toast } from 'react-toastify';
 
 const GoogleIcon = ({ className = "w-5 h-5", ...props }) => {
     return (
@@ -66,11 +65,7 @@ const LoginPage = () => {
                 return;
             }
 
-            try {
-                const displayName = result?.displayName || result?.username || result?.email || '';
-                const message = await getLoginLocationMessage(displayName);
-                toast.success(message);
-            } catch {}
+            toast.success("Welcome back! You’re now signed in.");
 
             setLoading(false);
             router.push('/dashboard');
