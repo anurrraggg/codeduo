@@ -9,7 +9,7 @@ import {
   Filler,
   Tooltip,
 } from 'chart.js';
-import useTheme from '@/services/hooks/useTheme';
+import useTheme from '@/hooks/useTheme';
 
 // Register radar chart components
 ChartJS.register(

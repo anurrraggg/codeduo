@@ -6,11 +6,11 @@ import Link from 'next/link';
 import { getDifficultyColor, leaderboard, quizCategories, recentResults } from '@/services/DashboardService';
 import Image from 'next/image';
 import { getUser } from '@/services/UserService';
-import { toast } from 'react-toastify';
 import LoaderPage from './LoaderPage';
 import PerformanceRadarChart from './PerformanceRadarChart';
 import { kmeans } from 'ml-kmeans';
-import useTheme from '@/services/hooks/useTheme';
+import useTheme from '@/hooks/useTheme';
+import { toast } from 'sonner';
 
 const DashboardPage = () => {
   const router = useRouter();
