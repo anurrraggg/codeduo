@@ -22,4 +22,9 @@ const quizzesSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
+// Performance indexes
+quizzesSchema.index({ lesson_id: 1 }); // For finding quizzes by lesson
+quizzesSchema.index({ quiz_id: 1 }); // Already unique, but explicit index helps
+quizzesSchema.index({ createdAt: -1 }); // For sorting by creation date
+
 module.exports = mongoose.model('Quizzes',quizzesSchema);

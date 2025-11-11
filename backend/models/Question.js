@@ -22,5 +22,9 @@ const questionsSchema = new mongoose.Schema({
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
 });
+
+// Performance indexes
+questionsSchema.index({ quiz_id: 1 }); // For finding questions by quiz
+questionsSchema.index({ question_id: 1 }); // Already unique, but explicit index helps
 const Question = mongoose.model("Question", questionsSchema);
 module.exports = { Question };

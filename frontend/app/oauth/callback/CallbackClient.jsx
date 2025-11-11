@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { USER_ME_URL } from '@/shared/urls';
 import { saveToken, saveUser } from '@/services/UserService';
 import { toast } from 'react-toastify';
+import { getLoginLocationMessage } from '@/services/hooks/location';
 
 export default function CallbackClient() {
 	const params = useSearchParams();
@@ -32,6 +33,11 @@ export default function CallbackClient() {
                     if (resp.ok && data?.user) {
                         saveToken(token);
                         saveUser(data.user);
+						try {
+							const displayName = data.user?.displayName || data.user?.username || data.user?.email || '';
+							const message = await getLoginLocationMessage(displayName);
+							toast.success(message);
+						} catch {}
 						router.replace('/dashboard');
 					} else {
 						router.replace('/login?error=invalid_token');
