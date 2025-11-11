@@ -40,6 +40,13 @@ const userSchema = new mongoose.Schema(
     }
 );
 
+// Performance indexes
+userSchema.index({ points: -1 }); // For leaderboard queries
+userSchema.index({ email: 1 }); // Already unique, but explicit index helps
+userSchema.index({ username: 1 }); // Already unique, but explicit index helps
+userSchema.index({ googleId: 1 }); // For OAuth lookups
+userSchema.index({ resetPasswordToken: 1 }); // For password reset queries
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

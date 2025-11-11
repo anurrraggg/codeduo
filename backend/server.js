@@ -77,7 +77,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 connectDB().catch(err => {
     console.error('⚠️  Database connection error:', err.message);
     console.log('ℹ️  Server will continue running. Database operations may fail until connection is established.');
-    // Don't exit - let the server start and retry connection later
+    // Don't exit - let the server start and retry connection later 
 });
 
 // Routes
