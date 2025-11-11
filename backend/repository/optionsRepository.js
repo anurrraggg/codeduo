@@ -1,4 +1,4 @@
-const { Option } = require("../models/Option");
+const Option = require("../models/Option");
 
 const optionRepository = {
     create: async (optionData) => {
@@ -7,6 +7,9 @@ const optionRepository = {
     },
     findById: async (id) => {
         return await Option.findById(id);
+    },
+    findByOptionId: async (option_id) => {
+        return await Option.findOne({ option_id });
     },
     findByQuestionId: async (question_id) => {
         return await Option.find({ question_id });

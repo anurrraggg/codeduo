@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const User = require('../models/User');
 const axios = require('axios');
+const { createQuiz, getQuizByQuizId, getQuizByLessonId, updateQuiz, getAllQuizzes, deleteQuiz } = require('../controllers/quizController');
 
 // Sample MCQ questions for C++
 const cppQuestions = [
@@ -261,6 +262,13 @@ router.get('/external', auth, async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch external questions' });
   }
 });
+
+router.post('/', auth, createQuiz);
+router.get('/quiz/:quizId', auth, getQuizByQuizId);
+router.get('/lesson/:lessonId', auth, getQuizByLessonId);
+router.put('/', auth, updateQuiz);
+router.get('/', auth, getAllQuizzes);
+router.delete('/', auth, deleteQuiz);
 
 module.exports = router;
 

@@ -16,6 +16,15 @@ const questionsSchema = new mongoose.Schema({
     question_type: {
         type: String,
         required:true
+    },
+    options: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Options',
+        default: []
+    },
+    correctOption: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Options'
     }
 }, {
     timestamps: true,
@@ -26,5 +35,5 @@ const questionsSchema = new mongoose.Schema({
 // Performance indexes
 questionsSchema.index({ quiz_id: 1 }); // For finding questions by quiz
 questionsSchema.index({ question_id: 1 }); // Already unique, but explicit index helps
-const Question = mongoose.model("Question", questionsSchema);
-module.exports = { Question };
+
+module.exports = mongoose.model("Question", questionsSchema);

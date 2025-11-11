@@ -1,4 +1,4 @@
-const { Quiz } = require("../models/Quiz");
+const Quiz = require("../models/Quiz");
 
 const quizRepository = {
     create: async (quizData) => {
@@ -7,6 +7,9 @@ const quizRepository = {
     },
     findById: async (id) => {
         return await Quiz.findById(id);
+    },
+    findByQuizId: async (quiz_id) => {
+        return await Quiz.findOne({ quiz_id });
     },
     findByLessonId: async (lesson_id) => {
         return await Quiz.find({ lesson_id });

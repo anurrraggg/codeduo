@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const { v4: uuidv4 } = require('uuid')
 
 const badgesSchema = new mongoose.Schema({
-
     badge_id: {
         type: String, unique: true, default: uuidv4
     },

@@ -1,4 +1,4 @@
-const { Question } = require("../models/Question");
+const Question = require("../models/Question");
 
 const questionRepository = {
     create: async (questionData) => {
@@ -9,7 +9,7 @@ const questionRepository = {
         return await Question.findById(id);
     },
     findByQuizId: async (quiz_id) => {
-        return await Question.find({ quiz_id });
+        return await Question.findOne({ quiz_id });
     },
     findByQuestionId: async (question_id) => {
         return await Question.findOne({ question_id });

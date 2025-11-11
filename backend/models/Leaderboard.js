@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const { v4: uuidv4 } = require('uuid');
-const Quizzes = require('./Quizzes');
 
 const leaderboardSchema = new mongoose.Schema({
     lb_id: {
@@ -25,4 +24,4 @@ const leaderboardSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
-module.exports=mongoose.model('Leaderboard',leaderboardSchema)
+module.exports = mongoose.model('Leaderboard',leaderboardSchema);

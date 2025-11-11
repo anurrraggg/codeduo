@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const { v4: uuidv4 } = require('uuid')
 
 const optionsSchema = new mongoose.Schema({
-
     option_id: {
         type: String, unique: true, default: uuidv4
     },
@@ -12,12 +11,7 @@ const optionsSchema = new mongoose.Schema({
     option_text: {
         type: String,
         required:true
-    },
-    is_correct: {
-        type: Boolean,
-        required:true
-    },
-
+    }
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
