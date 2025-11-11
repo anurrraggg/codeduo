@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { googleAuth, login } from '@/services/UserService';
 import Image from 'next/image';
+import { getLoginLocationMessage } from '@/services/hooks/location';
 
 const GoogleIcon = ({ className = "w-5 h-5", ...props }) => {
     return (
@@ -64,6 +65,12 @@ const LoginPage = () => {
                 setLoading(false);
                 return;
             }
+
+            try {
+                const displayName = result?.displayName || result?.username || result?.email || '';
+                const message = await getLoginLocationMessage(displayName);
+                toast.success(message);
+            } catch {}
 
             setLoading(false);
             router.push('/dashboard');
