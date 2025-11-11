@@ -1,18 +1,21 @@
-const {Attempt} =require("../models/Attempt");
+const Attempt = require("../models/Attempt");
 
-const attemptRepository={
-    create:async(attemptData)=>{
-        const attempt=new Attempt(attemptData);
+const attemptRepository = {
+    create: async (attemptData) => {
+        const attempt = new Attempt(attemptData);
         return await attempt.save();
     },
-    findById: async(id)=>{
+    findById: async (id) => {
         return await Attempt.findById(id);
     },
-    findByUserId:async(user_id)=>{
-        return await Attempt.find({user_id});
+    findByAppointmentId: async (appointment_id) => {
+        return await Attempt.findOne({ appointment_id });
     },
-    findByQuizId:async(quiz_id)=>{
-        return await Attempt.find({quiz_id});
+    findByUserId: async (user_id) => {
+        return await Attempt.find({ user_id });
+    },
+    findByQuizId: async (quiz_id) => {
+        return await Attempt.find({ quiz_id });
     },
     findAll: async () => {
         return await Attempt.find();

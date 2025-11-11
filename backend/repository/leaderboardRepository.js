@@ -1,4 +1,4 @@
-const { Leaderboard } = require("../models/Leaderboard");
+const Leaderboard = require("../models/Leaderboard");
 
 const leaderboardRepository = {
     create: async (leaderboardData) => {
@@ -9,7 +9,7 @@ const leaderboardRepository = {
         return await Leaderboard.findById(id);
     },
     findByLeaderboardId: async (lb_id) => {
-        return await Leaderboard.find({ lb_id });
+        return await Leaderboard.findOne({ lb_id });
     },
     findAll: async () => {
         return await Leaderboard.find();
