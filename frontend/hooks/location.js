@@ -22,7 +22,7 @@ export async function getLoginLocationMessage(userDisplayName) {
 		const namePart = userDisplayName ? `, ${userDisplayName}` : '';
 		if (city || country) {
 			const where = [city, country].filter(Boolean).join(', ');
-			return `Welcome back${namePart}! Logged in from ${where}.`;
+			return `Welcome back${namePart}! Logged in .`;
 		}
 		return `Welcome back${namePart}! You’re now signed in.`;
 	} catch {
