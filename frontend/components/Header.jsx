@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import LoaderPage from './LoaderPage';
 import { Sun, Moon } from 'lucide-react';
-import useTheme from '@/services/hooks/useTheme';
+import useTheme from '@/hooks/useTheme';
 import InstallPrompt from './InstallPrompt';
 
 export default function Header() {

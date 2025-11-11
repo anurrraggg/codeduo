@@ -1,7 +1,6 @@
 'use client';
 import { USER_LOGIN_URL, USER_REGISTER_URL, USER_FORGOT_PASSWORD_URL, USER_RESET_PASSWORD_URL, AUTH_GOOGLE_URL, USER_ME_URL } from "@/shared/urls";
-import { toast } from "react-toastify";
-
+import { toast } from "sonner";
 
 export async function login(userForm) {
     const { identifier, password } = userForm || {};

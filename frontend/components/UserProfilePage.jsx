@@ -16,18 +16,19 @@ import {
 import { getUser, logout, updateProfile, uploadAvatar } from '@/services/UserService';
 import { useRouter } from 'next/navigation';
 import LoaderPage from './LoaderPage';
-import { toast } from 'react-toastify';
-import useTheme from '@/services/hooks/useTheme';
+import useTheme from '@/hooks/useTheme';
+import { toast } from 'sonner';
 
 const UserProfilePage = () => {
   const router = useRouter();
+  const fileInputRef = React.useRef(null);
   const [activeTab, setActiveTab] = useState('profile');
   const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [user, setUser] = useState(null);
   const [profileData, setProfileData] = useState(null);
   const { isDark, toggleTheme } = useTheme();
-
+  
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -122,7 +123,6 @@ const UserProfilePage = () => {
   };
 
   // Ensure all hooks are initialized before any early returns
-  const fileInputRef = React.useRef(null);
   const avatarInitial = (profileData?.name || profileData?.username || 'U')
     .toString()
     .trim()

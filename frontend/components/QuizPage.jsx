@@ -10,7 +10,7 @@ import Villain from './ui/Villain';
 import Hero from './ui/Hero';
 import LaserBeam from './ui/LaserBeam';
 import LoaderPage from './LoaderPage';
-import useTheme from '@/services/hooks/useTheme';
+import useTheme from '@/hooks/useTheme';
 import Link from 'next/link';
 
 const QuizPage = ({ quizId }) => {
