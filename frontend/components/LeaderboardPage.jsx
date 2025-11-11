@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Trophy, Users } from 'lucide-react';
-import { getLeaderboard } from '@/services/DashboardService';
+import { getLeaderboard } from '@/context/DashboardService';
 import LoaderPage from './LoaderPage';
 
 const defaultAvatars = [

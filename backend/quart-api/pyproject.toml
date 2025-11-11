@@ -1,0 +1,22 @@
+[project]
+name = "quart-api"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Ishan1012",email = "ishandwivedi1210@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "quart (>=0.20.0,<0.21.0)"
+]
+
+[tool.poetry]
+packages = [{include = "quart_api", from = "src"}]
+
+[tool.poetry.scripts]
+start = "quart_api.main:run"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

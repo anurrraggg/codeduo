@@ -1,7 +1,6 @@
 import { Geist } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
-import 'react-toastify/dist/ReactToastify.css';
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import { Toaster } from "@/components/ui/sonner";
 
