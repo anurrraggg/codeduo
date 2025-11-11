@@ -1,9 +1,9 @@
 import { Geist } from "next/font/google";
-import { Geist_Mono } from "next/font/google"; 
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from "react-toastify";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: {
     default: 'CodeDuo - Gamified Coding Quizzes for Programmers',
-    template: '%s | CodeDuo', 
+    template: '%s | CodeDuo',
   },
   description: 'Level up your coding skills with CodeDuo! A fun, gamified quiz platform for programmers to master algorithms, data structures, and prepare for tech interviews.',
   keywords: [
@@ -34,8 +34,8 @@ export const metadata = {
     'computer science',
     'MCQ',
   ],
-  
-  authors: [{ name: 'CodeDuo Team', url: 'https://codeduojs.vercel.app' }], 
+
+  authors: [{ name: 'CodeDuo Team', url: 'https://codeduojs.vercel.app' }],
   creator: 'CodeDuo Team',
 
   openGraph: {
@@ -74,8 +74,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-
-        <ToastContainer position="bottom-right" autoClose={3000} />
+        <Toaster position="bottom-right" richColors />
         <ServiceWorkerRegister />
       </body>
     </html>
