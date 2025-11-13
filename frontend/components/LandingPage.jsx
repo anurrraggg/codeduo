@@ -1,11 +1,11 @@
 'use client';
-import { getUser } from '@/services/UserService';
+import { getUser } from '@/context/UserService';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import LoaderPage from './LoaderPage';
-import { testimonials } from '@/services/TestimonialService';
+import { testimonials } from '@/context/TestimonialService';
 
 const LandingPage = () => {
     const router = useRouter();

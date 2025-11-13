@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Clock, Tag, TrendingUp, ChevronRight, Mail, Eye, Heart, Share2 } from 'lucide-react';
-import { blogPosts, featuredPost, getCategoryColor, recentPosts } from '@/services/BlogService';
+import { blogPosts, featuredPost, getCategoryColor, recentPosts } from '@/context/BlogService';
 import Link from 'next/link';
 
 const BlogPage = () => {

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Mail, ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { requestPasswordReset } from '@/services/UserService';
+import { requestPasswordReset } from '@/context/UserService';
 import { toast } from 'sonner';
 
 const ForgotPasswordPage = () => {

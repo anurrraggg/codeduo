@@ -18,8 +18,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { post, relatedPosts } from '@/services/BlogPostPage';
-import { recentPosts } from '@/services/BlogService';
+import { post, relatedPosts } from '@/context/BlogPostPage';
+import { recentPosts } from '@/context/BlogService';
 
 const BlogPostPage = () => {
     const [isLiked, setIsLiked] = useState(false);

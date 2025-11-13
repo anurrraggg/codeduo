@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic'
 import React, { Suspense, useState } from 'react'
 import Header from '@/components/Header'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { resetPassword } from '@/services/UserService'
+import { resetPassword } from '@/context/UserService'
 
 function ResetPasswordInner() {
 	const router = useRouter();

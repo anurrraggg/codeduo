@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { googleAuth, signup } from '@/services/UserService';
+import { googleAuth, signup } from '@/context/UserService';
 import Image from 'next/image';
 import { toast } from 'sonner';
 

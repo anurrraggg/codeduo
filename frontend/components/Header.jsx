@@ -1,6 +1,6 @@
 'use client';
 
-import { getUser, logout } from '@/services/UserService';
+import { getUser, logout } from '@/context/UserService';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

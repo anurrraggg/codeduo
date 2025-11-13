@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Filter, Clock, Users, Trophy, Star, Code, Database, Cpu, Network, Brain, Zap, ChevronRight, BookOpen, Target } from 'lucide-react';
-import { quizzes } from '@/services/QuizService';
+import { quizzes } from '@/context/QuizService';
 import { useRouter } from 'next/navigation';
 
 export default function QuizCataloguePage({ quizCategoryId }) {
