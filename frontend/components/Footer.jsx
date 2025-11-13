@@ -60,7 +60,7 @@ function Footer() {
                         <h4 className="text-white font-semibold mb-6">Company</h4>
                         <ul className="space-y-3">
                             <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-                            <li><Link href="/about" className="hover:text-white transition-colors">Contact</Link></li>
+                            <li><Link href="mailto:anuragpandey945028@gmail.com" className="hover:text-white transition-colors">Contact</Link></li>
                         </ul>
                     </div>
                 </div>
