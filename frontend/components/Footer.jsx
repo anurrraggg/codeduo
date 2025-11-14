@@ -62,7 +62,7 @@ function Footer() {
                             <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
                             <li><Link href="mailto:anuragpandey945028@gmail.com" className="hover:text-white transition-colors">Contact</Link></li>
                         </ul>
-                    </div>
+                       </div>
                 </div>
                 <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
                     <p className="text-gray-400 text-sm">&copy; 2025 CodeDuo. All rights reserved.</p>
