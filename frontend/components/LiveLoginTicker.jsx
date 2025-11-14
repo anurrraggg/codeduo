@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 const PLACES = [
 	'Mumbai, India',

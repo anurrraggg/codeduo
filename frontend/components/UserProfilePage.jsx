@@ -13,7 +13,7 @@ import {
   Edit3,
   Trash2
 } from 'lucide-react';
-import { getUser, logout, updateProfile, uploadAvatar } from '@/services/UserService';
+import { getUser, logout, updateProfile, uploadAvatar } from '@/context/UserService';
 import { useRouter } from 'next/navigation';
 import LoaderPage from './LoaderPage';
 import useTheme from '@/hooks/useTheme';

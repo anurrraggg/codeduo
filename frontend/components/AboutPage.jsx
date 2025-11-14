@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Target, Lightbulb, ChevronRight } from 'lucide-react';
-import { features, teamMembers, values } from '@/services/AboutService';
+import { features, teamMembers, values } from '@/context/AboutService';
 
 const AboutPage = () => {
     return (

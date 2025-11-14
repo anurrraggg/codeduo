@@ -4,7 +4,7 @@ import {
     CheckCircle, XCircle, Zap, Check
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { getQuestionsForQuiz } from '@/services/QuizService';
+import { getQuestionsForQuiz } from '@/context/QuizService';
 import Image from 'next/image';
 import Villain from './ui/Villain';
 import Hero from './ui/Hero';

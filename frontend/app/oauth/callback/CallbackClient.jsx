@@ -2,8 +2,8 @@
 import React, { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { USER_ME_URL } from '@/shared/urls';
-import { saveToken, saveUser } from '@/services/UserService';
-import { toast } from 'react-toastify';
+import { saveToken, saveUser } from '@/context/UserService';
+import { toast } from 'sonner';
 
 export default function CallbackClient() {
 	const params = useSearchParams();
