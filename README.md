@@ -155,12 +155,3 @@ LICENSE
 ISC License. Free to use and modify.
 
 ---
-
-If you'd like, I can also create:
-
-✓ A badge version
-✓ Advanced README with icons & shields
-✓ A banner image
-✓ A logo for CodeDuo
-
-Just tell me!
