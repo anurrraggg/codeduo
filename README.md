@@ -1,5 +1,3 @@
-Here is the **pure text version** — clean, no formatting issues — you can directly copy & paste:
-
 ---
 
 # CodeDuo — The Ultimate Coding Quiz Platform
@@ -18,8 +16,7 @@ codeduo/
 
 LIVE DEPLOYMENTS
 
-Frontend (Vercel): [https://codeduo-psi.vercel.app](https://codeduo-psi.vercel.app)  – Running ✔
-Backend (Render): [https://codeduo.onrender.com](https://codeduo.onrender.com)      – Running ✔
+Frontend (Vercel): [https://codeduojs.vercel.app] 
 
 ---
 
