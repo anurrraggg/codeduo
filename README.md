@@ -1,111 +1,169 @@
-# CodeDuo
+Here is the **pure text version** — clean, no formatting issues — you can directly copy & paste:
 
-A coding quiz application with user authentication, leaderboards, and interactive quizzes.
+---
 
-## Project Structure
+# CodeDuo — The Ultimate Coding Quiz Platform
 
-```
+A dynamic coding quiz application with authentication, leaderboards, interactive challenges, and a modern UI. Designed for developers who want to practice and compete.
+
+---
+
+PROJECT STRUCTURE
 codeduo/
-├── backend/          # Node.js/Express API server
-├── frontend/         # React/Vite frontend application
-└── README.md         # This file
-```
+├── backend/          - Node.js/Express API server
+├── frontend/         - React/Vite frontend app
+└── README.md         - Project documentation
 
-## Quick Start
+---
 
-### Backend (Render)
-- **URL**: https://codeduo.onrender.com
-- **Status**: ✅ Running
-- **Tech Stack**: Node.js, Express, MongoDB, JWT
+LIVE DEPLOYMENTS
 
-### Frontend (Vercel)
-- **URL**: https://codeduo-psi.vercel.app
-- **Status**: ✅ Deployed
-- **Tech Stack**: React, Vite, Axios
+Frontend (Vercel): [https://codeduo-psi.vercel.app](https://codeduo-psi.vercel.app)  – Running ✔
+Backend (Render): [https://codeduo.onrender.com](https://codeduo.onrender.com)      – Running ✔
 
-## Local Development
+---
 
-### Backend
-```bash
+WHAT IS CODEDUO?
+
+CodeDuo is a full-stack quiz platform for coders, featuring:
+
+* Secure user authentication (JWT)
+* Interactive coding quizzes
+* Real-time leaderboard
+* Dark & Light themes
+* Multi-language support
+* User profiles
+* Customizable settings
+* Fast, responsive UI
+* Seamless MERN + Vite architecture
+
+---
+
+TECH STACK
+
+Frontend:
+
+* React 19
+* Vite
+* React Router
+* Axios
+* CSS Modules
+* Responsive UI
+
+Backend:
+
+* Node.js
+* Express.js
+* MongoDB + Mongoose
+* JWT authentication
+* bcrypt hashing
+* CORS
+
+---
+
+LOCAL DEVELOPMENT
+
+Backend:
 cd backend
 npm install
 npm run dev
-```
-Server will run on http://localhost:5000
+Runs at: [http://localhost:5000](http://localhost:5000)
 
-### Frontend
-```bash
+Frontend:
 cd frontend
 npm install
 npm run dev
-```
-App will run on http://localhost:5173
+Runs at: [http://localhost:5173](http://localhost:5173)
 
-## Deployment
+---
 
-- **Backend**: Automatically deployed on Render
-- **Frontend**: Automatically deployed on Vercel
-- **Database**: MongoDB (configured in Render)
+ENVIRONMENT VARIABLES
 
-## API Endpoints
-
-- `GET /` - Health check
-- `POST /api/auth/register` - User registration
-- `POST /api/auth/login` - User authentication
-- `GET /api/quiz` - Get quiz questions
-- `POST /api/quiz` - Submit quiz answers
-- `GET /api/leaderboard` - Get leaderboard data
-
-## Environment Variables
-
-### Backend (.env)
-```
+Backend (.env):
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 PORT=5000
-```
 
-### Frontend
-- Production: Automatically set to https://codeduo.onrender.com
-- Development: Set to http://localhost:5000
+Frontend:
+Development: [http://localhost:5000](http://localhost:5000)
+Production: [https://codeduo.onrender.com](https://codeduo.onrender.com)
 
-## Features
+---
 
-- ✅ User authentication (JWT)
-- ✅ Quiz system
-- ✅ Leaderboard
-- ✅ Responsive design
-- ✅ Dark/Light theme
-- ✅ Multi-language support
-- ✅ User profiles
-- ✅ Settings management
+API ENDPOINTS
 
-## Tech Stack
+Auth:
+POST /api/auth/register
+POST /api/auth/login
 
-**Backend**
-- Node.js
-- Express.js
-- MongoDB with Mongoose
-- JWT for authentication
-- bcrypt for password hashing
-- CORS enabled
+Quiz:
+GET /api/quiz
+POST /api/quiz
 
-**Frontend**
-- React 19
-- Vite for build tooling
-- React Router for navigation
-- Axios for API calls
-- CSS modules for styling
-- Responsive design
+Leaderboard:
+GET /api/leaderboard
 
-## Contributing
+Health:
+GET /
+
+---
+
+FEATURES
+
+* User authentication (JWT)
+* Quiz system with scoring
+* Leaderboard
+* Mobile responsive UI
+* Theme switching (dark/light)
+* Multilingual support
+* User profiles
+* Settings & preferences panel
+
+---
+
+DEPLOYMENT SETUP
+
+Backend:
+
+* Hosted on Render
+* Auto-deploy on commit
+
+Frontend:
+
+* Hosted on Vercel
+* Auto-deploy via Git
+
+Database:
+
+* MongoDB Atlas connected via Render
+
+---
+
+CONTRIBUTING
+
+Want to contribute to CodeDuo?
 
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes
-4. Test locally
-5. Submit a pull request
+3. Write and test your updates
+4. Submit a pull request
 
-## License
+OR
+You can contact the maintainer directly at:
+**[anuragpandey945028@gmail.com](mailto:anuragpandey945028@gmail.com)**
 
-ISC
+---
+
+LICENSE
+ISC License. Free to use and modify.
+
+---
+
+If you'd like, I can also create:
+
+✓ A badge version
+✓ Advanced README with icons & shields
+✓ A banner image
+✓ A logo for CodeDuo
+
+Just tell me!
