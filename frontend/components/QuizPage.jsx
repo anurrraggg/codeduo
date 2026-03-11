@@ -4,7 +4,6 @@ import {
     CheckCircle, XCircle, Zap, Check
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { getQuestionsForQuiz } from '@/context/QuizService';
 import Image from 'next/image';
 import Villain from './ui/Villain';
 import Hero from './ui/Hero';
@@ -12,6 +11,7 @@ import LaserBeam from './ui/LaserBeam';
 import LoaderPage from './LoaderPage';
 import useTheme from '@/hooks/useTheme';
 import Link from 'next/link';
+import { getQuestionsByQuizId } from '@/context/QuizService';
 
 const QuizPage = ({ quizId }) => {
     const router = useRouter();
@@ -30,8 +30,7 @@ const QuizPage = ({ quizId }) => {
     const [correct, setCorrect] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const { isDark } = useTheme();
-    const questions = useMemo(() => getQuestionsForQuiz(quizId), [quizId]);
-
+    const [questions, setQuestions] = useState([]);
     // States and refs for the laser beam animation
     const [showLaser, setShowLaser] = useState(false);
     const [laserStyle, setLaserStyle] = useState({});
@@ -72,6 +71,16 @@ const QuizPage = ({ quizId }) => {
             }
         };
     }, []);
+
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            const data = await getQuestionsByQuizId(quizId);
+            console.log(data);
+            setQuestions(data || []);
+        };
+
+        if (quizId) fetchQuestions();
+    }, [quizId]);
 
     // Effect to calculate laser position
     useEffect(() => {
@@ -122,13 +131,13 @@ const QuizPage = ({ quizId }) => {
 
     const handleCheckAnswer = () => {
         if (answerSubmitted) return;
-
+        
         const currentQ = questions[currentQuestion];
         let isCorrect = false;
         let userAnswerData = {};
 
         if (currentQ.type === 'MCQ') {
-            isCorrect = selectedAnswer === currentQ.correctAnswer;
+            isCorrect = currentQ.correctAnswer.includes(selectedAnswer);
             userAnswerData = { selected: selectedAnswer, correct: currentQ.correctAnswer };
         } else if (currentQ.type === 'TILE') {
             const builtAnswer = selectedTiles.map(t => t.text).join(' ');
@@ -401,9 +410,13 @@ const QuizPage = ({ quizId }) => {
         );
     }
 
-    const progress = ((currentQuestion + 1) / questions.length) * 100;
+    if (!questions.length) {
+        return <LoaderPage />;
+    }
+
+    const progress = questions.length > 0 ? ((currentQuestion + 1) / questions.length) * 100 : 0;
     const currentQ = questions[currentQuestion];
-    const isCurrentAnswerCorrect = userAnswers.find(a => a.questionId === currentQ.id)?.isCorrect;
+    const isCurrentAnswerCorrect = userAnswers.find(a => a.questionId === currentQ?.id)?.isCorrect;
 
     return (
         <div className="relative flex flex-col md:flex-row justify-center items-end min-h-screen bg-[var(--background)] overflow-hidden z-10">
@@ -460,16 +473,16 @@ const QuizPage = ({ quizId }) => {
                 <div className="bg-white/20 rounded-2xl shadow-xl border border-purple-100 p-6 md:p-8 mb-4 z-10 w-full">
                     <div className="mb-8">
                         <h2 className="text-xl font-semibold text-[var(--color-text)] leading-relaxed">
-                            {currentQ.question}
+                            {currentQ && currentQ.question}
                         </h2>
                     </div>
 
                     {/* --- CONDITIONAL ANSWER UI --- */}
 
                     {/* --- 1. MCQ UI (RESPONSIVE: grid-cols-1 md:grid-cols-2) --- */}
-                    {currentQ.type === 'MCQ' && (
+                    {currentQ && currentQ.type === 'MCQ' && (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {currentQ.options.map((option, index) => {
+                            {currentQ && currentQ.options.map((option, index) => {
                                 let buttonClass = "w-full min-h-[80px] p-4 text-left rounded-xl border-2 transition-all duration-200 font-medium flex items-center";
 
                                 if (!answerSubmitted) {
@@ -477,9 +490,9 @@ const QuizPage = ({ quizId }) => {
                                         ? " border-purple-500 bg-purple-100/50 text-[var(--color-text)]"
                                         : " border-gray-200 hover:border-purple-300 text-[var(--color-text)] hover:bg-purple-50/20 cursor-pointer";
                                 } else {
-                                    if (index === currentQ.correctAnswer) {
+                                    if (currentQ && currentQ.correctAnswer.includes(index)) {
                                         buttonClass += " border-green-500 bg-green-50 text-green-800";
-                                    } else if (index === selectedAnswer && selectedAnswer !== currentQ.correctAnswer) {
+                                    } else if (index === selectedAnswer && !currentQ.correctAnswer.includes(selectedAnswer)) {
                                         buttonClass += " border-red-500 bg-red-50 text-red-800";
                                     } else {
                                         buttonClass += " border-gray-200 bg-gray-50 text-gray-500 opacity-60";
@@ -497,7 +510,7 @@ const QuizPage = ({ quizId }) => {
                                             <div
                                                 className={`w-6 h-6 rounded-full border-2 flex-shrink-0 flex items-center justify-center text-sm font-bold ${!answerSubmitted
                                                         ? (selectedAnswer === index ? 'border-purple-500' : 'border-gray-300')
-                                                        : index === currentQ.correctAnswer
+                                                        : currentQ.correctAnswer.includes(index)
                                                             ? "border-green-500 bg-green-500 text-white"
                                                             : index === selectedAnswer
                                                                 ? "border-red-500 bg-red-500 text-white"
@@ -507,10 +520,10 @@ const QuizPage = ({ quizId }) => {
                                                 {String.fromCharCode(65 + index)}
                                             </div>
                                             <span>{option}</span>
-                                            {answerSubmitted && index === currentQ.correctAnswer && (
+                                            {answerSubmitted && currentQ.correctAnswer.includes(index) && (
                                                 <CheckCircle className="w-5 h-5 text-green-500 ml-auto" />
                                             )}
-                                            {answerSubmitted && index === selectedAnswer && selectedAnswer !== currentQ.correctAnswer && (
+                                            {answerSubmitted && index === selectedAnswer && currentQ.correctAnswer.includes(selectedAnswer) && (
                                                 <XCircle className="w-5 h-5 text-red-500 ml-auto" />
                                             )}
                                         </div>
@@ -521,7 +534,7 @@ const QuizPage = ({ quizId }) => {
                     )}
 
                     {/* --- 2. TILE UI (Already responsive) --- */}
-                    {currentQ.type === 'TILE' && (
+                    {currentQ && currentQ.type === 'TILES' && (
                         <div className="flex flex-col">
                             {/* Selected Tiles Area */}
                             <div className="flex flex-wrap gap-2 p-4 min-h-[80px] w-full border-b-2 border-purple-100/50 rounded-t-lg bg-black/10">
@@ -539,7 +552,7 @@ const QuizPage = ({ quizId }) => {
 
                             {/* Tile Options Bank */}
                             <div className="flex flex-wrap items-center justify-center gap-2 p-4 pt-8">
-                                {currentQ.tileOptions.map((tile, index) => {
+                                {currentQ && currentQ.options.map((tile, index) => {
                                     const isSelected = selectedTiles.some(t => t.index === index);
                                     return (
                                         <button
@@ -568,13 +581,13 @@ const QuizPage = ({ quizId }) => {
                             }`}>
                             {isCurrentAnswerCorrect ? 'Correct!' : 'Incorrect'}
                         </h3>
-                        <p className="text-white/90 mt-2">{currentQ.explanation}</p>
-                        {!isCurrentAnswerCorrect && currentQ.type === 'MCQ' && (
+                        <p className="text-white/90 mt-2">{currentQ && currentQ.explanation}</p>
+                        {!isCurrentAnswerCorrect && currentQ && currentQ.type === 'MCQ' && (
                             <p className="text-white/70 mt-1 text-sm">
-                                Correct Answer: {currentQ.options[currentQ.correctAnswer]}
+                                Correct Answer: {currentQ.correctAnswer.map(i => currentQ.options[i]).join(', ')}
                             </p>
                         )}
-                        {!isCurrentAnswerCorrect && currentQ.type === 'TILE' && (
+                        {!isCurrentAnswerCorrect && currentQ && currentQ.type === 'TILE' && (
                             <p className="text-white/70 mt-1 text-sm">
                                 Correct Answer: {currentQ.correctAnswer}
                             </p>
@@ -586,7 +599,7 @@ const QuizPage = ({ quizId }) => {
                     {!answerSubmitted ? (
                         <button
                             onClick={handleCheckAnswer}
-                            disabled={(currentQ.type === 'MCQ' ? selectedAnswer === null : selectedTiles.length === 0) && timeLeft > 0}
+                            disabled={(currentQ && currentQ.type === 'MCQ' ? selectedAnswer === null : selectedTiles.length === 0) && timeLeft > 0}
                             className="w-full py-4 bg-purple-600 text-white rounded-xl text-lg font-semibold cursor-pointer hover:bg-purple-700 transition disabled:bg-gray-400/50 disabled:cursor-not-allowed"
                         >
                             <Check className="w-6 h-6 inline-block mr-2" />

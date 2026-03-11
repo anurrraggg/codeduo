@@ -1,3 +1,5 @@
+import { QUESTIONS_URL } from "@/shared/urls";
+
 export const quizQuestions = [
     {
         id: 1,
@@ -9,9 +11,9 @@ export const quizQuestions = [
     },
     {
         id: 2,
-        type: 'TILE',
+        type: 'TILES',
         question: "Which data structure follows the Last In First Out (LIFO) principle?",
-        tileOptions: ["Queue", "Stack", "Linked List", "Array"],
+        options: ["Queue", "Stack", "Linked List", "Array"],
         correctAnswer: "Stack",
         explanation: "A stack follows LIFO principle where the last element added is the first one to be removed."
     },
@@ -33,25 +35,25 @@ export const quizQuestions = [
     },
     {
         id: 5,
-        type: 'TILE',
+        type: 'TILES',
         question: "Which algorithm is used to find the shortest path in a weighted graph?",
-        tileOptions: ["BFS", "DFS", "Dijkstra's", "Quick Sort", "Prim's"],
+        options: ["BFS", "DFS", "Dijkstra's", "Quick Sort", "Prim's"],
         correctAnswer: "Dijkstra's",
         explanation: "Dijkstra's algorithm finds shortest paths from a source vertex to all other vertices in weighted graphs."
     },
     {
         id: 6,
-        type: 'TILE',
+        type: 'TILES',
         question: "What is the time complexity of inserting an element at the beginning of a linked list?",
-        tileOptions: ["O", "(", "1", ")", "n", "log n"],
+        options: ["O", "(", "1", ")", "n", "log n"],
         correctAnswer: "O ( 1 )",
         explanation: "Inserting at the beginning of a linked list is O(1) as it only requires updating pointers."
     },
     {
         id: 7,
-        type: 'TILE',
+        type: 'TILES',
         question: "Which of the following is NOT a stable sorting algorithm?",
-        tileOptions: ["Merge Sort", "Bubble Sort", "Quick Sort", "Insertion Sort"],
+        options: ["Merge Sort", "Bubble Sort", "Quick Sort", "Insertion Sort"],
         correctAnswer: "Quick Sort",
         explanation: "Quick sort is not stable as it may change the relative order of equal elements during partitioning."
     },
@@ -65,17 +67,17 @@ export const quizQuestions = [
     },
     {
         id: 9,
-        type: 'TILE',
+        type: 'TILES',
         question: "Which data structure is used to implement recursion?",
-        tileOptions: ["Queue", "Stack", "Array", "Hash Table"],
+        options: ["Queue", "Stack", "Array", "Hash Table"],
         correctAnswer: "Stack",
         explanation: "The system uses a call stack to manage function calls in recursion, storing return addresses and local variables."
     },
     {
         id: 10,
-        type: 'TILE',
+        type: 'TILES',
         question: "What is the time complexity of heapify operation in a binary heap?",
-        tileOptions: ["O", "(", "log", "n", ")", "1", "n log n"],
+        options: ["O", "(", "log", "n", ")", "1", "n log n"],
         correctAnswer: "O ( log n )",
         explanation: "Heapify operation takes O(log n) time as it may need to traverse the height of the heap."
     },
@@ -89,9 +91,9 @@ export const quizQuestions = [
     },
     {
         id: 12,
-        type: 'TILE',
+        type: 'TILES',
         question: "What is the space complexity of BFS traversal?",
-        tileOptions: ["O", "(", "V", ")", "E", "1", "+"],
+        options: ["O", "(", "V", ")", "E", "1", "+"],
         correctAnswer: "O ( V )",
         explanation: "BFS uses a queue which in worst case can store all vertices at the same level, requiring O(V) space."
     },
@@ -121,17 +123,17 @@ export const quizQuestions = [
     },
     {
         id: 16,
-        type: 'TILE',
+        type: 'TILES',
         question: "What is the time complexity of finding the kth smallest element using QuickSelect?",
-        tileOptions: ["O", "(", "n", ")", "log n", "k", "n²"],
+        options: ["O", "(", "n", ")", "log n", "k", "n²"],
         correctAnswer: "O ( n )",
         explanation: "QuickSelect has O(n) average time complexity for finding the kth smallest element."
     },
     {
         id: 17,
-        type: 'TILE',
+        type: 'TILES',
         question: "Which technique is used to avoid recomputation in dynamic programming?",
-        tileOptions: ["Recursion", "Memoization", "Iteration", "Backtracking"],
+        options: ["Recursion", "Memoization", "Iteration", "Backtracking"],
         correctAnswer: "Memoization",
         explanation: "Memoization stores results of subproblems to avoid recomputation in dynamic programming."
     },
@@ -153,9 +155,9 @@ export const quizQuestions = [
     },
     {
         id: 20,
-        type: 'TILE',
+        type: 'TILES',
         question: "What is the time complexity of building a heap from an unsorted array?",
-        tileOptions: ["O", "(", "n", ")", "log n", "1", "n log n"],
+        options: ["O", "(", "n", ")", "log n", "1", "n log n"],
         correctAnswer: "O ( n )",
         explanation: "Building a heap from an unsorted array using bottom-up heapify takes O(n) time."
     }
@@ -285,4 +287,32 @@ export function getQuestionsForQuiz(quizId) {
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled;
+}
+
+import { getAuthHeaders } from "./UserService";
+
+export async function getQuestionsByQuizId(quizId) {
+    try {
+        const response = await fetch(
+            QUESTIONS_URL + quizId,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...getAuthHeaders(),
+                },
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch quiz questions");
+        }
+
+        const data = await response.json();
+        return data.questions;
+
+    } catch (error) {
+        console.error("Error fetching quiz questions:", error);
+        return [];
+    }
 }

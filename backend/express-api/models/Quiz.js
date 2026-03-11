@@ -5,16 +5,25 @@ const quizzesSchema = new mongoose.Schema({
     quiz_id: {
         type: String, unique: true, default: uuidv4
     },
-    lesson_id: {
-        type: mongoose.Schema.Types.ObjectId,ref:'Lessons', required: true
-    },
-    quiz_type: {
+    name: {
         type: String,
-        required:true
+        required: true,
+        unique: true
     },
-    time_limit: {
+    icon: {
         type: Number,
-        required:true
+        default: 0,
+        max: 5
+    },
+    difficulty: {
+        type: String,
+        default: 'Easy',
+        enum: ['Easy', 'Medium', 'Hard']
+    },
+    questions: {
+        type: [String],
+        ref: 'Question',
+        default: []
     }
 }, {
     timestamps: true,

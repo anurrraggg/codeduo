@@ -2,38 +2,37 @@ const mongoose = require('mongoose')
 const { v4: uuidv4 } = require('uuid')
 
 const questionsSchema = new mongoose.Schema({
-
     question_id: {
-        type: String, unique: true, default: uuidv4
+        type: String, unique: true, default: () => uuidv4()
+    },
+    type: {
+        type: String, default: 'MCQ', enum: ['MCQ', 'TILES']
     },
     quiz_id: {
-        type: mongoose.Schema.Types.ObjectId,ref:'Quizzes', required: true
+        type: String, required: true
     },
-    question_text: {
+    question: {
         type: String,
-        required:true
-    },
-    question_type: {
-        type: String,
-        required:true
+        required:true,
+        unique: true
     },
     options: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Options',
-        default: []
+        type: [String],
+        required: true,
+        min: 2
     },
-    correctOption: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Options'
+    correctAnswer: {
+        type: [mongoose.Schema.Types.Mixed],
+        required: true
+    },
+    explanation: {
+        type: String,
+        default: "No Explanation provided"
     }
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
 });
-
-// Performance indexes
-questionsSchema.index({ quiz_id: 1 }); // For finding questions by quiz
-questionsSchema.index({ question_id: 1 }); // Already unique, but explicit index helps
 
 module.exports = mongoose.model("Question", questionsSchema);

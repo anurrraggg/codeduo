@@ -11,8 +11,8 @@ const quizRepository = {
     findByQuizId: async (quiz_id) => {
         return await Quiz.findOne({ quiz_id });
     },
-    findByLessonId: async (lesson_id) => {
-        return await Quiz.find({ lesson_id });
+    findByQuestionId: async (question_id) => {
+        return await Quiz.find({ question_id });
     },
     findAll: async () => {
         return await Quiz.find();

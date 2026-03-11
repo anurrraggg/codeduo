@@ -27,7 +27,7 @@ exports.findQuestionsByQuizId = async (req, res) => {
     }
     const questions = await questionService.findQuestionsByQuizId(quizId);
     if (!questions) {
-        return res.status(404).json({ success: false, message: "Questions not found." });
+        return res.status(404).json({ success: false, message: "Questions of this quiz id not found." });
     }
     return res.status(200).json({ success: true, questions });
 };

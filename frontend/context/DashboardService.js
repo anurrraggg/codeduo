@@ -1,15 +1,53 @@
 import { Code, Cpu, Database, GitBranch, Globe } from "lucide-react";
-import { LEADERBOARD_URL } from "../constants/urls";
+import { LEADERBOARD_URL, QUIZ_URL } from "../constants/urls";
 import { apiFetch } from "../api/client";
 
+export const getIcons = {
+    0: <Code className="w-6 h-6" />,
+    1: <Cpu className="w-6 h-6" />,
+    2: <Database className="w-6 h-6" />,
+    3: <GitBranch className="w-6 h-6" />,
+    4: <Globe className="w-6 h-6" />
+}
+
+export const getColors = {
+    'Easy': 'text-green-600 bg-green-50',
+    'Medium': 'text-yellow-600 bg-yellow-50',
+    'Hard': 'text-red-600 bg-red-50'
+}
+
 export const quizCategories = [
-    { id: 1, name: 'Dynamic Programming', icon: <Database className="w-6 h-6" />, difficulty: 'Hard', quizzes: 24, color: 'bg-purple-100 text-purple-700' },
-    { id: 2, name: 'Backtracking', icon: <GitBranch className="w-6 h-6" />, difficulty: 'Medium', quizzes: 18, color: 'bg-blue-100 text-blue-700' },
-    { id: 3, name: 'Data Structures', icon: <Code className="w-6 h-6" />, difficulty: 'Easy', quizzes: 32, color: 'bg-green-100 text-green-700' },
-    { id: 4, name: 'Algorithms', icon: <Cpu className="w-6 h-6" />, difficulty: 'Medium', quizzes: 28, color: 'bg-yellow-100 text-yellow-700' },
-    { id: 5, name: 'System Design', icon: <Globe className="w-6 h-6" />, difficulty: 'Hard', quizzes: 15, color: 'bg-red-100 text-red-700' },
-    { id: 6, name: 'Graph Algorithms', icon: <GitBranch className="w-6 h-6" />, difficulty: 'Hard', quizzes: 21, color: 'bg-purple-100 text-purple-700' }
+    { id: 1, name: 'Dynamic Programming', icon: 0, difficulty: 'Hard', questions: []},
+    { id: 2, name: 'Backtracking', icon: 3, difficulty: 'Medium', questions: []},
+    { id: 3, name: 'Data Structures', icon: 0, difficulty: 'Easy', questions: [] },
+    { id: 4, name: 'Algorithms', icon: 1, difficulty: 'Medium', questions: [] },
+    { id: 5, name: 'System Design', icon: 4, difficulty: 'Hard', questions: [] },
+    { id: 6, name: 'Graph Algorithms', icon: 3, difficulty: 'Hard', questions: [] }
 ];
+
+import { getAuthHeaders } from "./UserService";
+
+export async function getQuizzes() {
+    try {
+        const response = await fetch(QUIZ_URL, {
+            method: "GET",
+            headers: {
+                ...getAuthHeaders()
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch quizzes");
+        }
+
+        const data = await response.json();
+        return data.quizzes;
+
+    } catch (error) {
+        console.error("Error fetching quizzes:", error);
+        return [];
+    }
+}
 
 export const recentResults = [
     { quiz: 'Binary Trees Basics', score: 85, date: '2 days ago', category: 'Data Structures' },
