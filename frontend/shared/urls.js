@@ -4,7 +4,8 @@ export const BASE_URL =
   process.env.NEXT_PUBLIC_BACKEND_URI ||
   'http://localhost:5000';
 
-export const QUIZ_URL = BASE_URL + "/api/quiz";
+export const QUIZ_URL = BASE_URL + "/api/quiz/";
+export const QUESTIONS_URL = BASE_URL + "/api/questions/quiz/";
 export const LEADERBOARD_URL = BASE_URL + "/api/leaderboard";
 
 export const USER_LOGIN_URL = BASE_URL + "/api/auth/login";

@@ -1,4 +1,4 @@
 @echo
 cd ..
-cd frontend
+cd backend/express-api
 npm run dev

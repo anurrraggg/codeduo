@@ -51,7 +51,7 @@ exports.getAllQuizzes = async (req, res) => {
 	try {
 		const quizs = await quizService.findAllQuizzes();
 		if (!quizs) return res.status(404).json({ success: false, message: 'Quizs not found' });
-		return res.status(201).json({ success: true, quizs });
+		return res.status(201).json({ success: true, quizzes: quizs });
 	} catch (error) {
 		return res.status(500).json({ error: 'Server error' });
 	}

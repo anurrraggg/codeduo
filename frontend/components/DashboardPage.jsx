@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Play, BarChart3, Trophy, User, Code, Users, Clock, Target, TrendingUp } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getDifficultyColor, leaderboard, quizCategories, recentResults } from '@/context/DashboardService';
+import { getColors, getDifficultyColor, getIcons, getQuizzes, leaderboard, recentResults } from '@/context/DashboardService';
 import Image from 'next/image';
 import { getUser } from '@/context/UserService';
 import LoaderPage from './LoaderPage';
@@ -19,6 +19,7 @@ const DashboardPage = () => {
   const [user, setUser] = useState(null);
   const [playerType, setPlayerType] = useState(null);
   const { isDark, toggleTheme } = useTheme();
+  const [quizCategories, setQuizCategories] = useState();
 
   useEffect(() => {
     const fetchUserAndCluster = () => {
@@ -94,6 +95,20 @@ const DashboardPage = () => {
       }
     };
 
+    const fetchQuizCategories = async () => {
+      try {
+        setLoading(true);
+        const categories = await getQuizzes();
+        setQuizCategories(categories);
+      } catch (err) {
+        console.error("Error fetching quiz categories: " + err.message);
+        toast.error("Failed to load quiz categories");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchQuizCategories();
     fetchUserAndCluster();
   }, []);
 
@@ -116,7 +131,7 @@ const DashboardPage = () => {
   };
 
   const openQuiz = (id) => {
-    router.push(`/quiz?id=${id}`);
+    router.push(`/quiz/${id}`);
   }
 
   return (
@@ -275,11 +290,11 @@ const DashboardPage = () => {
           <div>
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-semibold text-[var(--color-text)]">Quiz Categories</h3>
-              <span className="text-sm text-[var(--color-text-secondary)]">{quizCategories.length} categories available</span>
+              <span className="text-sm text-[var(--color-text-secondary)]">{quizCategories && quizCategories.length} categories available</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {quizCategories.map((category, index) => (
+              {quizCategories && quizCategories.map((category, index) => (
                 <div
                   key={index}
                   onClick={() => openQuiz(category.id)}
@@ -291,8 +306,8 @@ const DashboardPage = () => {
                 >
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-4">
-                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${category.color}`}>
-                        {category.icon}
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${getColors[category.difficulty]}`}>
+                        {getIcons[category.icon]}
                       </div>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(category.difficulty)}`}>
                         {category.difficulty}
@@ -304,7 +319,7 @@ const DashboardPage = () => {
                     </h4>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-[var(--color-text-secondary)] text-sm">{category.quizzes} quizzes</span>
+                      <span></span>
                       <button onClick={() => openQuiz(category.id)} className="bg-purple-500 cursor-pointer text-white px-4 py-2 rounded-lg flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-purple-600">
                         <Play className="w-4 h-4" />
                         <span>Start</span>
@@ -324,12 +339,12 @@ const DashboardPage = () => {
               <button className="text-[var(--color-text-secondary)] text-sm hover:text-purple-700 font-medium">View All</button>
             </div>
 
-            <div 
-            className="rounded-xl border border-purple-100"
-            style={{
-              backgroundColor: "rgba(181, 183, 185, 0.1)",
-              color: "var(--foreground)",
-            }}>
+            <div
+              className="rounded-xl border border-purple-100"
+              style={{
+                backgroundColor: "rgba(181, 183, 185, 0.1)",
+                color: "var(--foreground)",
+              }}>
               {recentResults.map((result, index) => (
                 <div key={index} className={`p-6 ${index !== recentResults.length - 1 ? 'border-b border-purple-50' : ''}`}>
                   <div className="flex items-center justify-between">
@@ -363,12 +378,12 @@ const DashboardPage = () => {
               </div>
             </div>
 
-            <div 
-            className="rounded-xl border border-purple-100"
-            style={{
-              backgroundColor: "rgba(181, 183, 185, 0.1)",
-              color: "var(--foreground)",
-            }}
+            <div
+              className="rounded-xl border border-purple-100"
+              style={{
+                backgroundColor: "rgba(181, 183, 185, 0.1)",
+                color: "var(--foreground)",
+              }}
             >
               {leaderboard.map((user, index) => (
                 <div key={index} className={`p-6 flex items-center justify-between ${index !== leaderboard.length - 1 ? 'border-b border-purple-50' : ''

@@ -10,10 +10,9 @@ const { securityHeaders, sanitizeInput } = require('./middleware/security');
 
 const attemptsRoutes = require('./routes/attemptsRoutes');
 const authRoutes = require('./routes/authRoutes');
-const badgesRoutes = require('./routes/badgesRoutes');
+// const badgesRoutes = require('./routes/badgesRoutes');
 const leaderboardRoutes = require('./routes/leaderboardRoutes');
 const lessonsRoutes = require('./routes/lessonsRoutes');
-const optionsRoutes = require('./routes/optionsRoutes');
 const questionRoutes = require('./routes/questionRoutes');
 const quizRoutes = require('./routes/quizRoutes');
 const userBadgesRoutes = require('./routes/userBadgesRoutes');
@@ -100,10 +99,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/quiz', quizRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
-app.use('/api/badges', badgesRoutes);
+// app.use('/api/badges', badgesRoutes);
 app.use('/api/attempts', attemptsRoutes);
 app.use('/api/lessons', lessonsRoutes);
-app.use('/api/options', optionsRoutes);
 app.use('/api/user-badges', userBadgesRoutes);
 
 // Global error handler (must be last)
