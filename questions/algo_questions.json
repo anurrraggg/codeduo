@@ -1,0 +1,462 @@
+[
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "What is the time complexity of Binary Search?",
+    "options": [
+      "O(n)",
+      "O(n^2)",
+      "O(log n)",
+      "O(1)"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Binary search halves the search space each step, giving O(log n) time.",
+    "question_id": "7536f315-db29-4524-a670-830b5a73e8a7",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Binary Search requires the array to be:",
+    "options": [
+      "Unsorted",
+      "Sorted",
+      "Unique elements only",
+      "Even length"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Binary search relies on sorted order to eliminate half the search space in each step.",
+    "question_id": "a0714374-7a3d-4888-82da-9380a0512be3",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "What is the time complexity of Merge Sort in all cases?",
+    "options": [
+      "O(n)",
+      "O(n log n)",
+      "O(n^2)",
+      "O(log n)"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Merge Sort always divides in half and merges in O(n) per level giving O(n log n).",
+    "question_id": "2b4396a0-2cbc-4c97-b59c-209859b82060",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Quick Sort worst case occurs when:",
+    "options": [
+      "Array is random",
+      "Pivot is always the median",
+      "Pivot is always the smallest or largest element",
+      "Array has even length"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "When pivot is always min or max, partitioning is maximally unbalanced giving O(n^2).",
+    "question_id": "82f0ac49-49af-4da6-bf57-a58f2e963143",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Which algorithm finds the maximum subarray sum in O(n)?",
+    "options": [
+      "Kadane's Algorithm",
+      "Floyd's Algorithm",
+      "Kruskal's",
+      "Bellman-Ford"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Kadane's algorithm maintains a running max, resetting when the running sum goes negative.",
+    "question_id": "6ae65fb5-b72f-4216-b862-53a17763ba38",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Dijkstra's algorithm CANNOT handle graphs with:",
+    "options": [
+      "Many nodes",
+      "Negative edge weights",
+      "Disconnected components",
+      "Undirected edges"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Dijkstra's greedy assumption breaks with negative edges — use Bellman-Ford instead.",
+    "question_id": "4eab2fb4-1b71-4b3f-b81e-983192381841",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Which algorithm detects negative cycles in a weighted graph?",
+    "options": [
+      "BFS",
+      "Dijkstra",
+      "Bellman-Ford",
+      "Kruskal"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Bellman-Ford relaxes all edges V-1 times. A V-th successful relaxation means a negative cycle exists.",
+    "question_id": "0b185b23-632c-45a7-89ad-c7c460649b7e",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Topological Sort is only valid for:",
+    "options": [
+      "Any graph",
+      "Undirected graphs",
+      "Directed Acyclic Graphs (DAGs)",
+      "Complete graphs"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Topological ordering requires no cycles, so it only exists for DAGs.",
+    "question_id": "0f1f2ff7-be86-401b-b2c3-64721de1c42f",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Floyd-Warshall algorithm finds:",
+    "options": [
+      "Single source shortest path",
+      "All-pairs shortest path",
+      "Minimum spanning tree",
+      "Topological order"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Floyd-Warshall computes shortest paths between every pair of vertices in O(V^3).",
+    "question_id": "b92863bd-6010-41d6-b473-87423141a352",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Which MST algorithm sorts all edges first then uses Union-Find to avoid cycles?",
+    "options": [
+      "Prim's",
+      "Kruskal's",
+      "Dijkstra's",
+      "Floyd-Warshall"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Kruskal's sorts edges by weight and adds the next cheapest edge that does not form a cycle.",
+    "question_id": "6117e6c2-b79c-4908-81d0-7db85bed5a31",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Which traversal finds the shortest path in an unweighted graph?",
+    "options": [
+      "DFS",
+      "BFS",
+      "Dijkstra",
+      "Bellman-Ford"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "BFS explores nodes level by level, guaranteeing the shortest path in unweighted graphs.",
+    "question_id": "7c95a01f-ebed-43ba-bbd3-157f67ea025f",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "KMP pattern matching preprocesses the pattern to build:",
+    "options": [
+      "Suffix array",
+      "Failure function (partial match table)",
+      "Hash of pattern",
+      "Trie"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "KMP builds the failure function allowing matching to skip redundant comparisons, giving O(n+m) time.",
+    "question_id": "88f33cc2-0e9d-4785-97ea-c79416bf4be4",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Quickselect finds the kth smallest element in average:",
+    "options": [
+      "O(n log n)",
+      "O(n^2)",
+      "O(n)",
+      "O(log n)"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Quickselect recurses only into one partition, giving O(n) average time.",
+    "question_id": "5de416c5-e3ea-4781-9ed9-c13d82b4de92",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Bubble Sort worst case time complexity is:",
+    "options": [
+      "O(n)",
+      "O(n log n)",
+      "O(n^2)",
+      "O(log n)"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Bubble Sort repeatedly swaps adjacent elements, requiring O(n^2) comparisons in the worst case.",
+    "question_id": "0a1ad17b-c69b-4646-9df0-4e48a9022314",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Which data structure does BFS use?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Heap",
+      "Linked List"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "BFS uses a Queue to process nodes level by level.",
+    "question_id": "e515ad3c-3031-4337-a361-30ed0d8413cc",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Which data structure does DFS use?",
+    "options": [
+      "Queue",
+      "Stack or recursion",
+      "Heap",
+      "Linked List"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "DFS uses a Stack or the call stack via recursion to explore as deep as possible before backtracking.",
+    "question_id": "33460493-259b-4625-a3bc-3b8b3d76e244",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Cycle detection in a linked list uses:",
+    "options": [
+      "BFS",
+      "KMP",
+      "Floyd Cycle Detection",
+      "Merge Sort"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Floyd's Tortoise and Hare algorithm uses two pointers — if they meet, a cycle exists.",
+    "question_id": "3e2d21ee-df52-4859-996c-c2f1dd5ca35b",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Dutch National Flag algorithm sorts an array of 0s, 1s and 2s in:",
+    "options": [
+      "O(n log n)",
+      "O(n^2)",
+      "O(n)",
+      "O(1)"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Three-way partitioning with three pointers achieves O(n) time and O(1) space.",
+    "question_id": "87825fe0-9b03-4adb-89c9-1468aa9058e0",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Which MST algorithm grows the tree by always adding the minimum weight edge to the current MST?",
+    "options": [
+      "Kruskal's",
+      "Prim's",
+      "Dijkstra's",
+      "Bellman-Ford"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Prim's always adds the minimum weight crossing edge, growing MST vertex by vertex.",
+    "question_id": "d534a22e-dced-4678-8e58-31114681e5a3",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be398e7d97927f70ed80",
+    "question": "Heap Sort time complexity in all cases is:",
+    "options": [
+      "O(n)",
+      "O(n log n)",
+      "O(n^2)",
+      "O(log n)"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Heap Sort builds a heap in O(n) then extracts elements in O(log n) each, giving O(n log n) overall.",
+    "question_id": "5f80687b-d438-4a34-9552-aeb62fc0a3be",
+    "createdAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:13:34.051Z"
+    },
+    "__v": 0
+  }
+]

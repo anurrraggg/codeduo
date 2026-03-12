@@ -1,0 +1,416 @@
+[
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "What is the primary purpose of a load balancer in a distributed system?",
+    "options": [
+      "Store user sessions",
+      "Distribute incoming requests across multiple servers",
+      "Encrypt network traffic",
+      "Cache database queries"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "A load balancer distributes traffic across multiple servers to improve reliability and scalability.",
+    "question_id": "9e85d510-4191-4f78-bce3-5ee5c4c30c7f",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "Which technique improves system performance by storing frequently accessed data in memory?",
+    "options": [
+      "Sharding",
+      "Caching",
+      "Replication",
+      "Indexing"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Caching stores frequently used data in memory to reduce database load and latency.",
+    "question_id": "143587ac-6d3e-48dd-98a2-1f8a04053a3e",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "What does horizontal scaling mean in system design?",
+    "options": [
+      "Adding more machines to handle load",
+      "Increasing CPU of a single server",
+      "Compressing stored data",
+      "Reducing number of servers"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Horizontal scaling increases capacity by adding more machines instead of upgrading one machine.",
+    "question_id": "599f27d0-2e3b-44f7-ad31-df66d019060e",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "What is the main role of a CDN (Content Delivery Network)?",
+    "options": [
+      "Store application logs",
+      "Deliver content from servers closer to users",
+      "Balance database queries",
+      "Compress images"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "A CDN reduces latency by serving static content from geographically closer servers.",
+    "question_id": "02907052-202f-4dd9-a36a-8f6f74888218",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "Which database type is best suited for flexible schemas and large-scale distributed data?",
+    "options": [
+      "Relational database",
+      "NoSQL database",
+      "Graph traversal engine",
+      "In-memory compiler"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "NoSQL databases allow flexible schemas and horizontal scalability.",
+    "question_id": "d58ca3f2-cfe2-44b0-9462-2ac7bd4b6365",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "What metric measures how long it takes for a request to be processed by a system?",
+    "options": [
+      "Throughput",
+      "Latency",
+      "Bandwidth",
+      "Availability"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Latency refers to the time taken for a request to travel through the system and receive a response.",
+    "question_id": "37a5cbd7-aacc-4aeb-a592-a64d13a0f1cc",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "Why are read replicas used in large-scale database systems?",
+    "options": [
+      "Increase write throughput",
+      "Distribute read traffic across multiple servers",
+      "Encrypt database queries",
+      "Reduce storage size"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Read replicas allow read-heavy workloads to scale by distributing read queries.",
+    "question_id": "fd366940-f465-4570-85a8-4820481eb4cd",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "What problem does consistent hashing solve in distributed systems?",
+    "options": [
+      "Database normalization",
+      "Evenly distributing keys across servers with minimal rebalancing",
+      "Encrypting distributed traffic",
+      "Reducing memory usage"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Consistent hashing minimizes data movement when nodes join or leave the cluster.",
+    "question_id": "86e802da-8d60-416f-b9eb-fbf0bc9dabd8",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "Why are message queues used in microservice architectures?",
+    "options": [
+      "To make services synchronous",
+      "To decouple services and support asynchronous communication",
+      "To replace databases",
+      "To compress network traffic"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Message queues allow services to communicate asynchronously and scale independently.",
+    "question_id": "46f0ed09-5590-4bc1-8d0f-c83480b9ddfd",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "Which scaling strategy increases system capacity by upgrading the hardware of a single server?",
+    "options": [
+      "Horizontal scaling",
+      "Vertical scaling",
+      "Auto scaling",
+      "Elastic scaling"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Vertical scaling increases system capacity by adding CPU, RAM, or storage to a single machine.",
+    "question_id": "5f46e953-e3db-468b-9d49-b7678c9b9bb7",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "Which component typically acts as a single entry point for client requests in microservices architecture?",
+    "options": [
+      "API Gateway",
+      "Cache layer",
+      "Database proxy",
+      "Worker node"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "API gateways manage routing, authentication, rate limiting, and aggregation for microservices.",
+    "question_id": "a1d7b124-be0a-462f-99c5-9819a34783e5",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "Which design technique helps prevent cascading failures between microservices?",
+    "options": [
+      "Circuit breaker pattern",
+      "Binary search",
+      "Memoization",
+      "Heap balancing"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "The circuit breaker pattern stops repeated requests to failing services.",
+    "question_id": "fdc97883-2515-4467-80df-5c4616e3b921",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "In designing a social media feed system, what is the key trade-off between fan-out-on-write and fan-out-on-read?",
+    "options": [
+      "Memory usage vs encryption",
+      "Write cost vs read latency",
+      "CPU vs disk usage",
+      "Network latency vs storage"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Fan-out-on-write increases write cost but allows fast reads, while fan-out-on-read shifts computation to read time.",
+    "question_id": "046fb6b1-d4ec-490d-a52c-1260e5925a2d",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "In the CAP theorem, if a distributed system experiences a network partition, which property must be sacrificed?",
+    "options": [
+      "Either consistency or availability",
+      "Latency",
+      "Durability",
+      "Fault tolerance"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "CAP theorem states that during partition, a system must choose between consistency and availability.",
+    "question_id": "ea9f6fb0-8d06-4736-bdc8-080e11d00b31",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "Why is eventual consistency often used in globally distributed systems?",
+    "options": [
+      "It guarantees strong consistency",
+      "It improves availability and system performance",
+      "It eliminates replication",
+      "It reduces storage"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Eventual consistency allows systems to remain highly available and scalable.",
+    "question_id": "fe238e17-ff7b-48e4-966d-e99e0cc6ac8e",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "Which database architecture partitions data across nodes based on ranges or hashes?",
+    "options": [
+      "Replication",
+      "Sharding",
+      "Caching",
+      "Indexing"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Sharding distributes rows across multiple machines to scale horizontally.",
+    "question_id": "f7389091-f748-4946-8332-00321b210813",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "What is the primary purpose of using Apache Kafka in large architectures?",
+    "options": [
+      "Serve static content",
+      "Handle high-throughput event streaming pipelines",
+      "Replace load balancers",
+      "Encrypt API traffic"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Kafka is designed for durable, distributed event streaming.",
+    "question_id": "4e002280-1d50-4c08-8ebb-76cffe8e1c97",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be548e7d97927f70ed82",
+    "question": "When designing a highly available system, why is multi-region deployment used?",
+    "options": [
+      "To reduce hardware cost",
+      "To ensure system availability even if an entire region fails",
+      "To reduce database size",
+      "To eliminate caching"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Multi-region deployments provide redundancy against regional failures.",
+    "question_id": "8878b54c-c28a-4237-8410-2da5c8afc3c8",
+    "createdAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:16:40.049Z"
+    },
+    "__v": 0
+  }
+]

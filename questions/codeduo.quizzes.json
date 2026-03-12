@@ -1,0 +1,102 @@
+[{
+  "_id": {
+    "$oid": "69b1bd698276d147d4ea1b4b"
+  },
+  "name": "Dynamic Programming",
+  "icon": 0,
+  "difficulty": "Hard",
+  "questions": [],
+  "quiz_id": "dab1bc02-2899-4570-99c2-0b076ce84511",
+  "createdAt": {
+    "$date": "2026-03-11T19:07:21.987Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-11T19:07:21.987Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b1bdae8e7d97927f70ed77"
+  },
+  "name": "Backtracking",
+  "icon": 3,
+  "difficulty": "Medium",
+  "questions": [],
+  "quiz_id": "366a9869-8be4-4a41-8bd6-42e9e7b31627",
+  "createdAt": {
+    "$date": "2026-03-11T19:08:30.251Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-11T19:08:30.251Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b1be168e7d97927f70ed7e"
+  },
+  "name": "Data Structures",
+  "icon": 0,
+  "difficulty": "Easy",
+  "questions": [],
+  "quiz_id": "1dbd91d2-ddfe-41b0-a2fa-5e7abab45f69",
+  "createdAt": {
+    "$date": "2026-03-11T19:10:14.291Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-11T19:10:14.291Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b1be398e7d97927f70ed80"
+  },
+  "name": "Algorithms",
+  "icon": 1,
+  "difficulty": "Medium",
+  "questions": [],
+  "quiz_id": "a94bb8ac-ae31-405d-a4c7-451f7d5d6700",
+  "createdAt": {
+    "$date": "2026-03-11T19:10:49.769Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-11T19:10:49.769Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b1be548e7d97927f70ed82"
+  },
+  "name": "System Design",
+  "icon": 4,
+  "difficulty": "Hard",
+  "questions": [],
+  "quiz_id": "af66b5ea-ac07-4f19-9348-af7a0b3ee6b1",
+  "createdAt": {
+    "$date": "2026-03-11T19:11:16.704Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-11T19:11:16.704Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b1be618e7d97927f70ed84"
+  },
+  "name": "Graph Algorithms",
+  "icon": 3,
+  "difficulty": "Hard",
+  "questions": [],
+  "quiz_id": "79db932b-0b8c-4b16-8b31-6194f732ff19",
+  "createdAt": {
+    "$date": "2026-03-11T19:11:29.923Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-11T19:11:29.923Z"
+  },
+  "__v": 0
+}]

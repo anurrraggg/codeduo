@@ -1,0 +1,462 @@
+[
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "What is the core idea behind Dynamic Programming?",
+    "options": [
+      "Divide into independent subproblems",
+      "Store and reuse subproblem results",
+      "Use greedy choice at every step",
+      "Explore all paths with backtracking"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "DP avoids recomputation by storing results of overlapping subproblems.",
+    "question_id": "3e358e60-5630-4ddf-91f9-153dfddcf247",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "What is the time complexity of Fibonacci with memoization?",
+    "options": [
+      "O(2^n)",
+      "O(n^2)",
+      "O(n)",
+      "O(log n)"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Each subproblem is solved only once, reducing complexity from O(2^n) to O(n).",
+    "question_id": "14067a15-1d79-457e-9ab3-217b7f7557e0",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "What is the recurrence for the Climbing Stairs problem (1 or 2 steps)?",
+    "options": [
+      "dp[i] = dp[i-1] * dp[i-2]",
+      "dp[i] = dp[i-1] + dp[i-2]",
+      "dp[i] = max(dp[i-1], dp[i-2])",
+      "dp[i] = dp[i-2] + 1"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "You can reach step i from i-1 or i-2, so dp[i] = dp[i-1] + dp[i-2].",
+    "question_id": "b3ca7826-617e-43fe-8edb-23bdcc3ece85",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "What is the time complexity of 0/1 Knapsack DP?",
+    "options": [
+      "O(n)",
+      "O(n log n)",
+      "O(n * W)",
+      "O(2^n)"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "0/1 Knapsack uses a 2D table of n x W giving O(n*W) time.",
+    "question_id": "6b828d08-5cf8-4382-adcd-0f345dfc844c",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "In House Robber problem, the recurrence is:",
+    "options": [
+      "dp[i] = dp[i-1] + nums[i]",
+      "dp[i] = max(dp[i-1], dp[i-2] + nums[i])",
+      "dp[i] = dp[i-2] + dp[i-1]",
+      "dp[i] = min(dp[i-1], nums[i])"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Either skip house i (dp[i-1]) or rob it (dp[i-2] + nums[i]), whichever is larger.",
+    "question_id": "3cf949fc-fc83-482d-b486-020f940b950c",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "What does optimal substructure mean?",
+    "options": [
+      "Problem has a unique solution",
+      "Optimal solution is built from optimal solutions to subproblems",
+      "Subproblems never overlap",
+      "Problem requires brute force"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Optimal substructure means the global optimum can be built from locally optimal subproblem solutions.",
+    "question_id": "515b2037-fc7c-45eb-90a6-efae3033d87c",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Coin Change problem finds:",
+    "options": [
+      "Maximum coins to make amount",
+      "Minimum coins to make amount",
+      "All combinations of coins",
+      "Sorted order of coins"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Coin Change DP: dp[i] = min(dp[i], dp[i - coin] + 1) for each coin.",
+    "question_id": "001d7c47-718d-4c1a-964d-2d79b103532f",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "LCS stands for:",
+    "options": [
+      "Longest Common Substring",
+      "Longest Common Subsequence",
+      "Least Common Subsequence",
+      "Longest Cyclic Sequence"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "LCS = Longest Common Subsequence — the longest sequence present in both strings (not necessarily contiguous).",
+    "question_id": "fde61e9c-6d00-4063-ada5-805f6eb2cbb2",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Unique Paths on a grid uses recurrence:",
+    "options": [
+      "dp[i][j] = dp[i-1][j] * dp[i][j-1]",
+      "dp[i][j] = dp[i-1][j] + dp[i][j-1]",
+      "dp[i][j] = min(dp[i-1][j], dp[i][j-1])",
+      "dp[i][j] = dp[i-1][j-1]"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Paths to (i,j) = paths from top + paths from left since only right/down moves are allowed.",
+    "question_id": "ed23370f-e1b8-49f1-ab35-31aa3c337bf7",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Word Break problem checks if a string can be segmented using:",
+    "options": [
+      "A given character set",
+      "A dictionary of words",
+      "All substrings",
+      "Only prefix substrings"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Word Break DP: dp[i] = true if s[0..i] can be segmented using dictionary words.",
+    "question_id": "b1886ca1-44fe-4e50-95aa-f7201a98bc20",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Bottom-up DP is also called:",
+    "options": [
+      "Memoization",
+      "Tabulation",
+      "Recursion",
+      "Backtracking"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Tabulation fills the DP table iteratively from base cases upward without recursion.",
+    "question_id": "2f17d2bd-0795-4184-810b-b44e25df635f",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "What is the space complexity of space-optimized Fibonacci?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(1)",
+      "O(n^2)"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Using only two variables (prev, curr) instead of an array gives O(1) space.",
+    "question_id": "35a2dfe4-7039-4dce-85a6-f29b7fae09f6",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Overlapping subproblems means:",
+    "options": [
+      "Subproblems are independent",
+      "Same subproblems are solved repeatedly",
+      "Subproblems grow exponentially",
+      "All subproblems are equal size"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Overlapping subproblems means the same subproblems recur multiple times, making caching beneficial.",
+    "question_id": "418a2901-2b08-4c64-b00a-10d381da918a",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Partition Equal Subset Sum is equivalent to:",
+    "options": [
+      "LCS",
+      "0/1 Knapsack with target = sum/2",
+      "Coin Change",
+      "Edit Distance"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "We need to find if a subset sums to total/2, which maps directly to 0/1 Knapsack.",
+    "question_id": "322d289c-6223-486c-a5cf-e93f9ae1aef5",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Edit distance allows which operations?",
+    "options": [
+      "Insert, Delete, Replace",
+      "Insert, Delete only",
+      "Replace only",
+      "Swap, Insert, Delete"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Edit distance (Levenshtein) uses insert, delete, and replace to transform one string into another.",
+    "question_id": "3b2c1bb3-0674-4a23-803c-609a9409cd18",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "LCS recurrence when characters match (s1[i]==s2[j]):",
+    "options": [
+      "dp[i][j] = 0",
+      "dp[i][j] = dp[i-1][j-1]",
+      "dp[i][j] = dp[i-1][j-1] + 1",
+      "dp[i][j] = max(dp[i-1][j], dp[i][j-1])"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "When characters match, extend LCS by 1: dp[i][j] = dp[i-1][j-1] + 1.",
+    "question_id": "05f10b9c-2cfa-4d53-84b3-a1b29bb489be",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Matrix Chain Multiplication minimizes:",
+    "options": [
+      "Number of matrices",
+      "Number of scalar multiplications",
+      "Memory used",
+      "Recursion depth"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "MCM finds optimal parenthesization to minimize total number of scalar multiplications.",
+    "question_id": "ddbccb0b-971a-4e0f-b220-c5d61f2bbc95",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Which problem uses interval DP to find maximum coins from bursting balloons?",
+    "options": [
+      "Matrix Chain",
+      "Burst Balloons",
+      "Stone Game",
+      "Palindrome Partitioning"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "Burst Balloons: dp[l][r] = max coins obtainable from balloons between indices l and r.",
+    "question_id": "16955a41-2504-40aa-bb21-a0467babd759",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Longest Increasing Subsequence (LIS) standard DP runs in:",
+    "options": [
+      "O(n)",
+      "O(n log n)",
+      "O(n^2)",
+      "O(n^3)"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Standard LIS DP: dp[i] = length of LIS ending at index i, computed in O(n^2).",
+    "question_id": "94ae1e9f-4cfb-4dd7-a85c-312fb3630064",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1bd698276d147d4ea1b4b",
+    "question": "Which is NOT a Dynamic Programming problem?",
+    "options": [
+      "Longest Common Subsequence",
+      "Edit Distance",
+      "Binary Search",
+      "Coin Change"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Binary Search is a searching algorithm, not a DP problem. It does not have overlapping subproblems.",
+    "question_id": "a62f1fdb-781b-4596-a70c-65a9fd09ea23",
+    "createdAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T15:05:22.493Z"
+    },
+    "__v": 0
+  }
+]
