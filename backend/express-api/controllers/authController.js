@@ -97,9 +97,10 @@ exports.googleCallback = async (req, res) => {
         }
     } catch (err) {
         console.error("Critical error in googleCallback controller:", err);
-        // Redirect to a generic error page or the homepage with an error message
-        const webRedirect = process.env.WEB_URL || 'http://localhost:3000';
-        res.redirect(`${webRedirect}/login?error=google_oauth_failed`);
+        // Use environment variable for error redirect
+        const webRedirect = process.env.WEB_REDIRECT_ERROR || 
+                          (process.env.FRONTEND_BASE_URL ? `${process.env.FRONTEND_BASE_URL}/login` : 'http://localhost:3000/login');
+        res.redirect(`${webRedirect}?error=google_oauth_failed`);
     }
 };
 
@@ -290,16 +291,11 @@ exports.googleCallbackDebug = async (req, res) => {
             // Special handling for 401 errors
             if (err.response.status === 401 && err.response.data?.error === 'invalid_client') {
                 console.error('🚨 INVALID_CLIENT ERROR - This is almost always a redirect URI mismatch!');
-                console.error('Check these things in Google Cloud Console:');
-                console.error('1. Client ID matches exactly:', process.env.GOOGLE_CLIENT_ID);
-                console.error('2. Client Secret is correct');
-                console.error('3. Redirect URI is EXACTLY:', process.env.GOOGLE_REDIRECT_URI);
-                console.error('4. Application type is "Web application"');
-                console.error('5. No extra spaces or characters in redirect URI');
             }
         }
 
-        const webRedirect = process.env.WEB_REDIRECT_ERROR || 'http://localhost:3000/login';
+        const webRedirect = process.env.WEB_REDIRECT_ERROR || 
+                          (process.env.FRONTEND_BASE_URL ? `${process.env.FRONTEND_BASE_URL}/login` : 'http://localhost:3000/login');
         const redirectUrl = `${webRedirect}?error=google_oauth_failed&details=${encodeURIComponent(err.message)}`;
         return res.redirect(302, redirectUrl);
     }

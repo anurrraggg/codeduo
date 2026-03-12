@@ -290,9 +290,21 @@ const authService = {
         // Create JWT with user ID
         const token = jwtService.generateToken({ id: user._id.toString(), type: 'access' });
 
-        const webRedirect =
-            process.env.WEB_REDIRECT_SUCCESS ||
-            (process.env.FRONTEND_BASE_URL ? `${process.env.FRONTEND_BASE_URL}/oauth/callback` : 'http://localhost:3000/oauth/callback');
+        // Determine the frontend redirect URL
+        // 1. Priority: WEB_REDIRECT_SUCCESS env var
+        // 2. Fallback: FRONTEND_BASE_URL/oauth/callback
+        // 3. Localhost fallback (only if not in production)
+        const frontendBase = process.env.FRONTEND_BASE_URL;
+        let webRedirect = process.env.WEB_REDIRECT_SUCCESS;
+        
+        if (!webRedirect) {
+            if (frontendBase) {
+                webRedirect = `${frontendBase.replace(/\/$/, '')}/oauth/callback`;
+            } else {
+                webRedirect = 'http://localhost:3000/oauth/callback';
+            }
+        }
+
         return { success: true, redirect: `${webRedirect}?token=${encodeURIComponent(token)}`};
     },
 };

@@ -8,15 +8,16 @@ A dynamic coding quiz application with authentication, leaderboards, interactive
 
 PROJECT STRUCTURE
 codeduo/
-├── backend/          - Node.js/Express API server
-├── frontend/         - React/Vite frontend app
-└── README.md         - Project documentation
+├── backend/express-api  - Node.js/Express API server
+├── frontend/           - Next.js 15 frontend app
+└── README.md           - Project documentation
 
 ---
 
 LIVE DEPLOYMENTS
 
 Frontend (Vercel): [https://codeduojs.vercel.app] 
+Backend (Render): [https://codeduo.onrender.com]
 
 ---
 
@@ -32,7 +33,7 @@ CodeDuo is a full-stack quiz platform for coders, featuring:
 * User profiles
 * Customizable settings
 * Fast, responsive UI
-* Seamless MERN + Vite architecture
+* Seamless MERN + Next.js architecture
 
 ---
 
@@ -41,10 +42,10 @@ TECH STACK
 Frontend:
 
 * React 19
-* Vite
-* React Router
-* Axios
-* CSS Modules
+* Next.js 15
+* Framer Motion
+* Tailwind CSS
+* Lucide React
 * Responsive UI
 
 Backend:
@@ -61,7 +62,7 @@ Backend:
 LOCAL DEVELOPMENT
 
 Backend:
-cd backend
+cd backend/express-api
 npm install
 npm run dev
 Runs at: [http://localhost:5000](http://localhost:5000)
@@ -70,7 +71,7 @@ Frontend:
 cd frontend
 npm install
 npm run dev
-Runs at: [http://localhost:5173](http://localhost:5173)
+Runs at: [http://localhost:3000](http://localhost:3000)
 
 ---
 
@@ -82,8 +83,8 @@ JWT_SECRET=your_jwt_secret
 PORT=5000
 
 Frontend:
-Development: [http://localhost:5000](http://localhost:5000)
-Production: [https://codeduo.onrender.com](https://codeduo.onrender.com)
+Development API: [http://localhost:5000](http://localhost:5000)
+Production API: [https://codeduo.onrender.com](https://codeduo.onrender.com)
 
 ---
 
@@ -101,7 +102,7 @@ Leaderboard:
 GET /api/leaderboard
 
 Health:
-GET /
+GET /health
 
 ---
 
@@ -154,4 +155,4 @@ You can contact the maintainer directly at:
 LICENSE
 ISC License. Free to use and modify.
 
----
+---
