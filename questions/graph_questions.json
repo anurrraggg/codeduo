@@ -1,0 +1,692 @@
+[
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "What does BFS stand for?",
+    "options": [
+      "Binary First Search",
+      "Breadth First Search",
+      "Balanced First Search",
+      "Branch First Search"
+    ],
+    "correctAnswer": [
+      1
+    ],
+    "explanation": "BFS explores nodes level by level.",
+    "question_id": "3e5ab399-5dfd-4dbe-960c-365e7c08756b",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which structure is used in BFS?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Heap",
+      "Array"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Queue maintains nodes to visit next.",
+    "question_id": "ed9f8dfa-08c2-466d-b190-64a870849e22",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "What does DFS stand for?",
+    "options": [
+      "Depth First Search",
+      "Data First Search",
+      "Dynamic First Search",
+      "Double First Search"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "DFS explores as deep as possible.",
+    "question_id": "4e9120d8-5a69-48b2-9c5a-c33e0fa5317b",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which structure is used in DFS?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Heap",
+      "Tree"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "DFS uses stack or recursion.",
+    "question_id": "51904c02-fc52-4732-a0a1-02c61b300d62",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "What is a graph?",
+    "options": [
+      "Collection of nodes and edges",
+      "Linear array",
+      "Binary tree",
+      "Stack"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Graphs consist of vertices connected by edges.",
+    "question_id": "0f518e3f-c15a-4dfa-9a1b-113a1e22205f",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which graph has edge directions?",
+    "options": [
+      "Directed Graph",
+      "Undirected Graph",
+      "Tree",
+      "Complete Graph"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Directed graphs assign direction to edges.",
+    "question_id": "76ba9a65-b98c-4293-95fb-6b1bd8cdbd2d",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "What is degree of a vertex?",
+    "options": [
+      "Number of edges connected",
+      "Number of vertices",
+      "Weight of graph",
+      "Cycle length"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Degree counts edges incident to a vertex.",
+    "question_id": "b3506071-0b27-447d-ad25-0bfcca25ab52",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which traversal finds shortest path in unweighted graph?",
+    "options": [
+      "BFS",
+      "DFS",
+      "Prim",
+      "Kruskal"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "BFS explores nodes in shortest distance order.",
+    "question_id": "ab0dcee8-ce6b-40b3-af76-f3d63be514fc",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which graph contains no cycles?",
+    "options": [
+      "Tree",
+      "Complete Graph",
+      "Weighted Graph",
+      "Dense Graph"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Trees are connected acyclic graphs.",
+    "question_id": "8b4ca255-178d-4ded-a189-8efa745776e8",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which structure stores graph connections efficiently for sparse graphs?",
+    "options": [
+      "Adjacency List",
+      "Adjacency Matrix",
+      "Array",
+      "Stack"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Adjacency lists store only existing edges.",
+    "question_id": "8e63c9e4-0b29-48fc-9996-362da5899364",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which algorithm finds shortest path in weighted graph?",
+    "options": [
+      "Dijkstra",
+      "DFS",
+      "BFS",
+      "Prim"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Dijkstra computes shortest path from source.",
+    "question_id": "530656f1-799b-4723-91de-5aae92d82d57",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which algorithm detects negative weight cycles?",
+    "options": [
+      "Bellman-Ford",
+      "Dijkstra",
+      "Prim",
+      "DFS"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Bellman-Ford works with negative edges.",
+    "question_id": "eb7909aa-6824-42d3-a8a8-245470e521ee",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which algorithms find Minimum Spanning Tree?",
+    "options": [
+      "Prim",
+      "Kruskal",
+      "Both Prim and Kruskal",
+      "DFS"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Both Prim and Kruskal compute MST.",
+    "question_id": "6dc8592a-80cf-4305-9023-b2571532c432",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "What is a cycle in a graph?",
+    "options": [
+      "Closed path",
+      "Disconnected graph",
+      "Single edge",
+      "Tree"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "A cycle starts and ends at the same vertex.",
+    "question_id": "06a3c6d2-56ee-4005-a450-acc842ce1549",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which graph has all vertices connected to each other?",
+    "options": [
+      "Complete Graph",
+      "Sparse Graph",
+      "Tree",
+      "DAG"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Complete graph connects every pair of vertices.",
+    "question_id": "a963fd24-0a1d-410e-8ff0-b1f1d61f569c",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "What is a DAG?",
+    "options": [
+      "Directed Acyclic Graph",
+      "Double Adjacent Graph",
+      "Dynamic Acyclic Graph",
+      "Dense Acyclic Graph"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "DAG has directed edges and no cycles.",
+    "question_id": "30640493-f13d-48f9-8d2b-6315e0011f63",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which algorithm sorts vertices of a DAG?",
+    "options": [
+      "Topological Sort",
+      "Prim",
+      "DFS",
+      "BFS"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Topological sorting orders DAG vertices by dependencies.",
+    "question_id": "0b66ecda-9e65-4f2c-8a53-138c22533a70",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which MST algorithm sorts all edges first?",
+    "options": [
+      "Kruskal",
+      "Prim",
+      "DFS",
+      "BFS"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Kruskal selects smallest edges after sorting all edges.",
+    "question_id": "6fa2f755-1893-49eb-929e-92d7e9aecb61",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which graph representation uses a V x V matrix?",
+    "options": [
+      "Adjacency Matrix",
+      "Adjacency List",
+      "Edge List",
+      "Stack"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Adjacency matrix uses a V by V table to represent edges.",
+    "question_id": "0db2df74-9aa8-40b5-99e8-ff97c62da3e8",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "What is the time complexity of BFS?",
+    "options": [
+      "O(V+E)",
+      "O(V^2)",
+      "O(E log V)",
+      "O(V log V)"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "BFS visits each vertex and edge once, giving O(V+E).",
+    "question_id": "7d6acd9c-1d43-4db8-8f68-5983af9435fa",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which algorithm finds shortest path between all vertex pairs?",
+    "options": [
+      "Floyd-Warshall",
+      "Dijkstra",
+      "Prim",
+      "DFS"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Floyd-Warshall computes all-pairs shortest paths in O(V^3).",
+    "question_id": "3bad2d70-da58-4084-b70a-a721d085095e",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which MST algorithm works well for dense graphs?",
+    "options": [
+      "Prim's",
+      "Kruskal's",
+      "DFS",
+      "BFS"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Prim's performs better for dense graphs using a priority queue.",
+    "question_id": "7320103d-b325-48b3-a073-27116fcc3628",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "What is the maximum edges in an undirected graph with n vertices?",
+    "options": [
+      "n(n-1)/2",
+      "n^2",
+      "2n",
+      "n"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "A complete undirected graph has n(n-1)/2 edges.",
+    "question_id": "a01e4d2f-73eb-487d-8344-8e09fda361a6",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which algorithm relaxes all edges repeatedly to find shortest paths?",
+    "options": [
+      "Bellman-Ford",
+      "Prim",
+      "DFS",
+      "BFS"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Bellman-Ford relaxes all edges V-1 times.",
+    "question_id": "addaa1fe-c5a3-40e6-85da-75c268a80f34",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which data structure is used in Kruskal's algorithm?",
+    "options": [
+      "Disjoint Set (Union-Find)",
+      "Stack",
+      "Queue",
+      "Heap"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Union-Find detects cycles when adding edges.",
+    "question_id": "25165829-0d14-4f7a-9936-f3602eb4cbbb",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which graph representation is best for dense graphs?",
+    "options": [
+      "Adjacency Matrix",
+      "Adjacency List",
+      "Edge List",
+      "Stack"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Matrix allows constant time edge lookup.",
+    "question_id": "36303532-2286-4fe0-bf47-ea199afa36cd",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "What is topological sorting used for?",
+    "options": [
+      "Task scheduling with dependencies",
+      "Shortest path",
+      "Cycle detection",
+      "Graph coloring"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Topological order respects task dependencies in a DAG.",
+    "question_id": "93e7ae67-576f-4206-a661-a5f3e8229517",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which graph algorithms use a greedy strategy to find MST?",
+    "options": [
+      "Prim's",
+      "Kruskal's",
+      "Both Prim and Kruskal",
+      "DFS"
+    ],
+    "correctAnswer": [
+      2
+    ],
+    "explanation": "Both Prim and Kruskal are greedy MST algorithms.",
+    "question_id": "d36b9b64-2b2b-486f-ac03-bf7cf8d391db",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which algorithm handles negative edge weights for shortest path?",
+    "options": [
+      "Bellman-Ford",
+      "Dijkstra",
+      "Prim",
+      "DFS"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "Bellman-Ford handles negative weights unlike Dijkstra.",
+    "question_id": "f5190fe5-9561-40c9-8a22-c1dce648f8f5",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  },
+  {
+    "type": "MCQ",
+    "quiz_id": "69b1be618e7d97927f70ed84",
+    "question": "Which traversal explores all neighbors before going deeper?",
+    "options": [
+      "BFS",
+      "DFS",
+      "Prim",
+      "Bellman-Ford"
+    ],
+    "correctAnswer": [
+      0
+    ],
+    "explanation": "BFS explores level by level.",
+    "question_id": "571ab542-a0be-49be-ae2c-c2d87a25b14d",
+    "createdAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T17:52:50.354Z"
+    },
+    "__v": 0
+  }
+]
