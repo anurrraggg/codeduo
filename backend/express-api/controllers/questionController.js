@@ -61,3 +61,49 @@ exports.deleteQuestion = async (req, res) => {
     await questionService.deleteQuestion(questionId);
     return res.status(200).json({ success: true, message: "Question deleted successfully." });
 };
+
+exports.generateAdaptiveQuestion = async (req, res, next) => {
+    try {
+        const {
+            quiz_id,
+            topic,
+            previousQuestion,
+            previousAnswer,
+            wasCorrect,
+            currentDifficulty,
+            type
+        } = req.body;
+
+        if (!quiz_id) {
+            return res.status(400).json({
+                success: false,
+                message: "Please provide quiz_id to store the generated question."
+            });
+        }
+
+        if (!topic) {
+            return res.status(400).json({
+                success: false,
+                message: "Please provide topic for adaptive generation."
+            });
+        }
+
+        const question = await questionService.createAdaptiveQuestion({
+            quiz_id,
+            topic,
+            previousQuestion,
+            previousAnswer,
+            wasCorrect,
+            currentDifficulty,
+            type
+        });
+
+        return res.status(201).json({
+            success: true,
+            message: "Adaptive question generated and stored successfully.",
+            question
+        });
+    } catch (error) {
+        next(error);
+    }
+};

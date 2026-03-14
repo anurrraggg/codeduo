@@ -1,4 +1,4 @@
-import { QUESTIONS_URL } from "@/shared/urls";
+import { ADAPTIVE_QUESTION_URL, QUESTIONS_URL } from "@/shared/urls";
 
 export const quizQuestions = [
     {
@@ -291,6 +291,42 @@ export function getQuestionsForQuiz(quizId) {
 
 import { getAuthHeaders } from "./UserService";
 
+const normalizeQuestion = (q) => {
+    if (!q) return null;
+
+    const normalizedType = (q.type || 'MCQ').toUpperCase() === 'TILE' ? 'TILES' : (q.type || 'MCQ').toUpperCase();
+    const options = Array.isArray(q.options) ? q.options : [];
+
+    let normalizedCorrectAnswer = [];
+    if (Array.isArray(q.correctAnswer)) {
+        normalizedCorrectAnswer = q.correctAnswer;
+    } else if (q.correctAnswer !== undefined) {
+        normalizedCorrectAnswer = [q.correctAnswer];
+    }
+
+    if (normalizedType === 'MCQ') {
+        normalizedCorrectAnswer = normalizedCorrectAnswer
+            .map((answer) => {
+                if (typeof answer === 'number') return answer;
+                if (typeof answer === 'string') return options.indexOf(answer);
+                return -1;
+            })
+            .filter((idx) => Number.isInteger(idx) && idx >= 0);
+    } else {
+        const first = normalizedCorrectAnswer[0];
+        normalizedCorrectAnswer = typeof first === 'string' ? first : String(first || '').trim();
+    }
+
+    return {
+        ...q,
+        id: q.id || q.question_id,
+        type: normalizedType,
+        options,
+        correctAnswer: normalizedCorrectAnswer,
+        explanation: q.explanation || 'No explanation provided'
+    };
+};
+
 export async function getQuestionsByQuizId(quizId) {
     try {
         const response = await fetch(
@@ -309,10 +345,34 @@ export async function getQuestionsByQuizId(quizId) {
         }
 
         const data = await response.json();
-        return data.questions;
+        return (data.questions || []).map(normalizeQuestion).filter(Boolean);
 
     } catch (error) {
         console.error("Error fetching quiz questions:", error);
         return [];
+    }
+}
+
+export async function generateAdaptiveQuestion(payload) {
+    try {
+        const response = await fetch(ADAPTIVE_QUESTION_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...getAuthHeaders()
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Failed to generate adaptive question');
+        }
+
+        return normalizeQuestion(data.question);
+    } catch (error) {
+        console.error('Error generating adaptive question:', error);
+        return null;
     }
 }

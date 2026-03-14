@@ -11,7 +11,7 @@ import LaserBeam from './ui/LaserBeam';
 import LoaderPage from './LoaderPage';
 import useTheme from '@/hooks/useTheme';
 import Link from 'next/link';
-import { getQuestionsByQuizId } from '@/context/QuizService';
+import { generateAdaptiveQuestion, getQuestionsByQuizId } from '@/context/QuizService';
 
 const QuizPage = ({ quizId }) => {
     const router = useRouter();
@@ -129,7 +129,7 @@ const QuizPage = ({ quizId }) => {
         setSelectedTiles(selectedTiles.filter((_, i) => i !== arrayIndex));
     };
 
-    const handleCheckAnswer = () => {
+    const handleCheckAnswer = async () => {
         if (answerSubmitted) return;
         
         const currentQ = questions[currentQuestion];
@@ -139,7 +139,7 @@ const QuizPage = ({ quizId }) => {
         if (currentQ.type === 'MCQ') {
             isCorrect = currentQ.correctAnswer.includes(selectedAnswer);
             userAnswerData = { selected: selectedAnswer, correct: currentQ.correctAnswer };
-        } else if (currentQ.type === 'TILE') {
+        } else if (currentQ.type === 'TILES') {
             const builtAnswer = selectedTiles.map(t => t.text).join(' ');
             isCorrect = builtAnswer === currentQ.correctAnswer;
             userAnswerData = { selected: builtAnswer, correct: currentQ.correctAnswer };
@@ -151,12 +151,37 @@ const QuizPage = ({ quizId }) => {
         setAnswerSubmitted(true);
 
         const newAnswer = {
-            questionId: currentQ.id,
+            questionId: currentQ.id || currentQ.question_id,
             ...userAnswerData,
             isCorrect,
             timeRemaining: timeLeft
         };
         setUserAnswers(prevAnswers => [...prevAnswers, newAnswer]);
+
+        const selectedAnswerText = currentQ.type === 'MCQ'
+            ? currentQ.options?.[selectedAnswer] || null
+            : selectedTiles.map(t => t.text).join(' ');
+
+        const adaptiveQuestion = await generateAdaptiveQuestion({
+            quiz_id: quizId,
+            topic: 'Data Structures and Algorithms',
+            previousQuestion: currentQ.question,
+            previousAnswer: selectedAnswerText,
+            wasCorrect: isCorrect,
+            currentDifficulty: 'Medium',
+            type: currentQ.type
+        });
+
+        if (adaptiveQuestion) {
+            setQuestions((prevQuestions) => {
+                const exists = prevQuestions.some(
+                    (question) => (question.question_id || question.id) === (adaptiveQuestion.question_id || adaptiveQuestion.id)
+                        || question.question === adaptiveQuestion.question
+                );
+                if (exists) return prevQuestions;
+                return [...prevQuestions, adaptiveQuestion];
+            });
+        }
 
         if (isCorrect) {
             playEffect('/sounds/correct.mp3');
@@ -416,7 +441,7 @@ const QuizPage = ({ quizId }) => {
 
     const progress = questions.length > 0 ? ((currentQuestion + 1) / questions.length) * 100 : 0;
     const currentQ = questions[currentQuestion];
-    const isCurrentAnswerCorrect = userAnswers.find(a => a.questionId === currentQ?.id)?.isCorrect;
+    const isCurrentAnswerCorrect = userAnswers.find(a => a.questionId === (currentQ?.id || currentQ?.question_id))?.isCorrect;
 
     return (
         <div className="relative flex flex-col md:flex-row justify-center items-end min-h-screen bg-[var(--background)] overflow-hidden z-10">
@@ -587,7 +612,7 @@ const QuizPage = ({ quizId }) => {
                                 Correct Answer: {currentQ.correctAnswer.map(i => currentQ.options[i]).join(', ')}
                             </p>
                         )}
-                        {!isCurrentAnswerCorrect && currentQ && currentQ.type === 'TILE' && (
+                        {!isCurrentAnswerCorrect && currentQ && currentQ.type === 'TILES' && (
                             <p className="text-white/70 mt-1 text-sm">
                                 Correct Answer: {currentQ.correctAnswer}
                             </p>

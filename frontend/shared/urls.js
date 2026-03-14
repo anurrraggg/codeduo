@@ -6,6 +6,7 @@ export const BASE_URL =
 
 export const QUIZ_URL = BASE_URL + "/api/quiz/";
 export const QUESTIONS_URL = BASE_URL + "/api/questions/quiz/";
+export const ADAPTIVE_QUESTION_URL = BASE_URL + "/api/questions/adaptive/generate";
 export const LEADERBOARD_URL = BASE_URL + "/api/leaderboard";
 
 export const USER_LOGIN_URL = BASE_URL + "/api/auth/login";

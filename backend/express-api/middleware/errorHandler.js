@@ -72,9 +72,10 @@ const errorHandler = (err, req, res, next) => {
 
     // Don't expose internal errors in production
     const isDevelopment = process.env.NODE_ENV === 'development';
+    const shouldExposeMessage = isDevelopment || statusCode < 500;
     const response = {
         success: false,
-        message: isDevelopment ? message : 'Something went wrong',
+        message: shouldExposeMessage ? message : 'Something went wrong',
         ...(isDevelopment && { stack: err.stack })
     };
 

@@ -1,10 +1,19 @@
 const express = require('express');
 const auth = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
-const { createQuestion, findQuestionByQuestionId, findQuestionsByQuizId, updateQuestion, deleteQuestion, findAllQuestions } = require('../controllers/questionController');
+const {
+	createQuestion,
+	findQuestionByQuestionId,
+	findQuestionsByQuizId,
+	updateQuestion,
+	deleteQuestion,
+	findAllQuestions,
+	generateAdaptiveQuestion
+} = require('../controllers/questionController');
 const router = express.Router();
 
 router.post('/', auth, createQuestion);
+router.post('/adaptive/generate', auth, generateAdaptiveQuestion);
 router.get('/question/:questionId', auth, findQuestionByQuestionId);
 router.get('/quiz/:quizId', auth, findQuestionsByQuizId);
 router.put('/question/:questionId', auth, updateQuestion);
