@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import LoaderPage from './LoaderPage';
 import { testimonials } from '@/context/TestimonialService';
+import { quizzes } from '@/context/QuizService';
+import { Clock, BookOpen, Users, Star, ChevronRight } from 'lucide-react';
 
 const LandingPage = () => {
     const router = useRouter();
@@ -86,6 +88,15 @@ const LandingPage = () => {
         router.push(link);
     };
 
+    const getDifficultyColor = (difficulty) => {
+        switch (difficulty) {
+            case 'Beginner': return 'text-green-600 bg-green-50 border-green-200';
+            case 'Intermediate': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+            case 'Advanced': return 'text-red-600 bg-red-50 border-red-200';
+            default: return 'text-gray-600 bg-gray-50 border-gray-200';
+        }
+    };
+
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
@@ -117,8 +128,8 @@ const LandingPage = () => {
                                 Challenge yourself with interactive MCQ quizzes on algorithms, data structures, and more. Track your progress, compete with peers, and level up your coding skills.
                             </motion.p>
                             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
-                                <button onClick={() => openPage('/quiz/0')} className="bg-gradient-to-r cursor-pointer from-purple-500 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-lg">
-                                    <span>Start Demo Quiz</span>
+                                <button onClick={() => openPage('/quiz')} className="bg-gradient-to-r cursor-pointer from-purple-500 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-200 shadow-lg">
+                                    <span>Browse Topics</span>
                                 </button>
                                 <button onClick={() => openPage('/about')} className="bg-white cursor-pointer text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold border-2 border-purple-200 hover:border-purple-300 transition-all duration-200 flex items-center justify-center space-x-2">
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -266,6 +277,98 @@ const LandingPage = () => {
                 </div>
             </motion.section>
 
+            {/* NEW MODULE BROWSER SECTION */}
+             <motion.section id="modules" className="py-20 bg-[var(--background)]" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={staggerContainer}>
+                <div className="max-w-7xl mx-auto px-6">
+                    <motion.div variants={fadeInUp} className="flex justify-between items-end mb-12">
+                        <div>
+                            <h2 className="text-4xl font-bold text-[var(--foreground)] mb-4">Browse Coding Modules</h2>
+                            <p className="text-xl text-[var(--foreground)] max-w-2xl">Dive straight into our curated collection of interactive quizzes tailored for every skill level.</p>
+                        </div>
+                        <button onClick={() => openPage('/quiz')} className="hidden md:flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-700 transition-colors cursor-pointer group">
+                            View All Topics
+                            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                    </motion.div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 cursor-pointer">
+                        {quizzes.slice(0, 6).map((quiz, index) => (
+                            <motion.div
+                                key={index}
+                                variants={fadeInUp}
+                                onClick={() => openPage(`/quiz/${quiz.id}`)} 
+                                className="bg-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group"
+                            >
+                                <button onClick={() => openPage(`/quiz/${quiz.id}`)} className="flex items-start justify-between mb-4 cursor-pointer text-left w-full">
+                                    <div className="flex-1 w-full">
+                                        <div className="flex flex-wrap items-center gap-2 mb-2 w-full">
+                                            <h3 className="text-lg font-semibold text-[var(--foreground)] group-hover:text-purple-700 transition-colors">
+                                                {quiz.title}
+                                            </h3>
+                                            {quiz.isNew && (
+                                                <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-medium">
+                                                    New
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className="text-[var(--color-text-secondary)] text-sm mb-3 line-clamp-2">
+                                            {quiz.description}
+                                        </p>
+                                    </div>
+                                    <ChevronRight className="w-5 h-5 text-[var(--color-text-secondary)] group-hover:text-purple-600 group-hover:translate-x-1 transition-all flex-shrink-0 ml-2" />
+                                </button>
+
+                                {/* Tags */}
+                                <div className="flex flex-wrap gap-2 mb-4">
+                                    {quiz.tags.slice(0, 3).map((tag) => (
+                                        <span
+                                            key={tag}
+                                            className="bg-purple-50 text-purple-700 text-xs px-2 py-1 rounded-full"
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                {/* Quiz Info */}
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
+                                        <div className="flex items-center gap-1">
+                                            <Clock className="w-4 h-4" />
+                                            <span>{quiz.duration}</span>
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <BookOpen className="w-4 h-4" />
+                                            <span>{quiz.questions} q's</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-1 text-[var(--color-text-secondary)]">
+                                        <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                                        <span className="text-sm font-medium">{quiz.rating}</span>
+                                    </div>
+                                </div>
+
+                                {/* Bottom Row */}
+                                <div className="flex items-center justify-between mt-auto">
+                                    <div className="flex flex-wrap items-center gap-2">
+                                        <span className="text-sm text-[var(--color-text-secondary)]">{quiz.category}</span>
+                                        <span className={`text-xs px-2 py-1 rounded-full border ${getDifficultyColor(quiz.difficulty)}`}>
+                                            {quiz.difficulty}
+                                        </span>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                    <div className="mt-8 flex justify-center md:hidden">
+                        <button onClick={() => openPage('/quiz')} className="flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-700 transition-colors cursor-pointer group">
+                            View All Topics
+                            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                    </div>
+                </div>
+            </motion.section>
+
             <motion.section className="py-20 bg-[var(--background)]" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div variants={fadeInUp} className="text-center mb-16">
@@ -390,8 +493,8 @@ const LandingPage = () => {
                     <motion.h2 variants={fadeInUp} className="text-4xl font-bold text-white mb-4">Ready to Level Up Your Coding Skills?</motion.h2>
                     <motion.p variants={fadeInUp} className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">Join thousands of students already mastering algorithms, data structures, and more through gamified learning.</motion.p>
                     <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href={user ? '/dashboard' : '/login'} className="bg-white cursor-pointer text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-200 shadow-lg">
-                            <span>Start Your First Quiz</span>
+                        <Link href={'/quiz'} className="bg-white cursor-pointer text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-200 shadow-lg">
+                            <span>Browse Topics</span>
                         </Link>
                         <button onClick={() => openPage('/about')} className="bg-transparent cursor-pointer text-white border-2 border-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-purple-600 transition-all duration-200 flex items-center justify-center space-x-2">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>

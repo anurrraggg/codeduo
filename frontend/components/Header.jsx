@@ -101,6 +101,9 @@ export default function Header() {
                             <Link href="/#how-it-works" style={{ transition: 'color 0.2s' }} className="hover:text-[var(--purple-600)]">
                                 How It Works
                             </Link>
+                            <Link href="/quiz" style={{ transition: 'color 0.2s' }} className="hover:text-[var(--purple-600)]">
+                                Quizzes
+                            </Link>
                             <Link href="/blogs" style={{ transition: 'color 0.2s' }} className="hover:text-[var(--purple-600)]">
                                 Blogs
                             </Link>
@@ -205,6 +208,9 @@ export default function Header() {
                     </Link>
                     <Link href="/#how-it-works" onClick={() => handleLinkClick('/#how-it-works')} style={{ transition: 'color 0.2s' }} className="block hover:text-[var(--purple-600)]">
                         How It Works
+                    </Link>
+                    <Link href="/quiz" onClick={() => handleLinkClick('/quiz')} style={{ transition: 'color 0.2s' }} className="block hover:text-[var(--purple-600)]">
+                        Quizzes
                     </Link>
                     <Link href="/blogs" onClick={() => handleLinkClick('/blogs')} style={{ transition: 'color 0.2s' }} className="block hover:text-[var(--purple-600)]">
                         Blogs
