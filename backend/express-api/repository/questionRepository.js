@@ -21,7 +21,7 @@ const questionRepository = {
         return await Question.find();
     },
     delete: async (id) => {
-        return await Question.findByIdAndDelete(id);
+        return await Question.findOneAndDelete({ question_id: id });
     },
 };
 

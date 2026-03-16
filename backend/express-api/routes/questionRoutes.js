@@ -14,10 +14,10 @@ const router = express.Router();
 
 router.post('/', auth, createQuestion);
 router.post('/adaptive/generate', auth, generateAdaptiveQuestion);
-router.get('/question/:questionId', auth, findQuestionByQuestionId);
 router.get('/quiz/:quizId', auth, findQuestionsByQuizId);
-router.put('/question/:questionId', auth, updateQuestion);
-router.delete('/question/:questionId', auth, adminAuth, deleteQuestion);
+router.get('/:questionId', auth, findQuestionByQuestionId);
+router.put('/:questionId', auth, updateQuestion);
+router.delete('/:questionId', auth, adminAuth, deleteQuestion);
 router.get('/', auth, findAllQuestions);
 
 module.exports = router;
